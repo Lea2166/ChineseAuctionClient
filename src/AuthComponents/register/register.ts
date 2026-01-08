@@ -1,4 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { UserService } from '../../../services/user'
 import {
   AbstractControl,
   NonNullableFormBuilder,
@@ -35,6 +36,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 export class Register implements OnInit, OnDestroy {
   private fb = inject(NonNullableFormBuilder);
   private destroy$ = new Subject<void>();
+  private userService: UserService = inject(UserService)
 
   confirmationValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) {
@@ -54,7 +56,7 @@ export class Register implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    // עדכון תקינות סיסמה חוזרת בכל שינוי של הסיסמה הראשית
+
     this.validateForm.controls.password.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
@@ -69,15 +71,14 @@ export class Register implements OnInit, OnDestroy {
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      // יצירת אובייקט נקי לשליחה לשרת (ללא checkPassword)
+
       const { checkPassword, ...submitData } = this.validateForm.getRawValue();
+
+      console.log('Data is ready to post API', submitData);
       
-      console.log('נתונים מוכנים לשליחה ל-API:', submitData);
-      // כאן תבוא הקריאה ל-Service שלך:
-      // this.userService.signIn(submitData as SignInDTO).subscribe(...);
-      
+
     } else {
-      // סימון כל השדות כ-Dirty כדי להציג שגיאות במידה והטופס לא תקין
+
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
