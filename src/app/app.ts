@@ -2,13 +2,11 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-
-
+import { AuthDrawer } from '../pages/auth-drawer/auth-drawer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NzLayoutModule, NzMenuModule,NzIconModule],
+  imports: [RouterOutlet, NzLayoutModule, NzMenuModule,AuthDrawer],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

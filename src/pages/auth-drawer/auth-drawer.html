@@ -1,0 +1,20 @@
+<button nz-button nzType="primary" (click)="open()">Open</button>
+<nz-drawer [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="Basic Drawer" (nzOnClose)="close()">
+    <ng-container *nzDrawerContent>
+        <div class="card-container">
+            <nz-tabs nzType="card">
+                @for (tab of tabs; track tab) {
+                @if(tab==1){
+                <nz-tab [nzTitle]="'Login'">
+                    <app-login />
+                </nz-tab>
+                } @else if(tab==2){
+                <nz-tab [nzTitle]="'Register'">
+                    <app-register />
+                </nz-tab>
+                }
+            }
+            </nz-tabs>
+        </div>
+    </ng-container>
+</nz-drawer>
