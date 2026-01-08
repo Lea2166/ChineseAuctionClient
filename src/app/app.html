@@ -1,20 +1,28 @@
 <nz-layout class="app-layout">
   <nz-header>
     <div class="logo">
-      <a>
-        
+      <a class="logo-con">
+
+        <nz-icon nzType="gift" nzTheme="outline" class="logo-icon" />
+
         <h1>CH-AUCTION</h1>
+
       </a>
     </div>
+
     <ul nz-menu class="top-nav" nzTheme="dark" nzMode="horizontal">
-      <li nz-menu-item routerLinkActive="ant-menu-item-selected" routerLink="/welcome">Home</li>
-      <li nz-menu-item>Account</li>
-      <li nz-menu-item>Profile</li>
+      <li nz-menu-item routerLinkActive="ant-menu-item-selected">Home</li>
+      <li nz-menu-item>Prizes</li>
+      <li nz-menu-item><nz-icon nzType="shopping" nzTheme="outline" /></li>
+      <li nz-menu-item (click)="open()"><nz-icon nzType="user" nzTheme="outline" /></li>
+
     </ul>
   </nz-header>
   <nz-content>
     <div class="inner-content">
-      <router-outlet><app-auth-drawer/></router-outlet>
+      <router-outlet>
+        <app-auth-drawer [visible]="viewDrawer" (requestClose)="viewDrawer = false" />
+      </router-outlet>
     </div>
   </nz-content>
 </nz-layout>
