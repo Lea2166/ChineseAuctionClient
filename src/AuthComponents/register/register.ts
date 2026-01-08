@@ -9,12 +9,12 @@ import {
 } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { SignInDTO } from '../../../models/user';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -26,8 +26,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 export class Register implements OnInit, OnDestroy {
   private fb = inject(NonNullableFormBuilder);
   private destroy$ = new Subject<void>();
-  private userService: UserService = inject(UserService)
-
+  private userService: UserService = inject(UserService);
   confirmationValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) {
       return { required: true };
@@ -66,9 +65,17 @@ export class Register implements OnInit, OnDestroy {
 
       console.log('Data is ready to post API', submitData);
       
-
-    } else {
-
+      console.log('נתונים מוכנים לשליחה ל-API:', submitData);
+      this.userService.signIn(submitData as SignInDTO).subscribe({
+      next: (response: any) => {
+        console.log('ההרשמה הצליחה!', response);
+      },
+      error: (err: any) => {
+        console.error('שגיאה בהרשמה:', err);
+      }
+    });
+  } else {
+      // סימון כל השדות כ-Dirty כדי להציג שגיאות במידה והטופס לא תקין
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
