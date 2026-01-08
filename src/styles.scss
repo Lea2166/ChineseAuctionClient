@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --ant-primary-color: #4338ca;      
+  --ant-primary-color-hover: #6366f1;
+  --ant-primary-color-active: #3730a3;
+  --ant-primary-color-outline: rgba(67, 56, 202, 0.2);
+
+  --ant-border-radius-base: 8px;
+}

@@ -1,4 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { UserService } from '../../../services/user'
 import {
   AbstractControl,
   NonNullableFormBuilder,
@@ -21,17 +22,7 @@ import { SignInDTO } from '../../../models/user';
   imports: [ReactiveFormsModule, NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule, NzSelectModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
-  styles: [
-    `
-      [nz-form] {
-        max-width: 600px;
-        margin: auto;
-      }
-      .register-area {
-        margin-bottom: 8px;
-      }
-    `
-  ]
+
 })
 export class Register implements OnInit, OnDestroy {
   private fb = inject(NonNullableFormBuilder);
@@ -55,7 +46,7 @@ export class Register implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    // עדכון תקינות סיסמה חוזרת בכל שינוי של הסיסמה הראשית
+
     this.validateForm.controls.password.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
@@ -70,7 +61,10 @@ export class Register implements OnInit, OnDestroy {
 
   submitForm(): void {
     if (this.validateForm.valid) {
+
       const { checkPassword, ...submitData } = this.validateForm.getRawValue();
+
+      console.log('Data is ready to post API', submitData);
       
       console.log('נתונים מוכנים לשליחה ל-API:', submitData);
       this.userService.signIn(submitData as SignInDTO).subscribe({
