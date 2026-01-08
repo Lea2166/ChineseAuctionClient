@@ -17,6 +17,9 @@ export class AuthDrawer {
   open(): void {
     this.visible = true;
   }
+  changeTabs(tab:Number):void{
+    tab=1
+  }
 
   close(): void {
     this.visible = false;

@@ -20,17 +20,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
   imports: [ReactiveFormsModule, NzButtonModule, NzCheckboxModule, NzFormModule, NzInputModule, NzSelectModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
-  styles: [
-    `
-      [nz-form] {
-        max-width: 600px;
-        margin: auto;
-      }
-      .register-area {
-        margin-bottom: 8px;
-      }
-    `
-  ]
+
 })
 export class Register implements OnInit, OnDestroy {
   private fb = inject(NonNullableFormBuilder);
