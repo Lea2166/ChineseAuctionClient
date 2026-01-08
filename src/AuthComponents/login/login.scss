@@ -1,19 +1,23 @@
 :host {
-  display: inline;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .login-form {
-  max-width: 300px;
-  width: 100%;
+ 
+  width: 90%;
 }
 
 .login-form-margin {
   margin-bottom: 16px;
 }
 
-// .login-form-forgot {
-//   float: right;
-// }
+.login-form-forgot {
+  float: right;
+}
 
 .login-form-button {
   width: 100%;
