@@ -16,10 +16,10 @@ import { LogInDTO } from '../../../models/user';
 export class Login {
   private fb = inject(NonNullableFormBuilder);
   private userService: UserService = inject(UserService);
+
   validateForm = this.fb.group({
     email: this.fb.control('', [Validators.required]),
     password: this.fb.control('', [Validators.required]),
-    remember: this.fb.control(true)
   });
 
   submitForm(): void {
@@ -28,6 +28,7 @@ export class Login {
       this.userService.logIn(this.validateForm.value as LogInDTO).subscribe({
         next: (response: any) => {
           console.log('login sucssed', response);
+          
         },
         error: (err: any) => {
           console.error('error login', err);
