@@ -17,10 +17,8 @@
     </nz-form-control>
   </nz-form-item>
 
-    <!-- <nz-form-item nz-row class="register-area">
-    <nz-form-control  >
-      <button nz-button nzType="primary" class="register-form-button" type="submit">Log in</button>
-    </nz-form-control>
-  </nz-form-item> -->
-    <button nz-button class="login-form-button login-form-margin" type="submit" [nzType]="'primary'">Log in</button>
+  <button nz-button class="login-form-button login-form-margin" type="submit" [nzType]="'primary'"
+    [disabled]="validateForm.invalid" [nzLoading]="loading">
+    {{ loading ? '' : 'Log In' }}
+  </button>
 </form>

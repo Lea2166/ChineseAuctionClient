@@ -1,9 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  --ant-primary-color: #4338ca;      
-  --ant-primary-color-hover: #6366f1;
-  --ant-primary-color-active: #3730a3;
-  --ant-primary-color-outline: rgba(67, 56, 202, 0.2);
+  --ant-primary-color: #f05913;
+  --ant-primary-color-hover: #ff783d;
+  --ant-primary-color-active: #c93d06;
+  --ant-primary-color-outline: rgba(240, 89, 19, 0.2);
 
-  --ant-border-radius-base: 8px;
+  --ant-border-radius-base: 25px;
+
+  --ant-text-main: #262626;
+  --ant-text-secondary: #8c8c8c;
+  --ant-bg-body: #f9f9f9;
+  --ant-bg-card: #ffffff;
+}
+
+html {
+ 
+  --ant-primary-color: #f05913;
+  --ant-primary-color-hover: #ff783d;
+  --ant-primary-color-active: #c93d06;
+  --ant-primary-color-outline: rgba(240, 89, 19, 0.2);
+
+
+  --ant-primary-1: #fff2e6;
+  --ant-primary-2: #ffd8b8;
+  --ant-primary-3: #ffbe8f;
+  --ant-primary-4: #ffa166;
+  --ant-primary-5: #ff783d;
+  --ant-primary-6: #f05913;
+  --ant-primary-7: #c93d06;
+  
+  --ant-primary-color-deprecated-l-35: #ffdbca;
+  --ant-primary-color-deprecated-l-20: #ffb38f;
+  --ant-primary-color-deprecated-t-20: #ff783d;
+  --ant-primary-color-deprecated-t-50: #ff783d;
+  --ant-primary-color-deprecated-f-12: rgba(240, 89, 19, 0.12);
+
+ 
+  --ant-info-color: #f05913;
+  --ant-info-color-deprecated-bg: #fff2e8;
+  --ant-info-color-deprecated-border: #ffbb96;
 }

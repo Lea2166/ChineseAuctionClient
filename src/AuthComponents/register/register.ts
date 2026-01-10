@@ -8,13 +8,14 @@ import {
   Validators
 } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { SignInDTO } from '../../../models/user';
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -27,6 +28,8 @@ export class Register implements OnInit, OnDestroy {
   private fb = inject(NonNullableFormBuilder);
   private destroy$ = new Subject<void>();
   private userService: UserService = inject(UserService);
+  loading: boolean = false;
+
   confirmationValidator = (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) {
       return { required: true };
@@ -60,22 +63,23 @@ export class Register implements OnInit, OnDestroy {
 
   submitForm(): void {
     if (this.validateForm.valid) {
-
       const { checkPassword, ...submitData } = this.validateForm.getRawValue();
-
       console.log('Data is ready to post API', submitData);
-      
-      console.log('נתונים מוכנים לשליחה ל-API:', submitData);
-      this.userService.signIn(submitData as SignInDTO).subscribe({
-      next: (response: any) => {
-        console.log('ההרשמה הצליחה!', response);
-      },
-      error: (err: any) => {
-        console.error('שגיאה בהרשמה:', err);
-      }
-    });
-  } else {
-      // סימון כל השדות כ-Dirty כדי להציג שגיאות במידה והטופס לא תקין
+
+
+      this.loading = true;
+      this.userService.signIn(submitData as SignInDTO)
+        .pipe(finalize(() => this.loading = false))
+        .subscribe({
+          next: (response: any) => {
+            console.log('Registeration succeed', response);
+          },
+          error: (err: any) => {
+            console.error('Registeration failed:', err);
+          }
+        });
+    } else {
+
       Object.values(this.validateForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();

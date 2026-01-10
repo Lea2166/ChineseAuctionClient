@@ -15,6 +15,7 @@ export interface ResponseUserDTO {
   id: number;
   email?: string;
   name: string;
+  role: "User" | "Admin";
   token: string;
 }
 
