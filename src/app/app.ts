@@ -6,10 +6,12 @@ import { AuthDrawer } from '../pages/auth-drawer/auth-drawer';
 import { ɵNzTransitionPatchDirective } from "ng-zorro-antd/core/transition-patch";
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { UserService } from '../../services/user';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NzLayoutModule, NzMenuModule, AuthDrawer, ɵNzTransitionPatchDirective, NzIconModule],
+  imports: [RouterOutlet, NzLayoutModule, NzMenuModule, AuthDrawer, ɵNzTransitionPatchDirective, NzIconModule,NzDropDownModule, NzIconModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -29,9 +31,16 @@ export class App {
     });
 
   }
+
+  viewMenu:boolean=false;
   viewDrawer: boolean = false
 
   open(): void {
     this.viewDrawer = true;
+  }
+
+  logout(){
+    this.userService.logOut();
+    this.viewMenu=false;
   }
 }
