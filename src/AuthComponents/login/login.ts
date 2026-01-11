@@ -22,31 +22,35 @@ export class Login {
   private fb = inject(NonNullableFormBuilder);
   private userService: UserService = inject(UserService);
 
-  loading:boolean=false;
+  loading: boolean = false;
+  error: string | null = null;
 
   validateForm = this.fb.group({
     email: this.fb.control('', [Validators.required]),
     password: this.fb.control('', [Validators.required]),
   });
 
- 
+
 
   submitForm(): void {
-    this.loading=true;
+    this.loading = true;
     if (this.validateForm.valid) {
-      
+
       console.log('submit', this.validateForm.value);
       this.userService
-      .logIn(this.validateForm.value as LogInDTO)
-      .pipe(finalize(() => this.loading = false))
-      .subscribe({
-        next: (response: any) => {
-          console.log('login sucssed', response);
-        },
-        error: (err: any) => {
-          console.error('error login', err);
-        }
-      })
+        .logIn(this.validateForm.value as LogInDTO)
+        .pipe(finalize(() => this.loading = false))
+        .subscribe({
+          next: user => {
+            this.userService.setUser(user)
+            console.log('login success', user);
+            console.log('token',this.userService.token())
+          },
+          error: (err: any) => {
+
+            console.error('error login', err);
+          }
+        })
     }
     else {
       Object.values(this.validateForm.controls).forEach(control => {
@@ -56,7 +60,7 @@ export class Login {
         }
       })
     }
-    
-    
+
+
   }
 }
