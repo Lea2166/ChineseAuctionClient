@@ -18,8 +18,14 @@
       <li nz-menu-item>Sales</li>
       <li nz-menu-item><nz-icon nzType="shopping" nzTheme="outline" /></li>
       <li nz-menu-item (click)="open()"><nz-icon nzType="user" nzTheme="outline" /></li>
-
+      <li nz-menu-item class="name">
+        
+        @if ( userService.user(); as user ) {
+        Hello, {{ user.name.split(' ')[0] }}}
+        
+      </li>
     </ul>
+
   </nz-header>
   <nz-content>
     <div class="inner-content">
