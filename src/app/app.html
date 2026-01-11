@@ -19,10 +19,15 @@
       <li nz-menu-item><nz-icon nzType="shopping" nzTheme="outline" /></li>
       <li nz-menu-item (click)="open()"><nz-icon nzType="user" nzTheme="outline" /></li>
       <li nz-menu-item class="name">
-        
-        @if ( userService.user(); as user ) {
-        Hello, {{ user.name.split(' ')[0] }}}
-        
+        <a nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="false" [(nzVisible)]="viewMenu">
+          @if ( userService.user(); as user ) {
+          Hello, {{ user.name.split(' ')[0] }}}
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="logout()"><nz-icon nzType="logout" nzTheme="outline" /> Log Out</li>
+          </ul>
+        </nz-dropdown-menu>
       </li>
     </ul>
 
