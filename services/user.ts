@@ -15,7 +15,7 @@ export class UserService {
 
   private _user = signal<ResponseUserDTO | null>(null);
   readonly user = computed(() => this._user());
-  readonly token = computed(() => this._user()?.token);
+  readonly token = computed(() => localStorage.getItem('token'));
 
   setUser(user: ResponseUserDTO) {
     this._user.set(user)

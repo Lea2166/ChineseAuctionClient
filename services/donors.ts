@@ -20,11 +20,16 @@ export class DonorsService {
   setDonors(donors: DonorReadDTO[]): void {
     this._donors.set(donors)
   }
-  setdonors(donor: DonorReadDTO) {
+  setdonor(donor: DonorReadDTO) {
     this._donor.set(donor)
   }
 
-  getAlldonors(token: string): Observable<DonorReadDTO[]> {
+  getAlldonors(token: string | null | undefined): Observable<DonorReadDTO[]> {
+    if (token === null || token === undefined) {
+      console.log("in DonorsService.getAlldonors: token is undefined");
+      throw new Error("in DonorsService.getAlldonors: token is undefined")
+
+    }
     return this.http.get<DonorReadDTO[]>(`${this.apiUrl}`, { headers: { Authorization: "Bearer " + token } }).pipe(
       tap((donors: DonorReadDTO[]) => this._donors.set(donors)))
   }
@@ -35,10 +40,20 @@ export class DonorsService {
   // }
 
   addDonor(donor: DonorCreateDTO, token: string) {
+     if (token === null || token === undefined) {
+      console.log("in DonorsService.addDonor: token is undefined");
+      throw new Error("in DonorsService.addDonor: token is undefined")
+
+    }
     return this.http.post<number>(`${this.apiUrl}`, { donor }, { headers: { Authorization: "Bearer " + token } })
   }
 
   updateDonor(id: number, donor: DonorCreateDTO, token: string) {
+     if (token === null || token === undefined) {
+      console.log("in DonorsService.updateDonor: token is undefined");
+      throw new Error("in DonorsService.updateDonor: token is undefined")
+
+    }
     return this.http.post<number>(`${this.apiUrl}/${id}`, { donor }, { headers: { Authorization: "Bearer " + token } })
   }
 
