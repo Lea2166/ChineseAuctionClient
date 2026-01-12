@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './donors-list.scss',
 })
 export class DonorsList {
-
+  
 }
