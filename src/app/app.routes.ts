@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 import { Prizes } from '../pages/prizes/prizes';
 import { Donors } from '../pages/donors/donors';
-import { OnePrize } from '../prizeComponents/one-prize/one-prize';
+import { OnePrize } from '../PrizeComponents/one-prize/one-prize';
+
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
