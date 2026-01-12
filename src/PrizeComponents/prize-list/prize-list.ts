@@ -11,6 +11,7 @@ import { ReadPrizeDTO } from '../../../models/Prize';
   templateUrl: './prize-list.html',
   styleUrl: './prize-list.scss',
 })
+
 export class PrizeList {
   public prizesService: PrizesService = inject(PrizesService);
   ngOnInit() {
