@@ -1,0 +1,81 @@
+<button nz-button nzType="primary" (click)="open()">Add New Prize</button>
+
+<nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzMaskClosable]="false" [nzWidth]="720" [nzVisible]="visible"
+    nzTitle="Create New Prize" [nzFooter]="footerTpl" (nzOnClose)="close()">
+    <form nz-form *nzDrawerContent>
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Prize Name</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input placeholder="Enter prize name" [(ngModel)]="prizeData.name" name="name" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Quantity</nz-form-label>
+                    <nz-form-control>
+                        <input nz-input type="number" placeholder="Qty" [(ngModel)]="prizeData.qty" name="qty" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Donor</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzPlaceHolder="Select donor" [(ngModel)]="prizeData.donorId" name="donorId">
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                    <nz-form-label nzRequired>Category</nz-form-label>
+                    <nz-form-control>
+                        <nz-select nzPlaceHolder="Select category" [(ngModel)]="prizeData.categoryId" name="categoryId">
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Image</nz-form-label>
+                    <nz-upload nzAction="https://localhost:7156/api/Upload/upload" [nzFileList]="fileList"
+                        (nzChange)="handleUploadChange($event)" [nzShowUploadList]="true">
+                        <button nz-button>
+                            <nz-icon nzType="upload" />
+                            Upload Image
+                        </button>
+                    </nz-upload>
+                </nz-form-item>
+            </div>
+        </div>
+
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="24">
+                <nz-form-item>
+                    <nz-form-label>Description</nz-form-label>
+                    <nz-form-control>
+                        <textarea nz-input placeholder="Write a short description about the prize"
+                            [(ngModel)]="prizeData.description" name="description"
+                            [nzAutosize]="{ minRows: 4, maxRows: 4 }"></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+    </form>
+
+    <ng-template #footerTpl>
+        <div style="float: right">
+            <button nz-button style="margin-right: 8px;" (click)="close()">Cancel</button>
+            <button nz-button nzType="primary" (click)="submitForm()">Save Prize</button>
+        </div>
+    </ng-template>
+</nz-drawer>
