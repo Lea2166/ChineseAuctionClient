@@ -38,6 +38,7 @@
     "@angular/build": "^20.0.4",
     "@angular/cli": "^20.0.4",
     "@angular/compiler-cli": "^20.0.0",
+    "@types/jasmine": "^5.1.14",
     "jsdom": "^27.1.0",
     "less": "^4.2.0",
     "typescript": "~5.9.2",
