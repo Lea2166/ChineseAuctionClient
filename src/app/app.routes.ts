@@ -8,10 +8,6 @@ export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
   {
     path: 'prizes', pathMatch: 'full', component: Prizes,
-
-    // children: [
-    //   { path: ':id', component: OnePrize }
-    // ]
   },
   { path: 'prizes/:id', pathMatch: 'full', component: OnePrize },
   { path: 'donors', pathMatch: 'full', component: Donors }
