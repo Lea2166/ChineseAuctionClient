@@ -1,1 +1,56 @@
-<p>donors-list-view works!</p>
+<nz-table #nestedTable nzBordered [nzData]="listOfParentData" [nzPageSize]="10" [nzScroll]="{ y: '400px' }">
+    <thead>
+        <tr>
+            <th></th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>E-mail</th>
+            <th>Phone Number</th>
+            <th>Edit</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @for (data of nestedTable.data; track data) {
+        <tr>
+            <td [(nzExpand)]="data.expand"></td>
+            <td>{{ data.firstName }}</td>
+            <td>{{ data.lastName }}</td>
+            <td>{{ data.address }}</td>
+            <td>{{ data.email }}</td>
+            <td>{{ data.phoneNumber }}</td>
+
+            <td>
+                <a>Edit</a>
+            </td>
+        </tr>
+
+        <tr [nzExpand]="data.expand">
+            <td colspan="12">
+
+                <nz-list nzBordered nzSize="small">
+
+                    <nz-list-header>
+                        @if (data.prizes.length<1)
+                        { <b>No Prizes</b> }
+                        @else { <b>Prizes List </b>}
+
+                    </nz-list-header>
+                    @for (prize of data.prizes; track prize.id) {
+                    <nz-list-item>
+                        <div>
+                            <span>{{prize.name}}</span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span>category</span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span>{{prize.description}}</span>
+                        </div>
+                    </nz-list-item>
+                    }
+                </nz-list>
+            </td>
+        </tr>
+        }
+    </tbody>
+</nz-table>

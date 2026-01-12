@@ -1,1 +1,4 @@
-<p>donors-list works!</p>
+@if (donorsService.donors().length > 0) {
+<app-donors-list-view [donors]="donorsService.donors()"></app-donors-list-view>
+} @else {
+<nz-spin nzSimple></nz-spin> }
