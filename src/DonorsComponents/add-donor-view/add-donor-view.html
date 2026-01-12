@@ -1,1 +1,95 @@
-<p>add-donor-view works!</p>
+<nz-modal [(nzVisible)]="visible" nzTitle="Add New Donor" [nzFooter]="null" (nzOnCancel)="close()" [nzWidth]="600">
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" nzLayout="vertical">
+
+            <div nz-row [nzGutter]="16">
+                <div nz-col nzSpan="12">
+                    <nz-form-item>
+                        <nz-form-label nzRequired nzFor="firstName">First Name</nz-form-label>
+                        <nz-form-control [nzErrorTip]="firstNameError">
+                            <div nz-input-group>
+                                <input nz-input formControlName="firstName" id="firstName" />
+                            </div>
+                            <ng-template #prefixUser><nz-icon nzType="user"></nz-icon></ng-template>
+
+                            <ng-template #firstNameError let-control>
+                                @if (control.hasError('required')) { First name is required }
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div nz-col nzSpan="12">
+                    <nz-form-item>
+                        <nz-form-label nzRequired nzFor="lastName">Last Name</nz-form-label>
+                        <nz-form-control [nzErrorTip]="lastNameError">
+                            <div nz-input-group>
+                                <input nz-input formControlName="lastName" id="lastName" />
+                            </div>
+                            <ng-template #lastNameError let-control>
+                                @if (control.hasError('required')) { Last name is required }
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+
+            <nz-form-item>
+                <nz-form-label nzFor="company">Company</nz-form-label>
+                <nz-form-control>
+                    <div nz-input-group>
+                        <input nz-input formControlName="company" id="Company" />
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label nzRequired nzFor="adress">Address</nz-form-label>
+                <nz-form-control [nzErrorTip]="addressError">
+                    <div nz-input-group>
+                        <input nz-input formControlName="address" id="address" />
+                    </div>
+
+                    <ng-template #addressError let-control>
+
+                        @if (control.hasError('required')) { Address is required }
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label nzRequired nzFor="email">E-mail Address</nz-form-label>
+                <nz-form-control [nzErrorTip]="emailError">
+                    <div nz-input-group>
+                        <input nz-input formControlName="email" id="email" />
+                    </div>
+
+                    <ng-template #emailError let-control>
+                        @if (control.hasError('email')) { Invalid email }
+                        @if (control.hasError('required')) { Email is required }
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label nzRequired nzFor="phoneNumber">Phone Number</nz-form-label>
+                <nz-form-control [nzErrorTip]="phoneError">
+                    <div nz-input-group>
+                        <input nz-input formControlName="phoneNumber" id="phoneNumber" />
+                    </div>
+                    <ng-template #prefixPhone><nz-icon nzType="phone"></nz-icon></ng-template>
+                    <ng-template #phoneError let-control>
+                        @if (control.hasError('required')) { Phone number is required }
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+
+            <div class="modal-footer-custom">
+              
+                <button nz-button nzType="primary" [disabled]="validateForm.invalid" type="submit"
+                    [nzLoading]="loading">
+                    {{ loading ?'' : 'Add Donor' }}</button>
+            </div>
+        </form>
+    </ng-container>
+</nz-modal>

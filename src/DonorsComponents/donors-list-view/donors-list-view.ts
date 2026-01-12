@@ -2,7 +2,6 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { DonorReadDTO } from '../../../models/Donor';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { ɵNzTransitionPatchDirective } from "ng-zorro-antd/core/transition-patch";
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzListItemComponent, NzListHeaderComponent, NzListComponent } from "ng-zorro-antd/list";
 
@@ -10,6 +9,7 @@ interface ParentItemData {
   id: number;
   firstName?: string;
   lastName?: string;
+  company?: string
   address?: string;
   email?: number | string;
   phoneNumber?: string;
@@ -41,7 +41,16 @@ export class DonorsListView {
   listOfChildrenData: ChildrenItemData[] = [];
 
   ngOnInit(): void {
+    this.buildTableData();
+  }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['donors']) {
+      this.buildTableData();
+    }
+  }
+
+  buildTableData() {
     this.listOfParentData = [];
     this.listOfChildrenData = [];
 
@@ -51,6 +60,7 @@ export class DonorsListView {
         firstName: donor.firstName,
         lastName: donor.lastName,
         address: donor.address,
+        company: donor.company,
         email: donor.email,
         phoneNumber: donor.phoneNumber,
         expand: false,
@@ -63,35 +73,5 @@ export class DonorsListView {
         }))
       };
     });
-
-    // for (let i = 0; i < this.donors.length; ++i) {
-    //   const donor = this.donors[i];
-
-    //   this.listOfParentData.push({
-    //     id: donor.id, 
-    //     firstName: donor.firstName,
-    //     lastName: donor.lastName,
-    //     address: donor.address,
-    //     email: donor.email,
-    //     phoneNumber: donor.phoneNumber,
-    //     prizes:donor.prizes,
-    //     expand: false,
-
-    //   });
-
-
-    //   if (donor.prizes && donor.prizes.length > 0) {
-    //     for (let j = 0; j < donor.prizes.length; ++j) {
-    //       const prize = donor.prizes[j];
-    //       this.listOfChildrenData.push({
-    //         id: prize.id || j, 
-    //         name: prize.name,
-    //         category: prize.categoryName
-    //       });
-    //     }
-    //   }
-    // }
   }
-
-
 }

@@ -18,13 +18,13 @@ export class DonorsList {
   ngOnInit() {
     this.donorsService.getAlldonors(this.userService.token()).subscribe({
       next: donors => {
-        this.donorsService.setDonors(donors)
-        console.log(donors);
-        
+        this.donorsService.setDonors([...donors])
       },
       error: (err: any) => {
         console.error('error fetch donors', err);
       }
     })
   }
+
+
 }
