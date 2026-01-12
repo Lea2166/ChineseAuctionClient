@@ -1,7 +1,7 @@
 <nz-card *ngIf="prize" style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[actionSetting, actionEdit, actionEllipsis]">
   <nz-card-meta
-    [nzTitle]="prize.name"
-    [nzDescription]="prize.description"
+    [nzTitle]="prize?.name||null"
+    [nzDescription]="prize?.description||null"
     [nzAvatar]="avatarTemplate"
   ></nz-card-meta>
 </nz-card>

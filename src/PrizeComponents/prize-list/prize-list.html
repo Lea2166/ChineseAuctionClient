@@ -1,7 +1,6 @@
 <nz-list nzGrid>
       <div nz-row [nzGutter]="16">
-        @for (prize of prizesService.prizes; track prize) {
-          <div nz-col [nzXXl]="8" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
+@for (prize of prizesService.prizes(); track prize.id) {          <div nz-col [nzXXl]="8" [nzXl]="4" [nzLg]="6" [nzMd]="6" [nzSm]="12" [nzXs]="24">
             <nz-list-item>
             <app-prize-card [prize]="prize"/>
             </nz-list-item>

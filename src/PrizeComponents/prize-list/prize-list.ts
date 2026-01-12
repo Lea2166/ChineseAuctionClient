@@ -12,7 +12,7 @@ import { ReadPrizeDTO } from '../../../models/Prize';
   styleUrl: './prize-list.scss',
 })
 export class PrizeList {
-  private prizesService: PrizesService = inject(PrizesService);
+  public prizesService: PrizesService = inject(PrizesService);
   ngOnInit() {
     this.prizesService.getAllPrizes().subscribe({
       next: prizes => {
