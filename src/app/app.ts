@@ -7,11 +7,12 @@ import { ɵNzTransitionPatchDirective } from "ng-zorro-antd/core/transition-patc
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { UserService } from '../../services/user';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NzLayoutModule, NzMenuModule, AuthDrawer, ɵNzTransitionPatchDirective, NzIconModule, NzDropDownModule, NzIconModule, RouterLinkWithHref, RouterLinkActive],
+  imports: [RouterOutlet, NzLayoutModule, NzMenuModule, AuthDrawer, ɵNzTransitionPatchDirective, NzIconModule, NzDropDownModule, NzIconModule, RouterLinkWithHref, RouterLinkActive, NzDrawerModule,],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
@@ -42,5 +43,14 @@ export class App {
   logout(){
     this.userService.logOut();
     this.viewMenu=false;
+    this.isMobileMenuVisible = false;
   }
+
+  isMobileMenuVisible = false;
+
+toggleMobileMenu(): void {
+  this.isMobileMenuVisible = !this.isMobileMenuVisible;
+}
+
+
 }

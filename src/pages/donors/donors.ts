@@ -5,7 +5,7 @@ import { UpdateDonor } from '../../DonorsComponents/update-donor/update-donor';
 
 @Component({
   selector: 'app-donors',
-  imports: [DonorsList, AddDonor, UpdateDonor],
+  imports: [DonorsList, AddDonor],
   templateUrl: './donors.html',
   styleUrl: './donors.scss',
 })

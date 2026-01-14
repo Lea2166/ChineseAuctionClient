@@ -6,10 +6,10 @@ import { PrizeCard } from '../prize-card/prize-card';
 import { PrizesService } from '../../../services/prizes'
 import { ReadPrizeDTO } from '../../../models/Prize';
 import { CommonModule } from '@angular/common';
-import { AddPrize } from '../add-prize/add-prize';
+
 @Component({
   selector: 'app-prize-list',
-  imports: [NzCardModule, NzGridModule, NzListModule, PrizeCard,CommonModule,AddPrize],
+  imports: [NzCardModule, NzGridModule, NzListModule, PrizeCard,CommonModule],
   templateUrl: './prize-list.html',
   styleUrl: './prize-list.scss',
 })

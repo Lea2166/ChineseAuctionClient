@@ -1,13 +1,14 @@
-<app-add-prize></app-add-prize>
-<nz-list nzGrid>
-  <div nz-row [nzGutter]="16">
-    @for (prize of prizesService.prizes(); track prize.id) { 
-      <div nz-col [nzXXl]="8" [nzXl]="4" [nzLg]="6" [nzMd]="6"
-      [nzSm]="12" [nzXs]="24">
-      <nz-list-item>
-        <app-prize-card [prize]="prize" />
-      </nz-list-item>
-    </div>
-    }
-  </div>
-</nz-list>
+
+
+<nz-list nzGrid class="content">
+      <div nz-row [nzGutter]="[16, 24]" class="card-row">
+        @for (prize of prizesService.prizes(); track prize.id) {
+          <div nz-col [nzSpan]="6" [nzXXl]="8" [nzXl]="6" [nzLg]="8" [nzMd]="8" [nzSm]="12" [nzXs]="24">
+            <nz-list-item style="height: 100%;">
+             <app-prize-card [prize]="prize"></app-prize-card>
+            </nz-list-item>
+          </div>
+        }
+      </div>
+    </nz-list>
+

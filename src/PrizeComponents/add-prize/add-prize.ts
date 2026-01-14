@@ -13,20 +13,29 @@ import { PrizesService } from '../../../services/prizes';
 
 @Component({
   selector: 'app-add-prize',
-  imports: [NzButtonModule, NzDatePickerModule, NzDrawerModule, NzFormModule, NzInputModule, NzSelectModule,AddPrizeView],
+  imports: [NzButtonModule, NzDatePickerModule, NzDrawerModule, NzFormModule, NzInputModule, NzSelectModule, AddPrizeView],
   templateUrl: './add-prize.html',
   styleUrl: './add-prize.scss',
 })
 export class AddPrize {
-public prizesService: PrizesService = inject(PrizesService);
-handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
-  this.prizesService.setSimplePrize(prizeToAdd).subscribe({
-    next: (savedPrize) => {
-      console.log('Prize created successfully!');
-    },
-    error: (err: any) => {
-      console.error('Error creating prize', err);
-    }
-  });
-}
+  
+  public prizesService: PrizesService = inject(PrizesService);
+
+  handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
+    this.prizesService.setSimplePrize(prizeToAdd).subscribe({
+      next: (savedPrize: CreatePrizeDTO) => {
+        console.log('Prize created successfully!', savedPrize);
+      },
+      error: (err: any) => {
+        console.error('Error creating prize', err);
+      }
+    });
+  }
+
+
+  showModal: boolean = false
+
+  open(): void {
+    this.showModal = true;
+  }
 }

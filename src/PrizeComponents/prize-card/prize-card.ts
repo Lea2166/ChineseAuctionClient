@@ -7,10 +7,10 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-prize-card',
-  imports: [NzAvatarModule, NzCardModule, NzIconModule,CommonModule],
+  imports: [NzAvatarModule, NzCardModule, NzIconModule, CommonModule],
   templateUrl: './prize-card.html',
   styleUrl: './prize-card.scss',
 })
 export class PrizeCard {
-  @Input()prize:ReadPrizeDTO | undefined; 
+  @Input() prize: ReadPrizeDTO | undefined;
 }

@@ -9,18 +9,23 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { FormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzModalModule } from "ng-zorro-antd/modal";
 import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
+import { Subject } from 'rxjs';
+import { NzDividerModule } from "ng-zorro-antd/divider";
+
 
 @Component({
   selector: 'app-add-prize-view',
 
-  imports: [NzDrawerModule, NzFormModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule],
+  imports: [NzDrawerModule, NzFormModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
   templateUrl: './add-prize-view.html',
   styleUrl: './add-prize-view.scss',
 })
 export class AddPrizeView {
-  visible = false;
-fileList: NzUploadFile[] = [];
+
+
+  fileList: NzUploadFile[] = [];
   prizeData: CreatePrizeDTO = {
     name: '',
     qty: 1,
@@ -33,19 +38,25 @@ fileList: NzUploadFile[] = [];
   @Output() add = new EventEmitter<CreatePrizeDTO>();
   @Input() donors: { id: number; name: string }[] = [];
   @Input() categories: { id: number; name: string }[] = [];
-  open(): void {
-    this.visible = true;
-  }
+
+
+  @Input() visible: boolean = false;
+  @Output() requestClose = new EventEmitter<void>();
+
 
   close(): void {
-    this.visible = false;
+    this.requestClose.emit()
+  }
+
+  private destroy$ = new Subject<void>();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   submitForm(): void {
     this.add.emit(this.prizeData);
-    
     this.close();
-    
     this.resetForm();
   }
 
@@ -59,9 +70,11 @@ fileList: NzUploadFile[] = [];
       imagePath: ''
     };
   }
+
   handleUploadChange(info: NzUploadChangeParam): void {
-  if (info.file.status === 'done') {
-    this.prizeData.imagePath = info.file.response.dbPath;
+    if (info.file.status === 'done') {
+      this.prizeData.imagePath = info.file.response.dbPath;
+    }
   }
-}
+
 }

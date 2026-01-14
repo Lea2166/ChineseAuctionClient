@@ -1,5 +1,5 @@
 <nz-layout class="app-layout">
-  <nz-header>
+  <!-- <nz-header>
     <div class="logo">
       <a class="logo-con">
 
@@ -31,7 +31,71 @@
       </li>
     </ul>
 
+  </nz-header> -->
+  <nz-header>
+    <div nz-row nzType="flex" nzJustify="space-between" nzAlign="middle" class="header-container">
+
+      <div nz-col>
+        <div class="logo">
+          <a class="logo-con" routerLink="/home">
+            <nz-icon nzType="gift" nzTheme="outline" class="logo-icon" />
+            <h1 class="logo-text">CH-AUCTION</h1>
+          </a>
+        </div>
+      </div>
+
+      <div nz-col class="desktop-menu">
+        <ul nz-menu nzTheme="dark" nzMode="horizontal" class="top-nav">
+          <li nz-menu-item routerLink="/home" routerLinkActive="ant-menu-item-selected">Home</li>
+          <li nz-menu-item routerLink="/prizes" routerLinkActive="ant-menu-item-selected">Prizes</li>
+          <li nz-menu-item routerLink="/donors" routerLinkActive="ant-menu-item-selected">Donors</li>
+          <li nz-menu-item>Sales</li>
+          <li nz-menu-item><nz-icon nzType="shopping" nzTheme="outline" /></li>
+          <li nz-menu-item (click)="open()"><nz-icon nzType="user" nzTheme="outline" /></li>
+
+          @if (userService.user(); as user) {
+          <li nz-menu-item class="name">
+            <a nz-dropdown [nzDropdownMenu]="menu" [nzClickHide]="false">
+              Hello, {{ user.name.split(' ')[0] }}
+              <span nz-icon nzType="down"></span>
+            </a>
+          </li>
+          }
+        </ul>
+      </div>
+
+      <div nz-col class="mobile-menu-btn">
+        <div nzType="text" (click)="toggleMobileMenu()">
+          <!-- <span nz-icon nzType="menu" nzTheme="outline"></span> -->
+          <nz-icon nzType="menu" nzTheme="outline" />
+        </div>
+      </div>
+    </div>
   </nz-header>
+
+  <nz-drawer [nzVisible]="isMobileMenuVisible" nzPlacement="right" nzTitle="Menu" (nzOnClose)="toggleMobileMenu()">
+    <ng-container *nzDrawerContent>
+      <ul nz-menu nzMode="inline">
+        <li nz-menu-item routerLink="/home" (click)="toggleMobileMenu()">Home</li>
+        <li nz-menu-item routerLink="/prizes" (click)="toggleMobileMenu()">Prizes</li>
+        <li nz-menu-item routerLink="/donors" (click)="toggleMobileMenu()">Donors</li>
+        <li nz-menu-item (click)="toggleMobileMenu()">Sales</li>
+         <!-- <li nz-menu-divider></li> -->
+        <li nz-menu-item (click)="logout()">Logout</li>
+      </ul>
+    </ng-container>
+  </nz-drawer>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item (click)="logout()">
+        <nz-icon nzType="logout" nzTheme="outline" /> Log Out
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+
+
+
   <nz-content>
     <div class="inner-content">
       <router-outlet>
