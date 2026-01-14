@@ -1,1 +1,38 @@
-<p>update-donor works!</p>
+@if (!editMode) {
+<td></td>
+<td>{{ donor?.firstName }}</td>
+<td>{{ donor?.lastName }}</td>
+<td>{{ donor?.company }}</td>
+<td>{{ donor?.address }}</td>
+<td>{{ donor?.email }}</td>
+<td>{{ donor?.phoneNumber }}</td>
+<td>
+    <button nz-button nzType="link" (click)="startEdit()">Edit</button>
+</td>
+} @else {
+<td></td>
+<td>
+    <input nz-input [(ngModel)]="tempData.firstName" nzSize="small" />
+</td>
+<td>
+    <input nz-input [(ngModel)]="tempData.lastName" nzSize="small" />
+</td>
+<td>
+    <input nz-input [(ngModel)]="tempData.company" nzSize="small" />
+</td>
+<td>
+    <input nz-input [(ngModel)]="tempData.address" nzSize="small" />
+</td>
+<td>
+    <input nz-input [(ngModel)]="tempData.email" nzSize="small" />
+</td>
+<td>
+    <input nz-input [(ngModel)]="tempData.phoneNumber" nzSize="small" />
+</td>
+<td>
+    <button nz-button nzType="link" (click)="saveEdit()">Save</button>
+    <nz-popconfirm nzTitle="Cancel?" (nzOnConfirm)="cancelEdit()">
+        <button nz-button nzType="link" nzDanger nz-popconfirm>Cancel</button>
+    </nz-popconfirm>
+</td>
+}

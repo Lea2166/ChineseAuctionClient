@@ -4,6 +4,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzListItemComponent, NzListHeaderComponent, NzListComponent } from "ng-zorro-antd/list";
+import { UpdateDonor } from "../update-donor/update-donor";
 
 interface ParentItemData {
   id: number;
@@ -11,7 +12,7 @@ interface ParentItemData {
   lastName?: string;
   company?: string
   address?: string;
-  email?: number | string;
+  email?: string;
   phoneNumber?: string;
   prizes: ChildrenItemData[];
   expand: boolean;
@@ -29,7 +30,7 @@ interface ChildrenItemData {
 
 @Component({
   selector: 'app-donors-list-view',
-  imports: [NzDividerModule, NzTableModule, NzDescriptionsModule, NzListItemComponent, NzListHeaderComponent, NzListComponent],
+  imports: [NzDividerModule, NzTableModule, NzDescriptionsModule, NzListItemComponent, NzListHeaderComponent, NzListComponent, UpdateDonor],
   templateUrl: './donors-list-view.html',
   styleUrl: './donors-list-view.scss',
 })
@@ -74,4 +75,11 @@ export class DonorsListView {
       };
     });
   }
+
+
+
+
+
+
+  
 }
