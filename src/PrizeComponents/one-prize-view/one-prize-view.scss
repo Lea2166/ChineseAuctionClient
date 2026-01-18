@@ -1,0 +1,62 @@
+
+.prize-details-page {
+  padding: 24px 32px;
+}
+
+.auction-breadcrumb {
+  margin-bottom: 24px;
+}
+
+.image-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.image-card img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.info-card {
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.category-tag {
+  margin-bottom: 12px;
+}
+
+.prize-title {
+  margin: 8px 0 4px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.donor-highlight {
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.description-text {
+  line-height: 1.7;
+  color: #555;
+}
+
+.prize-stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 0;
+}
+
+.action-box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.qty-input {
+  width: 100%;
+}
