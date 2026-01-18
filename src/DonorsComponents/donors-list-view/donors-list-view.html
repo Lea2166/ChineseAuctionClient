@@ -35,9 +35,19 @@
                 phoneNumber:data.phoneNumber
                 }" 
             </tr> -->
+        <tr app-update-donor [donor]="{
+                id:data.id, 
+                firstName:data.firstName,
+                lastName:data.lastName,
+                company:data.company,
+                address:data.address,
+                email:data.email?data.email.toString():undefined,
+                phoneNumber:data.phoneNumber
+        }">
 
+        </tr>
 
-        <tr app-update-donor [donor]="data">
+        <!-- <tr app-update-donor [donor]="data"> -->
         <tr>
             <td [(nzExpand)]="data.expand"></td>
             <td></td>

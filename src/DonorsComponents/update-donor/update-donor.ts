@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { DonorReadDTO } from '../../../models/Donor';
+import { Component, inject, Input } from '@angular/core';
+import { DonorCreateDTO, DonorReadDTO } from '../../../models/Donor';
 import { FormsModule } from '@angular/forms';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { DonorsService } from '../../../services/donors';
+import { UserService } from '../../../services/user';
 
 
 
@@ -11,7 +13,7 @@ interface ItemData {
   lastName?: string;
   company?: string
   address?: string;
-  email?: string  | undefined;
+  email?: string | undefined;
   phoneNumber?: string;
 
 }
@@ -23,7 +25,10 @@ interface ItemData {
 })
 export class UpdateDonor {
 
-  @Input() donor: DonorReadDTO | null = null
+  @Input() donor: DonorReadDTO | null = null;
+  donorsService: DonorsService = inject(DonorsService);
+  userService: UserService = inject(UserService);
+
 
   editMode = false;
   tempData!: DonorReadDTO;
@@ -40,7 +45,30 @@ export class UpdateDonor {
 
   saveEdit(): void {
     if (this.donor == null || this.donor == undefined) return
-    Object.assign(this.donor, this.tempData);
-    this.editMode = false;
+    const updatedDonor = { ...this.donor, ...this.tempData };
+    
+    // const updatedDonorForSend: DonorCreateDTO = {
+    //   firstName: updatedDonor.firstName,
+    //   lastName: updatedDonor.lastName,
+    //   email: updatedDonor.email,
+    //   address: updatedDonor.address,
+    //   company: updatedDonor.company,
+    //   phoneNumber: updatedDonor.phoneNumber
+    // }
+    console.log("update", updatedDonor);
+
+    this.donorsService.updateDonor(this.donor.id, updatedDonor, this.userService.token()).subscribe({
+      next: (response) => {
+
+        this.donor = updatedDonor;
+        this.editMode = false;
+        console.log("data was updated successfully");
+      },
+      error: (err) => {
+        console.error('error ', err);
+
+      }
+    });
+
   }
 }

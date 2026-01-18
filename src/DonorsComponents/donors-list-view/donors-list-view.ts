@@ -6,7 +6,7 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzListItemComponent, NzListHeaderComponent, NzListComponent } from "ng-zorro-antd/list";
 import { UpdateDonor } from "../update-donor/update-donor";
 
-interface ParentItemData {
+ interface ParentItemData {
   id: number;
   firstName?: string;
   lastName?: string;
@@ -24,8 +24,6 @@ interface ChildrenItemData {
   name?: string;
   description?: string;
   category?: string;
-
-
 }
 
 @Component({
