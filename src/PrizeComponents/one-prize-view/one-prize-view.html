@@ -1,0 +1,71 @@
+<div class="prize-details-page">
+    <nz-breadcrumb class="auction-breadcrumb">
+        <nz-breadcrumb-item>
+            <a routerLink="/Home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+            <a routerLink="/prizes">Auction Prizes</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>{{ prize?.name }}</nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <nz-row [nzGutter]="[48, 32]" class="prize-layout">
+
+        <div nz-col [nzXs]="24" [nzLg]="12">
+            <div class="image-card">
+                <img nz-image nzSrc="assets/prize.jpg" alt="" />
+            </div>
+        </div>
+
+        <!-- Info -->
+        <div nz-col [nzXs]="24" [nzLg]="12">
+            <nz-card class="info-card">
+
+                @if (prize?.category) {
+                <nz-tag nzColor="orange" class="category-tag">
+                    {{ prize?.category?.name }}
+                </nz-tag>
+                }
+
+                <h1 class="prize-title">{{ prize?.name }}</h1>
+
+                @if (prize?.donor) {
+                <div class="donor-highlight">
+                    Donated by
+                    @if(prize?.donor?.company){
+                    <strong>{{ prize?.donor?.company}}</strong>
+                    }@else {
+                    <strong>{{ prize?.donor?.firstName }} {{ prize?.donor?.lastName }}</strong>
+                    }
+
+                </div>
+                }
+
+                <nz-divider></nz-divider>
+
+                <p class="description-text">
+                    {{ prize?.description }}
+                </p>
+
+                <div class="prize-stats">
+                    <nz-statistic nzTitle="Number of Winning Tickets" [nzValue]="prize?.qty" />
+                    <nz-statistic nzTitle="Tickets Sold" [nzValue]="prize?.numOfTickets" />
+                </div>
+
+                <nz-divider></nz-divider>
+
+                <div class="action-box">
+                    <nz-input-number nzSize="large" [nzMin]="1" class="qty-input">
+                    </nz-input-number>
+
+                    <button nz-button nzType="primary" nzSize="large" nzBlock>
+                        <span nz-icon nzType="plus-circle"></span>
+                        Add Tickets
+                    </button>
+                </div>
+
+            </nz-card>
+        </div>
+
+    </nz-row>
+</div>
