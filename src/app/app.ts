@@ -19,7 +19,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 export class App {
 
   userService: UserService = inject(UserService);
-
+  
   ngOnInit() {
     const token = localStorage.getItem('token');
     if (!token || token === "") {

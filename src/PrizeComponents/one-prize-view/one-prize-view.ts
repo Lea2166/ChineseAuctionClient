@@ -8,7 +8,7 @@ import { ReadPrizeDTO } from '../../../models/Prize';
   styleUrl: './one-prize-view.scss',
 })
 export class OnePrizeView {
-  // @Input() prize=signal<ReadPrizeDTO | null>(null);
+ 
   @Input() prize: ReadPrizeDTO | null = null
 
 

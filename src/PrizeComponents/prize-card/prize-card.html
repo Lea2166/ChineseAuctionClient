@@ -1,4 +1,4 @@
-<nz-card [nzCover]="coverTemplate"
+<nz-card [nzCover]="coverTemplate" (click)="navigate()"
  [nzActions]="[actionSetting, actionEdit, actionEllipsis]" class="custom-card">
   <nz-card-meta  [nzTitle]="prize?.name||null" [nzDescription]="prize?.description||null"></nz-card-meta>
 </nz-card>
