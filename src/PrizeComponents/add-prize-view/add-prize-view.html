@@ -1,13 +1,13 @@
-<nz-modal [(nzVisible)]="visible" nzTitle="Add New Prize" (nzOnCancel)="close()">
+<nz-modal [(nzVisible)]="visible" nzTitle="Add New Prize" [nzFooter]="null" (nzOnCancel)="close()">
     <ng-container *nzModalContent>
-        <form nz-form nzLayout="vertical" class="prize-form">
+        <form nz-form [formGroup]="prizeData" (ngSubmit)="submitForm()" nzLayout="vertical" class="prize-form">
             <!-- <nz-divider nzText="Basic Details"></nz-divider> -->
             <div nz-row [nzGutter]="8">
                 <div nz-col nzSpan="12">
                     <nz-form-item>
                         <nz-form-label nzRequired>Prize Name</nz-form-label>
                         <nz-form-control>
-                            <input nz-input placeholder="Enter prize name" [(ngModel)]="prizeData.name" name="name" />
+                            <input nz-input placeholder="Enter prize name" formControlName="name" />
                         </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -15,7 +15,7 @@
                     <nz-form-item>
                         <nz-form-label nzRequired>Quantity</nz-form-label>
                         <nz-form-control>
-                            <input nz-input type="number" placeholder="Qty" [(ngModel)]="prizeData.qty" name="qty" />
+                            <input nz-input type="number" placeholder="Qty" formControlName="qty" />
                         </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -28,7 +28,10 @@
                     <nz-form-item>
                         <nz-form-label nzRequired>Donor</nz-form-label>
                         <nz-form-control>
-                            <nz-select nzPlaceHolder="Select donor" [(ngModel)]="prizeData.donorId" name="donorId">
+                            <nz-select nzPlaceHolder="Select donor" formControlName="donorId">
+                                @for(donor of donors ; track donor.id){
+                                <nz-option [nzLabel]="donor.id" [nzValue]="donor.id"></nz-option>
+                                }
                             </nz-select>
                         </nz-form-control>
                     </nz-form-item>
@@ -37,8 +40,10 @@
                     <nz-form-item>
                         <nz-form-label nzRequired>Category</nz-form-label>
                         <nz-form-control>
-                            <nz-select nzPlaceHolder="Select category" [(ngModel)]="prizeData.categoryId"
-                                name="categoryId">
+                            <nz-select nzPlaceHolder="Select category" formControlName="categoryId">
+                                @for(category of categories ; track category.id){
+                                <nz-option [nzLabel]="category.name" [nzValue]="category.id"></nz-option>
+                                }
                             </nz-select>
                         </nz-form-control>
                     </nz-form-item>
@@ -51,8 +56,7 @@
                         <nz-form-label>Description</nz-form-label>
                         <nz-form-control>
                             <textarea nz-input placeholder="Write a short description about the prize"
-                                [(ngModel)]="prizeData.description" name="description"
-                                [nzAutosize]="{ minRows: 4, maxRows: 4 }"></textarea>
+                                formControlName="description" [nzAutosize]="{ minRows: 4, maxRows: 4 }"></textarea>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
@@ -63,9 +67,8 @@
                     <nz-form-item>
                         <nz-form-label>Prize Image</nz-form-label>
                         <nz-form-control>
-                            <nz-upload nzType="drag" [nzMultiple]="false"
-                                nzAction="https://localhost:7156/api/Upload/upload" [(nzFileList)]="fileList"
-                                (nzChange)="handleUploadChange($event)">
+                            <nz-upload nzType="drag" [nzMultiple]="false" nzAction="https://localhost:7156/upload"
+                                [(nzFileList)]="fileList" (nzChange)="handleUploadChange($event)">
                                 <p class="ant-upload-drag-icon">
                                     <span nz-icon nzType="picture"></span>
                                 </p>
@@ -76,15 +79,10 @@
                     </nz-form-item>
                 </div>
             </div>
-
-        </form>
-
-        <ng-template #footerTpl>
-            <div style="float: right">
-                <button nz-button style="margin-right: 8px;" (click)="close()">Cancel</button>
-                <button nz-button nzType="primary" (click)="submitForm()">Save Prize</button>
+            <div class="modal-footer">
+                <button nz-button type="button" (click)="close()">Cancel</button>
+                <button nz-button nzType="primary" type="submit">Save Prize</button>
             </div>
-        </ng-template>
-
+        </form>
     </ng-container>
 </nz-modal>

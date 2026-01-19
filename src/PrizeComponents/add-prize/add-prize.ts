@@ -1,6 +1,5 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-
+import { Component, effect, EventEmitter, inject, Input, Output } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
@@ -10,6 +9,12 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { CreatePrizeDTO } from '../../../models/Prize';
 import { AddPrizeView } from '../add-prize-view/add-prize-view';
 import { PrizesService } from '../../../services/prizes';
+import { DonorsService } from '../../../services/donors';
+import { CategoriesService } from '../../../services/categories';
+import { Token } from '@angular/compiler';
+import { UserService } from '../../../services/user';
+import { Observable, Observer } from 'rxjs';
+import { DonorReadDTO } from '../../../models/Donor';
 
 @Component({
   selector: 'app-add-prize',
@@ -18,11 +23,15 @@ import { PrizesService } from '../../../services/prizes';
   styleUrl: './add-prize.scss',
 })
 export class AddPrize {
-  
+  public UserService = inject(UserService);
+  public donorsService = inject(DonorsService);
   public prizesService: PrizesService = inject(PrizesService);
+  public CategoriesService = inject(CategoriesService);
+  public donors: DonorReadDTO[] = [];
+  public categories = this.CategoriesService.categories();
 
   handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
-    this.prizesService.setSimplePrize(prizeToAdd).subscribe({
+    this.prizesService.setSimplePrize(prizeToAdd,this.UserService.token()).subscribe({
       next: (savedPrize: CreatePrizeDTO) => {
         console.log('Prize created successfully!', savedPrize);
       },
@@ -32,7 +41,17 @@ export class AddPrize {
     });
   }
 
-
+  ngOnInit() {
+    this.donorsService.getAlldonors(this.UserService.token()).subscribe({
+      next: donors => {
+        this.donorsService.setDonors([...donors])
+        this.donors = donors;
+      },
+      error: (err: any) => {
+        console.error('error fetch donors', err);
+      }
+    })
+  }
   showModal: boolean = false
 
   open(): void {
