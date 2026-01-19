@@ -35,7 +35,9 @@ export class PrizesService {
     return this.http.get<ReadPrizeDTO>(`${this.apiUrl}/${id}`).pipe(
       tap((prize: ReadPrizeDTO) => this._prize.set(prize)))
   }
-  setSimplePrize(prize: CreatePrizeDTO): Observable<CreatePrizeDTO> {
-    return this.http.post<CreatePrizeDTO>(`${this.apiUrl}`, prize).pipe();
+  setSimplePrize(prize: CreatePrizeDTO, token: string|null): Observable<CreatePrizeDTO> {
+    if(token==null)
+      return this.http.post<CreatePrizeDTO>(`${this.apiUrl}`, prize).pipe();
+    return this.http.post<CreatePrizeDTO>(`${this.apiUrl}`, prize,{ headers: { Authorization: "Bearer " + token } }).pipe();
   }
 }

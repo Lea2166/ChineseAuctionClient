@@ -23,15 +23,15 @@ import { DonorReadDTO } from '../../../models/Donor';
   styleUrl: './add-prize.scss',
 })
 export class AddPrize {
-public UserService = inject(UserService);
-public donorsService = inject(DonorsService);
-public prizesService: PrizesService = inject(PrizesService);
-public CategoriesService = inject(CategoriesService);
-public donors=this.donorsService.getAlldonors(this.UserService.token()).subscribe(Observable>:<Observer<DonorReadDTO>[]>>);
-public categories=this.CategoriesService.categories();
+  public UserService = inject(UserService);
+  public donorsService = inject(DonorsService);
+  public prizesService: PrizesService = inject(PrizesService);
+  public CategoriesService = inject(CategoriesService);
+  public donors: DonorReadDTO[] = [];
+  public categories = this.CategoriesService.categories();
 
   handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
-    this.prizesService.setSimplePrize(prizeToAdd).subscribe({
+    this.prizesService.setSimplePrize(prizeToAdd,this.UserService.token()).subscribe({
       next: (savedPrize: CreatePrizeDTO) => {
         console.log('Prize created successfully!', savedPrize);
       },
@@ -41,7 +41,17 @@ public categories=this.CategoriesService.categories();
     });
   }
 
-
+  ngOnInit() {
+    this.donorsService.getAlldonors(this.UserService.token()).subscribe({
+      next: donors => {
+        this.donorsService.setDonors([...donors])
+        this.donors = donors;
+      },
+      error: (err: any) => {
+        console.error('error fetch donors', err);
+      }
+    })
+  }
   showModal: boolean = false
 
   open(): void {

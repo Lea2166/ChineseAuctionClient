@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Output, OnInit, Input } from '@angular/core'; 
+import { Component, EventEmitter, input, Output, OnInit, Input, inject } from '@angular/core'; 
 import { CreatePrizeDTO } from '../../../models/Prize';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -7,36 +7,39 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from "ng-zorro-antd/modal";
 import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
 import { Subject } from 'rxjs';
 import { NzDividerModule } from "ng-zorro-antd/divider";
-
+import { DonorReadDTO } from '../../../models/Donor';
+import  {ReactiveFormsModule} from '@angular/forms';
+import { NonNullAssert } from '@angular/compiler';
+import { log } from 'ng-zorro-antd/core/logger';
 
 @Component({
   selector: 'app-add-prize-view',
 
-  imports: [NzDrawerModule, NzFormModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
+  imports: [NzDrawerModule, NzFormModule, ReactiveFormsModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
   templateUrl: './add-prize-view.html',
   styleUrl: './add-prize-view.scss',
 })
 export class AddPrizeView {
-
+  private fb = inject(NonNullableFormBuilder);
 
   fileList: NzUploadFile[] = [];
-  prizeData: CreatePrizeDTO = {
-    name: '',
-    qty: 1,
-    donorId: 0,
-    categoryId: 0,
-    description: '',
-    imagePath: ''
-  };
+  prizeData = this.fb.group({
+    name:this.fb.control('',[Validators.required]),
+    qty: this.fb.control(1,[Validators.required, Validators.min(1)]),
+    donorId: this.fb.control(0,[Validators.required]),
+    categoryId: this.fb.control(1),
+    description: this.fb.control('',[Validators.required]),
+    imagePath: this.fb.control(''),
+  });
 
   @Output() add = new EventEmitter<CreatePrizeDTO>();
-  @Input() donors: { id: number; name: string }[] = [];
+  @Input() donors: DonorReadDTO[] = [];
   @Input() categories: { id: number; name: string }[] = [];
 
 
@@ -55,26 +58,41 @@ export class AddPrizeView {
   }
 
   submitForm(): void {
-    this.add.emit(this.prizeData);
-    this.close();
-    this.resetForm();
+    console.log("submited");
+    console.log(this.prizeData.value);
+    
+    if (this.prizeData.valid) {
+      this.add.emit(this.prizeData.value as CreatePrizeDTO);
+      this.close();
+      this.resetForm();
+    }
+    else 
+      Object.values(this.prizeData.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+        console.log(control);
+        
+      })
   }
-
   private resetForm(): void {
-    this.prizeData = {
-      name: '',
-      qty: 1,
-      donorId: 0,
-      categoryId: 0,
-      description: '',
-      imagePath: ''
-    };
+    this.prizeData = this.fb.group({
+      name:this.fb.control('',[Validators.required]),
+      qty: this.fb.control(1,[Validators.required, Validators.min(1)]),
+      donorId: this.fb.control(0,[Validators.required]),
+      categoryId: this.fb.control(1),
+      description: this.fb.control('',[Validators.required]),
+      imagePath: this.fb.control(''),
+    });
     this.fileList = []; 
   }
-
+ngOnInit(): void {
+  console.log(this.donors);
+}
   handleUploadChange(info: NzUploadChangeParam): void {
     if (info.file.status === 'done') {
-      this.prizeData.imagePath = info.file.response.dbPath;
+      this.prizeData.patchValue({ imagePath: info.file.response.dbPath });
     }
   }
 }
