@@ -1,4 +1,4 @@
-<nz-card [nzCover]="coverTemplate" (click)="navigate()"
+<nz-card [nzCover]="coverTemplate" (click)="navigate()" [style.cursor]="'pointer'"
  [nzActions]="[actionSetting, actionEdit, actionEllipsis]" class="custom-card">
   <nz-card-meta  [nzTitle]="prize?.name||null" [nzDescription]="prize?.description||null"></nz-card-meta>
 </nz-card>
@@ -7,7 +7,7 @@
   <img alt="example" src="assets/win.jpg" />
 </ng-template>
 
-<ng-template #actionSetting>
+<ng-template #actionSetting> 
   <nz-icon nzType="setting" />
 </ng-template>
 
