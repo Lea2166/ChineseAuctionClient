@@ -1,0 +1,98 @@
+<nz-modal [(nzVisible)]="visible" nzTitle="Add New Prize" [nzFooter]="null" (nzOnCancel)="close()">
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="prizeData" (ngSubmit)="submitForm()" nzLayout="vertical" class="prize-form">
+            <!-- <nz-divider nzText="Basic Details"></nz-divider> -->
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="12">
+                    <nz-form-item>
+                        <nz-form-label nzRequired>Prize Name</nz-form-label>
+                        <nz-form-control nzErrorTip="Prize name is required">
+                            <input nz-input placeholder="Enter prize name" formControlName="name" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="12">
+                    <nz-form-item>
+                        <nz-form-label nzRequired>Quantity</nz-form-label>
+                        <nz-form-control>
+                            <input nz-input type="number" placeholder="Qty" formControlName="qty" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+
+            <!-- <nz-divider nzText="Classification"></nz-divider -->
+
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="12">
+                    <nz-form-item>
+                        <nz-form-label nzRequired>Donor</nz-form-label>
+                        <nz-form-control nzErrorTip="Donor is required">
+                            <nz-select nzPlaceHolder="Select donor" formControlName="donorId">
+                                @for(donor of donors ; track donor.id){
+                                <nz-option [nzValue]="donor.id" [nzLabel]="donor.company
+                                    ? donor.company 
+                                    : (donor.firstName || donor.lastName 
+                                    ? (donor.firstName ?? '') + ' ' + (donor.lastName ?? '') 
+                                    : 'NULL')"></nz-option>
+                                }
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="12">
+                    <nz-form-item>
+                        <nz-form-label nzRequired>Category</nz-form-label>
+                        <nz-form-control nzErrorTip="Prize Category is required">
+                            <nz-select nzPlaceHolder="Select category" formControlName="categoryId">
+                                @for(category of categories; track category.id){
+                                <nz-option [nzLabel]="category.name" [nzValue]="category.id"></nz-option>
+                                }
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                    <nz-form-item>
+                        <nz-form-label>Description</nz-form-label>
+                        <nz-form-control nzErrorTip="Prize description is required">
+                            <textarea nz-input placeholder="Write a short description about the prize"
+                                formControlName="description" [nzAutosize]="{ minRows: 4, maxRows: 4 }"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+
+            <div nz-row [nzGutter]="8">
+                <div nz-col nzSpan="24">
+                    <nz-form-item>
+                        <nz-form-label>Prize Image</nz-form-label>
+                        <nz-form-control>
+                            <nz-upload nzType="drag" [nzMultiple]="false" nzAction="https://localhost:7156/upload"
+                                [(nzFileList)]="fileList" nzAccept="image/*" nzListType="picture"
+                                (nzChange)="handleUploadChange($event)">
+
+                                <p class="ant-upload-drag-icon">
+                                    <span nz-icon nzType="picture"></span>
+                                </p>
+                                <p class="ant-upload-text">Click or drag image to this area to upload</p>
+                                <p class="ant-upload-hint">Support for a single image upload.</p>
+                            </nz-upload>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button nz-button type="button" (click)="close()">Cancel</button>
+
+                <button nz-button nzType="primary" type="submit" [disabled]="prizeData.invalid">
+                    Save Prize
+                </button>
+
+            </div>
+        </form>
+    </ng-container>
+</nz-modal>

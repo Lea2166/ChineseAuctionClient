@@ -16,14 +16,13 @@ import { NzDividerModule } from "ng-zorro-antd/divider";
 import { DonorReadDTO } from '../../../models/Donor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NonNullAssert } from '@angular/compiler';
-import { log } from 'ng-zorro-antd/core/logger';
 import { Category } from '../../../models/PackageOrderCart';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-prize-view',
 
-  imports: [NzDrawerModule, AsyncPipe, NzFormModule, ReactiveFormsModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
+  imports: [NzDrawerModule, NzFormModule, ReactiveFormsModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
   templateUrl: './add-prize-view.html',
   styleUrl: './add-prize-view.scss',
 })
