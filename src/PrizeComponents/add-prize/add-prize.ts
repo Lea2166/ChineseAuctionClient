@@ -1,4 +1,4 @@
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+
 import { Component, effect, EventEmitter, inject, Input, Output } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
@@ -11,10 +11,8 @@ import { AddPrizeView } from '../add-prize-view/add-prize-view';
 import { PrizesService } from '../../../services/prizes';
 import { DonorsService } from '../../../services/donors';
 import { CategoriesService } from '../../../services/categories';
-import { Token } from '@angular/compiler';
-import { UserService } from '../../../services/user';
-import { Observable, Observer } from 'rxjs';
 import { DonorReadDTO } from '../../../models/Donor';
+import { UserService } from '../../../services/user';
 
 @Component({
   selector: 'app-add-prize',
@@ -28,7 +26,7 @@ export class AddPrize {
   public prizesService: PrizesService = inject(PrizesService);
   public CategoriesService = inject(CategoriesService);
   public donors: DonorReadDTO[] = [];
-  public categories = this.CategoriesService.categories();
+  public categories = this.CategoriesService.getAllCategories();
 
   handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
     this.prizesService.setSimplePrize(prizeToAdd,this.UserService.token()).subscribe({
@@ -61,6 +59,8 @@ export class AddPrize {
         console.error('error fetch donors', err);
       }
     })
+
+    
   }
   showModal: boolean = false
 
