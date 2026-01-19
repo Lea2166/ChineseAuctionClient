@@ -11,17 +11,19 @@ import { FormsModule, NonNullableFormBuilder, Validators } from '@angular/forms'
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from "ng-zorro-antd/modal";
 import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { NzDividerModule } from "ng-zorro-antd/divider";
 import { DonorReadDTO } from '../../../models/Donor';
 import  {ReactiveFormsModule} from '@angular/forms';
 import { NonNullAssert } from '@angular/compiler';
 import { log } from 'ng-zorro-antd/core/logger';
+import { Category } from '../../../models/PackageOrderCart';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-prize-view',
 
-  imports: [NzDrawerModule, NzFormModule, ReactiveFormsModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
+  imports: [NzDrawerModule,AsyncPipe, NzFormModule, ReactiveFormsModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
   templateUrl: './add-prize-view.html',
   styleUrl: './add-prize-view.scss',
 })
@@ -40,9 +42,7 @@ export class AddPrizeView {
 
   @Output() add = new EventEmitter<CreatePrizeDTO>();
   @Input() donors: DonorReadDTO[] = [];
-  @Input() categories: { id: number; name: string }[] = [];
-
-
+  @Input() categories$!: Observable<Category[]>;
   @Input() visible: boolean = false;
   @Output() requestClose = new EventEmitter<void>();
 

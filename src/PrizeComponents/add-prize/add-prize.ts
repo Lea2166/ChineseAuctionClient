@@ -28,7 +28,7 @@ export class AddPrize {
   public prizesService: PrizesService = inject(PrizesService);
   public CategoriesService = inject(CategoriesService);
   public donors: DonorReadDTO[] = [];
-  public categories = this.CategoriesService.categories();
+  public categories = this.CategoriesService.getAllCategories();
 
   handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
     this.prizesService.setSimplePrize(prizeToAdd,this.UserService.token()).subscribe({
