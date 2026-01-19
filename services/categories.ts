@@ -11,6 +11,8 @@ export class CategoriesService {
   private readonly apiUrl = 'https://localhost:7156/api/Category';
   private _categories = signal<Category[] | []>([]);
   readonly categories = computed(() => this._categories());
+
+
   getAllCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.apiUrl}`).pipe(
       tap((categories: Category[]) => this._categories.set(categories)))
@@ -23,6 +25,10 @@ export class CategoriesService {
   }
   updateCategory(id: number, category: Category): Observable<Category> {
     return this.http.put<Category>(`${this.apiUrl}/${id}`, category).pipe();
+  }
+
+  setCategories(categories: Category[]): void {
+    this._categories.set(categories)
   }
 
 }
