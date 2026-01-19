@@ -9,15 +9,15 @@ import { Packages } from '../../../services/packages';
 import { UserService } from '../../../services/user';
 @Component({
   selector: 'app-add-package',
-  imports: [NzButtonModule, NzModalModule,ReactiveFormsModule,NzFormModule, NzInputModule],
+  imports: [NzButtonModule, NzModalModule, ReactiveFormsModule, NzFormModule, NzInputModule],
   templateUrl: './add-package.html',
   styleUrl: './add-package.scss',
 })
 export class AddPackage {
-    public PackageService = inject(Packages);
-    public pacages: CreatePackageDTO[] = [];
-    public UserService = inject(UserService);
-  
+  public PackageService = inject(Packages);
+  public packages: CreatePackageDTO[] = [];
+  public UserService = inject(UserService);
+
   isVisible = false;
 
   showModal(): void {
@@ -25,16 +25,14 @@ export class AddPackage {
   }
 
   handleOk(): void {
-    console.log('Button ok clicked!');
     this.isVisible = false;
   }
 
   handleCancel(): void {
-    console.log('Button cancel clicked!');
     this.isVisible = false;
   }
   private fb = inject(NonNullableFormBuilder);
-packageForm = this.fb.group({
+  packageForm = this.fb.group({
     name: ['', [Validators.required]],
     numOfTickets: [1, [Validators.required, Validators.min(1)]],
     price: [0, [Validators.required, Validators.min(0)]]
@@ -43,19 +41,46 @@ packageForm = this.fb.group({
   submitForm(): void {
     if (this.packageForm.valid) {
       const packageData: CreatePackageDTO = this.packageForm.getRawValue();
+      this.isVisible = false;
+      this.packageForm.reset();
       console.log('Sending data to server:', packageData);
-      this.PackageService.addPackage(packageData,this.UserService.token()).subscribe({
+      this.PackageService.addPackage(packageData, this.UserService.token()).subscribe({
         next: () => {
-          console.log('Package created successfully:', packageData);
-    }})}else {
-
+          console.log("package added successfully");
+          this.PackageService.getAllPackages().subscribe({
+            next: packages => {
+              this.PackageService.setAllPackages([...packages]);
+              this.packages = [...packages];
+            },
+            error: (err: any) => {
+              console.error('error fetch packages', err);
+            }
+          })
+        },
+        error: (err: any) => {
+          console.error('Error creating package', err);
+        }
+      });
+    } else {
       Object.values(this.packageForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
+          this.isVisible = false;
+          this.packageForm.reset();
         }
       });
     }
-    
-}
+  }
+  ngOnInit() {
+    this.PackageService.getAllPackages().subscribe({
+      next: packages => {
+        this.PackageService.setAllPackages([...packages])
+        this.packages = packages;
+      },
+      error: (err: any) => {
+        console.error('error fetch packages', err);
+      }
+    })
+  }
 }
