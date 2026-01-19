@@ -2,6 +2,7 @@ export interface DonorReadDTO {
   id: number;
   firstName?: string;
   lastName?: string;
+  company?: string
   address?: string;
   email?: string;
   phoneNumber?: string;
@@ -10,14 +11,28 @@ export interface DonorReadDTO {
 export interface DonorCreateDTO {
   firstName?: string;
   lastName?: string;
+  company?: string
   address?: string;
   email?: string;
   phoneNumber?: string;
 }
 
+export interface DonorUpdateDTO {
+  id: number
+  firstName?: string;
+  lastName?: string;
+  company?: string
+  address?: string;
+  email?: string;
+  phoneNumber?: string;
+}
+
+
+
 export interface DonorForReadPrizesDTO {
   firstName?: string;
   lastName?: string;
+  company?: string
   email?: string;
 }
 

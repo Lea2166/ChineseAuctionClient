@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Output, OnInit } from '@angular/core'; // 1. השתמשי רק ב-input (סיגנל)
+import { Component, EventEmitter, input, Output, OnInit, Input } from '@angular/core'; 
 import { CreatePrizeDTO } from '../../../models/Prize';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -9,24 +9,23 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { FormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzModalModule } from "ng-zorro-antd/modal";
 import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
-import { DonorReadDTO } from '../../../models/Donor';
+import { Subject } from 'rxjs';
+import { NzDividerModule } from "ng-zorro-antd/divider";
+
 
 @Component({
   selector: 'app-add-prize-view',
-  standalone: true, 
-  imports: [
-    NzDrawerModule, NzFormModule, NzSelectModule, 
-    NzDatePickerModule, NzGridModule, NzInputModule, 
-    NzButtonModule, FormsModule, NzIconModule, NzUploadModule
-  ],
+
+  imports: [NzDrawerModule, NzFormModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
   templateUrl: './add-prize-view.html',
   styleUrl: './add-prize-view.scss',
 })
-export class AddPrizeView implements OnInit {
-  visible = false;
+export class AddPrizeView {
+
+
   fileList: NzUploadFile[] = [];
-  
   prizeData: CreatePrizeDTO = {
     name: '',
     qty: 1,
@@ -37,21 +36,22 @@ export class AddPrizeView implements OnInit {
   };
 
   @Output() add = new EventEmitter<CreatePrizeDTO>();
+  @Input() donors: { id: number; name: string }[] = [];
+  @Input() categories: { id: number; name: string }[] = [];
 
-  donors = input<DonorReadDTO[]>([]);
-  categories = input<{ id: number; name: string }[]>([]);
 
-  ngOnInit(): void {
-    console.log('Donors received:', this.donors());
-    console.log('Categories received:', this.categories());
-  }
+  @Input() visible: boolean = false;
+  @Output() requestClose = new EventEmitter<void>();
 
-  open(): void {
-    this.visible = true;
-  }
 
   close(): void {
-    this.visible = false;
+    this.requestClose.emit()
+  }
+
+  private destroy$ = new Subject<void>();
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   submitForm(): void {

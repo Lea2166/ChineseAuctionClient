@@ -44,7 +44,7 @@ export class Login {
           next: user => {
             this.userService.setUser(user)
             console.log('login success', user);
-            console.log('token',this.userService.token())
+            
           },
           error: (err: any) => {
 

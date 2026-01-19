@@ -22,6 +22,7 @@ export interface ReadPrizeDTO {
   category?: CategoryDTOWithId;
   imagePath?: string;
   qty: number;
+  numOfTickets:number;
 }
 
 export interface ReadSimplePrizeDTO {

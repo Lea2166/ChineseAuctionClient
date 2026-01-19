@@ -9,6 +9,7 @@ import { OnePrizeView } from '../one-prize-view/one-prize-view';
   templateUrl: './one-prize.html',
   styleUrl: './one-prize.scss',
 })
+
 export class OnePrize {
 
   public prizesService: PrizesService = inject(PrizesService);

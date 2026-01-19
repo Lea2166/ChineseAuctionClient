@@ -40,3 +40,9 @@ html {
   --ant-info-color-deprecated-bg: #fff2e8;
   --ant-info-color-deprecated-border: #ffbb96;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f0f2f5; 
+}

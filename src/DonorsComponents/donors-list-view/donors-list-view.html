@@ -1,1 +1,68 @@
-<p>donors-list-view works!</p>
+<nz-table #nestedTable [nzData]="listOfParentData" [nzPageSize]="10" [nzScroll]="{ x: 'max-content', y: '400px' }">
+    <thead>
+        <tr>
+            <th></th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Company</th>
+            <th>Address</th>
+            <th>E-mail</th>
+            <th>Phone Number</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @for (data of nestedTable.data; track data) {
+
+        <tr app-update-donor [donor]="{
+                id:data.id, 
+                firstName:data.firstName,
+                lastName:data.lastName,
+                company:data.company,
+                address:data.address,
+                email:data.email?data.email.toString():undefined,
+                phoneNumber:data.phoneNumber
+        }">
+
+        </tr>
+
+        <tr>
+            <td [(nzExpand)]="data.expand"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <!-- <td>Expend to see prizes</td> -->
+        </tr>
+        <tr [nzExpand]="data.expand">
+            <td colspan="12">
+
+                <nz-list nzBordered nzSize="small">
+
+                    <nz-list-header>
+                        @if (data.prizes.length<1) { <b>No Prizes</b> }
+                            @else { <b>Prizes List </b>}
+
+                    </nz-list-header>
+                    @for (prize of data.prizes; track prize.id) {
+                    <nz-list-item>
+                        <div>
+                            <span>{{prize.name}}</span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span>category</span>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <span>{{prize.description}}</span>
+                        </div>
+                    </nz-list-item>
+                    }
+                </nz-list>
+            </td>
+        </tr>
+        }
+    </tbody>
+</nz-table>

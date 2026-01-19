@@ -18,7 +18,7 @@ import { DonorReadDTO } from '../../../models/Donor';
 
 @Component({
   selector: 'app-add-prize',
-  imports: [NzButtonModule, NzDatePickerModule, NzDrawerModule, NzFormModule, NzInputModule, NzSelectModule,AddPrizeView],
+  imports: [NzButtonModule, NzDatePickerModule, NzDrawerModule, NzFormModule, NzInputModule, NzSelectModule, AddPrizeView],
   templateUrl: './add-prize.html',
   styleUrl: './add-prize.scss',
 })
@@ -29,21 +29,22 @@ public prizesService: PrizesService = inject(PrizesService);
 public CategoriesService = inject(CategoriesService);
 public donors=this.donorsService.getAlldonors(this.UserService.token()).subscribe(Observable>:<Observer<DonorReadDTO>[]>>);
 public categories=this.CategoriesService.categories();
-ngOnInit() {
-  effect(() => {
-    console.log('--- בדיקת נתונים באבא ---');
-    console.log('Donors Signal:', this.donorsService.getAlldonors(this.UserService.token()).subscribe());
-    console.log('Categories Signal:', this.CategoriesService.categories());
-  });
-}
-handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
-  this.prizesService.setSimplePrize(prizeToAdd).subscribe({
-    next: (savedPrize) => {
-      console.log('Prize created successfully!');
-    },
-    error: (err: any) => {
-      console.error('Error creating prize', err);
-    }
-  });
-}
+
+  handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
+    this.prizesService.setSimplePrize(prizeToAdd).subscribe({
+      next: (savedPrize: CreatePrizeDTO) => {
+        console.log('Prize created successfully!', savedPrize);
+      },
+      error: (err: any) => {
+        console.error('Error creating prize', err);
+      }
+    });
+  }
+
+
+  showModal: boolean = false
+
+  open(): void {
+    this.showModal = true;
+  }
 }
