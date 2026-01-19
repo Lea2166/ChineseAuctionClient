@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { SignInDTO, LogInDTO, ResponseUserDTO } from '../models/user';
+import { SignInDTO, LogInDTO, ResponseUserDTO } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class UserService {
 
   private _user = signal<ResponseUserDTO | null>(null);
   readonly user = computed(() => this._user());
-  readonly token = computed(() => this._user()?.token);
+  readonly token = computed(() => localStorage.getItem('token'));
 
   setUser(user: ResponseUserDTO) {
     this._user.set(user)

@@ -7,6 +7,13 @@ export interface DonorReadDTO {
   phoneNumber?: string;
   prizes?: ReadPrizeForDonorsDTO[];
 }
+export interface DonorCreateDTO {
+  firstName?: string;
+  lastName?: string;
+  address?: string;
+  email?: string;
+  phoneNumber?: string;
+}
 
 export interface DonorForReadPrizesDTO {
   firstName?: string;

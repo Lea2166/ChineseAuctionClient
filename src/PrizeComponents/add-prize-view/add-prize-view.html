@@ -2,6 +2,7 @@
 
 <nz-drawer [nzBodyStyle]="{ overflow: 'auto' }" [nzMaskClosable]="false" [nzWidth]="720" [nzVisible]="visible"
     nzTitle="Create New Prize" [nzFooter]="footerTpl" (nzOnClose)="close()">
+    
     <form nz-form *nzDrawerContent>
         <div nz-row [nzGutter]="8">
             <div nz-col nzSpan="12">
@@ -28,6 +29,9 @@
                     <nz-form-label nzRequired>Donor</nz-form-label>
                     <nz-form-control>
                         <nz-select nzPlaceHolder="Select donor" [(ngModel)]="prizeData.donorId" name="donorId">
+                            @for (donor of donors(); track donor.id) {
+                                <nz-option [nzValue]="donor.id" [nzLabel]="donor.firstName || ''"></nz-option>
+                            }
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -37,6 +41,9 @@
                     <nz-form-label nzRequired>Category</nz-form-label>
                     <nz-form-control>
                         <nz-select nzPlaceHolder="Select category" [(ngModel)]="prizeData.categoryId" name="categoryId">
+                            @for (category of categories(); track category.id) {
+                                <nz-option [nzValue]="category.id" [nzLabel]="category.name"></nz-option>
+                            }
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>

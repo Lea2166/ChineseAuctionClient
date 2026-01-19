@@ -8,7 +8,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpinModule, NzSpinComponent } from 'ng-zorro-antd/spin';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { UserService } from '../../../services/user';
-import { LogInDTO } from '../../../models/user';
+import { LogInDTO } from '../../../models/User';
 import { finalize } from 'rxjs';
 
 @Component({

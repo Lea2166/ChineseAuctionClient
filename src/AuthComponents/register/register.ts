@@ -14,7 +14,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { SignInDTO } from '../../../models/user';
+import { SignInDTO } from '../../../models/User';
 
 @Component({
   selector: 'app-register',

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output, OnInit } from '@angular/core'; // 1. השתמשי רק ב-input (סיגנל)
 import { CreatePrizeDTO } from '../../../models/Prize';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -10,17 +10,23 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { FormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from 'ng-zorro-antd/upload';
+import { DonorReadDTO } from '../../../models/Donor';
 
 @Component({
   selector: 'app-add-prize-view',
-
-  imports: [NzDrawerModule, NzFormModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule],
+  standalone: true, 
+  imports: [
+    NzDrawerModule, NzFormModule, NzSelectModule, 
+    NzDatePickerModule, NzGridModule, NzInputModule, 
+    NzButtonModule, FormsModule, NzIconModule, NzUploadModule
+  ],
   templateUrl: './add-prize-view.html',
   styleUrl: './add-prize-view.scss',
 })
-export class AddPrizeView {
+export class AddPrizeView implements OnInit {
   visible = false;
-fileList: NzUploadFile[] = [];
+  fileList: NzUploadFile[] = [];
+  
   prizeData: CreatePrizeDTO = {
     name: '',
     qty: 1,
@@ -31,8 +37,15 @@ fileList: NzUploadFile[] = [];
   };
 
   @Output() add = new EventEmitter<CreatePrizeDTO>();
-  @Input() donors: { id: number; name: string }[] = [];
-  @Input() categories: { id: number; name: string }[] = [];
+
+  donors = input<DonorReadDTO[]>([]);
+  categories = input<{ id: number; name: string }[]>([]);
+
+  ngOnInit(): void {
+    console.log('Donors received:', this.donors());
+    console.log('Categories received:', this.categories());
+  }
+
   open(): void {
     this.visible = true;
   }
@@ -43,9 +56,7 @@ fileList: NzUploadFile[] = [];
 
   submitForm(): void {
     this.add.emit(this.prizeData);
-    
     this.close();
-    
     this.resetForm();
   }
 
@@ -58,10 +69,12 @@ fileList: NzUploadFile[] = [];
       description: '',
       imagePath: ''
     };
+    this.fileList = []; 
   }
+
   handleUploadChange(info: NzUploadChangeParam): void {
-  if (info.file.status === 'done') {
-    this.prizeData.imagePath = info.file.response.dbPath;
+    if (info.file.status === 'done') {
+      this.prizeData.imagePath = info.file.response.dbPath;
+    }
   }
-}
 }
