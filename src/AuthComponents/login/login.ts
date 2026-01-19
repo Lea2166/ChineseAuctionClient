@@ -6,7 +6,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { UserService } from '../../../services/user';
-import { LogInDTO } from '../../../models/user';
+import { LogInDTO } from '../../../models/User';
 import { finalize } from 'rxjs';
 
 @Component({
