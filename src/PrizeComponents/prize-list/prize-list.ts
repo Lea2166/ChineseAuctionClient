@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, SimpleChanges } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzListModule } from 'ng-zorro-antd/list';
@@ -16,14 +16,18 @@ import { CommonModule } from '@angular/common';
 
 export class PrizeList {
   public prizesService: PrizesService = inject(PrizesService);
+
+
   ngOnInit() {
     this.prizesService.getAllPrizes().subscribe({
       next: prizes => {
-        this.prizesService.setAllPrizes(prizes)
+        this.prizesService.setAllPrizes([...prizes])
+        
       },
       error: (err: any) => {
         console.error('error fetch prizes', err);
       }
     })
   }
+
 }

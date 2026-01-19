@@ -32,8 +32,18 @@ export class AddPrize {
 
   handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
     this.prizesService.setSimplePrize(prizeToAdd,this.UserService.token()).subscribe({
-      next: (savedPrize: CreatePrizeDTO) => {
-        console.log('Prize created successfully!', savedPrize);
+      next: () => {
+        console.log("donor added successfully");
+        this.prizesService.getAllPrizes().subscribe({
+          next: prizes => {
+            this.prizesService.setAllPrizes([...prizes]);
+            
+          },
+          error: (err: any) => {
+            console.error('error fetch donors', err);
+          }
+        })
+
       },
       error: (err: any) => {
         console.error('Error creating prize', err);
