@@ -16,6 +16,7 @@ export class GettAllPackages {
   public UserService = inject(UserService);
 
   public packages: ReadPackageDTO[] | [] = [];
+
   ngOnInit() {
     this.packagesService.getAllPackages().subscribe({
       next: packages => {
@@ -27,6 +28,8 @@ export class GettAllPackages {
       }
     })
   }
+
+  
   deletePackage(id: number) {
     this.packagesService.deletePackage(id, this.UserService.token()).subscribe({
       next: () => {

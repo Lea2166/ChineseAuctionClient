@@ -17,16 +17,16 @@ export class PrizesService {
   private _simplePrize = signal<CreatePrizeDTO | null>(null);
   readonly simplePrize = computed(() => this._simplePrize());
 
-  private _prize = signal<ReadPrizeDTO | null>(null);
-  readonly prize = computed(() => this._prize());
+  // private _prize = signal<ReadPrizeDTO | null>(null);
+  // readonly prize = computed(() => this._prize());
 
   setAllPrizes(prizes: ReadPrizeDTO[]): void {
     this._prizes.set(prizes)
   }
 
-  setPrize(prize: ReadPrizeDTO) {
-    this._prize.set(prize)
-  }
+  // setPrize(prize: ReadPrizeDTO) {
+  //   this._prize.set(prize)
+  // }
 
   getAllPrizes(): Observable<ReadPrizeDTO[]> {
     return this.http.get<ReadPrizeDTO[]>(`${this.apiUrl}`).pipe(
@@ -43,8 +43,18 @@ export class PrizesService {
   }
 
   getOnePrize(id: number): Observable<ReadPrizeDTO> {
-    return this.http.get<ReadPrizeDTO>(`${this.apiUrl}/${id}`).pipe(
-      tap((prize: ReadPrizeDTO) => this._prize.set(prize)))
+    return this.http.get<ReadPrizeDTO>(`${this.apiUrl}/${id}`)
+    // .pipe(
+    //   tap((prize: ReadPrizeDTO) => this._prize.set(prize)))
+  }
+
+  addPrize(prize: CreatePrizeDTO, token: string | undefined | null) {
+    if (token === null || token === undefined) {
+      console.log("in PrizeService.addPrize: token is undefined");
+      throw new Error("in PrizeService.addPrize: token is undefined")
+
+    }
+    return this.http.post<number>(`${this.apiUrl}`, prize, { headers: { Authorization: "Bearer " + token } })
   }
 
   setSimplePrize(prize: CreatePrizeDTO, token: string | null): Observable<CreatePrizeDTO> {
