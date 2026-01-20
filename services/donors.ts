@@ -34,10 +34,6 @@ export class DonorsService {
       tap((donors: DonorReadDTO[]) => this._donors.set(donors)))
   }
 
-  // getOnedonor(id: number, token: string): Observable<DonorReadDTO> {
-  //   return this.http.get<DonorReadDTO>(`${this.apiUrl}/${id}`, { headers: { Authorization: "Bearer " + token } }).pipe(
-  //     tap((donor: DonorReadDTO) => this._donor.set(donor)))
-  // }
 
   addDonor(donor: DonorCreateDTO, token: string | undefined | null) {
     if (token === null || token === undefined) {
