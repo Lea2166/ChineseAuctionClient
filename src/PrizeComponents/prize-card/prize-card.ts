@@ -7,10 +7,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UpdatePrize } from "../update-prize/update-prize";
 import { NzModalModule } from "ng-zorro-antd/modal";
+import { DeletePrize } from "../delete-prize/delete-prize";
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 @Component({
   selector: 'app-prize-card',
-  imports: [NzAvatarModule, NzCardModule, NzIconModule, CommonModule, UpdatePrize, NzModalModule],
+  imports: [NzAvatarModule, NzCardModule, NzIconModule, CommonModule,NzPopconfirmModule, UpdatePrize, NzModalModule, DeletePrize],
   templateUrl: './prize-card.html',
   styleUrl: './prize-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
