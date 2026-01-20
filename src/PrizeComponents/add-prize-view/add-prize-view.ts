@@ -16,14 +16,13 @@ import { NzDividerModule } from "ng-zorro-antd/divider";
 import { DonorReadDTO } from '../../../models/Donor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NonNullAssert } from '@angular/compiler';
-import { log } from 'ng-zorro-antd/core/logger';
 import { Category } from '../../../models/PackageOrderCart';
 import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-prize-view',
 
-  imports: [NzDrawerModule, AsyncPipe, NzFormModule, ReactiveFormsModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
+  imports: [NzDrawerModule, NzFormModule, NzButtonModule, ReactiveFormsModule, NzSelectModule, NzDatePickerModule, NzGridModule, NzInputModule, NzButtonModule, FormsModule, NzIconModule, NzUploadModule, NzModalModule, NzDividerModule],
   templateUrl: './add-prize-view.html',
   styleUrl: './add-prize-view.scss',
 })
@@ -31,6 +30,7 @@ export class AddPrizeView {
   private fb = inject(NonNullableFormBuilder);
 
   fileList: NzUploadFile[] = [];
+
   prizeData = this.fb.group({
     name: this.fb.control('', [Validators.required]),
     qty: this.fb.control(1, [Validators.required, Validators.min(1)]),
@@ -87,6 +87,8 @@ export class AddPrizeView {
     });
     this.fileList = [];
   }
+
+
   ngOnInit(): void {
     console.log(this.donors);
   }

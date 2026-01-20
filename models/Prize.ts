@@ -25,6 +25,17 @@ export interface ReadPrizeDTO {
   numOfTickets:number;
 }
 
+export interface UpdatePrizeDTO {
+  id: number;
+  name?: string;
+  description?: string;
+  donor?: DonorForReadPrizesDTO;
+  category?: CategoryDTOWithId;
+  imagePath?: string;
+  qty: number;
+  
+}
+
 export interface ReadSimplePrizeDTO {
   id: number;
   name: string;

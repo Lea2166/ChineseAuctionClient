@@ -1,20 +1,36 @@
-<nz-card [nzCover]="coverTemplate" (click)="navigate()" [style.cursor]="'pointer'"
- [nzActions]="[actionSetting, actionEdit, actionEllipsis]" class="custom-card">
-  <nz-card-meta  [nzTitle]="prize?.name||null" [nzDescription]="prize?.description||null"></nz-card-meta>
+<nz-card [nzCover]="coverTemplate" [style.cursor]="'pointer'" [nzActions]="[actionSetting, actionEdit, actionEllipsis]"
+  class="custom-card">
+  <nz-card-meta (click)="navigate()" [nzTitle]="prize?.name||null"
+    [nzDescription]="prize?.description||null"></nz-card-meta>
 </nz-card>
 
-<ng-template #coverTemplate class="card-image-container" >
-  <img alt="example" src="assets/win.jpg" />
+<ng-template #coverTemplate class="card-image-container">
+  <img src="https://localhost:7156/{{prize?.imagePath}}" loading="lazy" alt=""
+    style="width: 100%; height: 200px; object-fit: cover;" />
 </ng-template>
 
-<ng-template #actionSetting> 
-  <nz-icon nzType="setting" />
+<ng-template #actionSetting>
+    <app-delete-prize [id]="prize?.id" />
 </ng-template>
+
 
 <ng-template #actionEdit>
-  <nz-icon nzType="edit" />
+  <nz-icon nzType="edit" (click)="open(prize)" />
 </ng-template>
 
 <ng-template #actionEllipsis>
-  <nz-icon nzType="ellipsis" />
+  <nz-icon nzType="shopping-cart" nzTheme="outline" />
 </ng-template>
+
+
+
+
+
+<nz-modal [(nzVisible)]="showModal" (nzOnCancel)="showModal = false" [nzFooter]="null" nzTitle='Update Prize'>
+  <ng-container *nzModalContent>
+    @if (showModal) {
+    <app-update-prize [prize]="prize" [visible]="showModal" (requestClose)="showModal=false" />
+
+    }
+  </ng-container>
+</nz-modal>

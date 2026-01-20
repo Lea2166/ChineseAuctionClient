@@ -1,4 +1,4 @@
-import { Component, inject, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, SimpleChanges } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzListModule } from 'ng-zorro-antd/list';
@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
   imports: [NzCardModule, NzGridModule, NzListModule, PrizeCard,CommonModule],
   templateUrl: './prize-list.html',
   styleUrl: './prize-list.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class PrizeList {
