@@ -30,7 +30,7 @@ export interface DonorUpdateDTO {
 
 
 export interface DonorForReadPrizesDTO {
-  Id: number;
+  id: number;
   firstName?: string;
   lastName?: string;
   company?: string

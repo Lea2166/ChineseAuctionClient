@@ -22,6 +22,7 @@ import { Category } from '../../../models/PackageOrderCart';
   styleUrl: './add-prize.scss',
 })
 export class AddPrize {
+  
   public UserService = inject(UserService);
   public donorsService = inject(DonorsService);
   public prizesService: PrizesService = inject(PrizesService);

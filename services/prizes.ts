@@ -1,7 +1,7 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { PrizeForWinnerDTO, ReadSimplePrizeDTO, ReadPrizeDTO, CreatePrizeDTO, CategoryDTOWithId } from '../models/Prize';
+import { PrizeForWinnerDTO, ReadSimplePrizeDTO, ReadPrizeDTO, CreatePrizeDTO, CategoryDTOWithId, UpdatePrizeDTO } from '../models/Prize';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +29,14 @@ export class PrizesService {
   getAllPrizes(): Observable<ReadPrizeDTO[]> {
     return this.http.get<ReadPrizeDTO[]>(`${this.apiUrl}`).pipe(
       tap((prizes: ReadPrizeDTO[]) => this._prizes.set(prizes)))
+  }
+  updatePrize(prize:UpdatePrizeDTO, token:string|null):Observable<number>{
+     if (token === null || token === undefined) {
+      console.log("in DonorsService.updateDonor: token is undefined");
+      throw new Error("in DonorsService.updateDonor: token is undefined")
+
+    }
+    return this.http.put<number>(`${this.apiUrl}/${prize.id}`, prize , { headers: { Authorization: "Bearer " + token } })
   }
 
   getOnePrize(id: number): Observable<ReadPrizeDTO> {
