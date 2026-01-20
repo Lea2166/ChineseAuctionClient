@@ -5,12 +5,13 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { DonorsService } from '../../../services/donors';
 import { UserService } from '../../../services/user';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { DeletePrize } from "../../PrizeComponents/delete-prize/delete-prize";
 
 
 
 @Component({
   selector: '[app-update-donor]',
-  imports: [FormsModule, NzPopconfirmModule, NzButtonModule,NzPopconfirmModule],
+  imports: [FormsModule, NzPopconfirmModule, NzButtonModule, NzPopconfirmModule, DeletePrize],
   templateUrl: './update-donor.html',
   styleUrl: './update-donor.scss',
 })
