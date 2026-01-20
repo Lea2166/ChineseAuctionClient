@@ -35,7 +35,5 @@ export class DeletePrize {
   }
 
 }
-function next(arg0: (prizes: any) => any): Partial<import("rxjs").Observer<number>> | ((value: number) => void) | undefined {
-  throw new Error('Function not implemented.');
-}
+
 
