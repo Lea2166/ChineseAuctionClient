@@ -1,0 +1,20 @@
+<nz-table #headerTable [nzData]="orders" [nzBordered]="true" [nzPageSize]="50" [nzPageSize]="10" [nzScroll]="{ y: '240px' }">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>Order Date</th>
+          <th>Price</th>
+          <th>More Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders; track order.id) {
+          <tr>
+            <td>{{ order.user?.name}}</td>
+            <td>{{ order.orderDate }}</td>
+            <td>{{ order.totalPrice }} $</td>
+            <td></td>
+          </tr>
+        }
+      </tbody>
+    </nz-table>

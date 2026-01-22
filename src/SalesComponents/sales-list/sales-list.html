@@ -1,1 +1,6 @@
-<p>sales-list works!</p>
+
+
+@if (salesService.orders().length > 0) {
+<app-sales-list-view [orders]="salesService.orders()" />
+} @else {
+<nz-spin nzSimple></nz-spin> }

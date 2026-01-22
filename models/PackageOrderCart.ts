@@ -14,6 +14,7 @@ export interface CreatePackageDTO {
 }
 
 export interface ReadOrderDTO {
+  id:number;
   user: ReadUserDTO;
   prizes: ReadSimplePrizeDTO[];
   orderDate: Date;
