@@ -11,13 +11,13 @@ export class Packages {
   getPackage() {
     return this.http.get(this.apiUrl);
   }
-  addPackage(pkg: any,token: string|null) {
-    return this.http.post(this.apiUrl, pkg,{ headers: { Authorization: "Bearer " + token } });
+  addPackage(pkg: any, token: string | null) {
+    return this.http.post(this.apiUrl, pkg, { headers: { Authorization: "Bearer " + token } });
   }
-  deletePackage(id: number,token: string|null) {
-    return this.http.delete(`${this.apiUrl}/${id}`,{ headers: { Authorization: "Bearer " + token } });
+  deletePackage(id: number, token: string | null) {
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers: { Authorization: "Bearer " + token } });
   }
-  updatePackage(id: number, pkg: any,token: string|null) {
-    return this.http.put(`${this.apiUrl}/${id}`, pkg,{ headers: { Authorization: "Bearer " + token } });
+  updatePackage(id: number, pkg: any, token: string | null) {
+    return this.http.put(`${this.apiUrl}/${id}`, pkg, { headers: { Authorization: "Bearer " + token } });
   }
 }
