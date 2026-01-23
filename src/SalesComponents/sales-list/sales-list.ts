@@ -19,12 +19,13 @@ export class SalesList {
       next: orders => {
         this.salesService.setAllOrders([...orders])
         console.log(this.salesService.orders());
-        
-
+      
       },
       error: (err: any) => {
         console.error('error fetch prizes', err);
       }
     })
   }
+
+  
 }
