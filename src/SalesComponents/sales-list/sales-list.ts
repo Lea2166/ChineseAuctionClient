@@ -3,6 +3,7 @@ import { SalesService } from '../../../services/sales'
 import { UserService } from '../../../services/user';
 import { SalesListView } from '../sales-list-view/sales-list-view';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { OrderQParams } from '../../../models/Filters';
 
 @Component({
   selector: 'app-sales-list',
@@ -14,8 +15,9 @@ export class SalesList {
   public salesService: SalesService = inject(SalesService);
   public userService: UserService = inject(UserService)
 
+
   ngOnInit() {
-    this.salesService.getAllOrders(this.userService.token()).subscribe({
+    this.salesService.getAllOrders(this.userService.token(),{}).subscribe({
       next: orders => {
         this.salesService.setAllOrders([...orders])
         console.log(this.salesService.orders());

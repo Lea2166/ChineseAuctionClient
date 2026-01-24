@@ -4,9 +4,16 @@
   margin: 0 auto;    
   background-color: #f0f2f5; 
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
-
+.filters-section{
+  background: #ffffff;
+  padding: 16px;      
+  border-radius: 8px; 
+}
 .table-section {
   background: #ffffff;
   padding: 16px;      

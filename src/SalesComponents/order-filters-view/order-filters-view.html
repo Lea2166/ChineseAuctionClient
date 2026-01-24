@@ -1,0 +1,33 @@
+<div class="content">
+
+    <nz-space nzWrap [nzSize]="'middle'">
+
+        <nz-date-picker nzFormat="yyyy-MM-dd" nzPlaceHolder="From Date"></nz-date-picker>
+        <nz-date-picker #endDatePicker nzFormat="yyyy-MM-dd" nzPlaceHolder="To Date"></nz-date-picker>
+        <button *nzSpaceItem nz-button nzType="primary">Cancel Filters</button>
+        <button nz-button nz-popover nzType="default" [nzPopoverContent]="priceTemplate" nzPopoverTrigger="click"
+            nzPopoverPlacement="bottomLeft">
+            <i nz-icon nzType="filter"></i>
+            price: {{ priceRange[0] }}$ - {{ priceRange[1] }}$
+            <i nz-icon nzType="down"></i>
+        </button>
+
+        <ng-template #priceTemplate>
+            <div style="width: 300px; padding: 10px;">
+                <div nz-row nzJustify="space-between" style="margin-bottom: 10px;">
+                    <span nz-typography><strong></strong>Prices Range </span>
+                    <span nz-typography nzType="secondary">$0 - $999</span>
+                </div>
+
+                <nz-slider nzRange [nzMin]="0" [nzMax]="999" [(ngModel)]="priceRange"
+                    (ngModelChange)="onPriceChange($event)">
+                </nz-slider>
+
+                <div nz-row nzJustify="end" style="margin-top: 15px;">
+                    <button nz-button nzSize="small" nzType="primary" (click)="applyFilter()">Apply</button>
+                </div>
+            </div>
+        </ng-template>
+    </nz-space>
+
+</div>

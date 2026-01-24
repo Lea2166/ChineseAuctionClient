@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { ReadOrderDTO, ReadSimpleOrderDTO } from '../models/PackageOrderCart'
 import { Observable, tap } from 'rxjs';
+import { OrderQParams } from '../models/Filters'
+import qs from 'qs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +29,10 @@ export class SalesService {
 
 
 
-  getAllOrders(token: string | null): Observable<ReadSimpleOrderDTO[]> {
-    return this.http.get<ReadSimpleOrderDTO[]>(`${this.apiUrl}`, { headers: { Authorization: "Bearer " + token } }).pipe(
+  getAllOrders(token: string | null, orderQParams: OrderQParams): Observable<ReadSimpleOrderDTO[]> {
+    const queryString = qs.stringify(orderQParams, { allowDots: true, skipNulls: true });
+    const params = new HttpParams({ fromString: queryString });
+    return this.http.get<ReadSimpleOrderDTO[]>(`${this.apiUrl}`, { headers: { Authorization: "Bearer " + token }, params }).pipe(
       tap((orders: ReadSimpleOrderDTO[]) => this._orders.set(orders)))
   }
 
