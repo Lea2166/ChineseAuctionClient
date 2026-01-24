@@ -35,7 +35,7 @@ export class AddPrizeView {
     name: this.fb.control('', [Validators.required]),
     qty: this.fb.control(1, [Validators.required, Validators.min(1)]),
     donorId: this.fb.control(0, [Validators.required]),
-    categoryId: this.fb.control(1),
+    categoryIds: this.fb.control([1]),
     description: this.fb.control('', [Validators.required]),
     imagePath: this.fb.control(''),
   });
@@ -81,7 +81,7 @@ export class AddPrizeView {
       name: this.fb.control('', [Validators.required]),
       qty: this.fb.control(1, [Validators.required, Validators.min(1)]),
       donorId: this.fb.control(0, [Validators.required]),
-      categoryId: this.fb.control(1),
+      categoryIds: this.fb.control([1]),
       description: this.fb.control('', [Validators.required]),
       imagePath: this.fb.control(''),
     });

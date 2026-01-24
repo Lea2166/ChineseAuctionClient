@@ -8,7 +8,6 @@ import { Category } from "../../../models/PackageOrderCart";
 import { ReadPrizeDTO, UpdatePrizeDTO } from "../../../models/Prize";
 import { NzUploadChangeParam, NzUploadFile, NzUploadModule } from "ng-zorro-antd/upload";
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Subject } from "rxjs";
 import { NzModalModule } from "ng-zorro-antd/modal";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { NzSelectModule } from "ng-zorro-antd/select";
@@ -41,12 +40,14 @@ export class UpdatePrize {
 
 
     const cachedDonors = this.donorsService.donors();
+
     if (cachedDonors && cachedDonors.length > 0) {
       this.donors = cachedDonors;
     } else {
       this.donorsService.getAlldonors(this.UserService.token()).subscribe(donors => {
         this.donors = donors;
         this.donorsService.setDonors(donors);
+        this.fillForm()
       });
     }
 
@@ -57,6 +58,7 @@ export class UpdatePrize {
       this.CategoriesService.getAllCategories().subscribe(categories => {
         this.categories = categories;
         this.CategoriesService.setCategories(categories);
+        this.fillForm()
       });
     }
 
@@ -71,8 +73,8 @@ export class UpdatePrize {
     id: [null],
     name: ['', Validators.required],
     qty: [1, [Validators.min(1)]],
-    donorId: [null],
-    categoryId: [null],
+    donorId: [0],
+    categoryIds: [[1]],
     description: [''],
     imagePath: ['']
   });
@@ -83,19 +85,29 @@ export class UpdatePrize {
       changes['visible'] &&
       this.visible &&
       this.prize
+
     ) {
+
       this.prizeData.reset();
-      this.prizeData.patchValue({
-        id: this.prize.id,
-        name: this.prize.name,
-        description: this.prize.description,
-        qty: this.prize.qty,
-        donorId: this.prize.donor?.id,
-        categoryId: this.prize.category?.id,
-        imagePath: this.prize.imagePath
-      });
-    }
+      this.fillForm()}
   }
+
+  private fillForm(): void {
+    if (!this.prize) return;
+    console.log('fill form', this.prize);
+    this.prizeData.reset();
+    this.prizeData.patchValue({
+      id: this.prize.id,
+      name: this.prize.name,
+      description: this.prize.description,
+      qty: this.prize.qty,
+      donorId: this.prize.donor?.id,
+      categoryIds: this.prize.categories?.map(c => Number(c.id)) || [],
+      imagePath: this.prize.imagePath
+    });
+    console.log(this.prizeData.value)
+  }
+
 
 
   submitForm(): void {

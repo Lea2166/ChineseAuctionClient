@@ -1,0 +1,22 @@
+.page-container {
+  padding: 24px;     
+  max-width: 1200px;  
+  margin: 0 auto;    
+  background-color: #f0f2f5; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.filters-section{
+  background: #ffffff;
+  padding: 16px;      
+  border-radius: 8px; 
+}
+.table-section {
+  background: #ffffff;
+  padding: 16px;      
+  border-radius: 8px; 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+}

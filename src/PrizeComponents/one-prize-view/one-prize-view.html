@@ -21,11 +21,12 @@
 
         <div nz-col [nzXs]="24" [nzLg]="12">
             <nz-card class="info-card">
-
-                @if (prize?.category) {
+                @if (prize&&prize?.categories;as categories;) {
+                @for (category of (prize?.categories??[]); track category.id) {
                 <nz-tag nzColor="orange" class="category-tag">
-                    {{ prize?.category?.name }}
+                    {{ category.name }}
                 </nz-tag>
+                }
                 }
 
                 <h1 class="prize-title">{{ prize?.name }}</h1>

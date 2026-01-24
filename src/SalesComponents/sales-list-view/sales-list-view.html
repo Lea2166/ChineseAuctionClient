@@ -1,0 +1,33 @@
+<nz-table #headerTable [nzData]="orders" [nzBordered]="true" [nzPageSize]="50" [nzPageSize]="10"
+    [nzScroll]="{ x: 'max-content', y: '400px' }">
+    <thead>
+        <tr>
+            <th>User Name</th>
+            <th>Order Date</th>
+            <th>Price</th>
+            <th>More Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (order of orders; track order.id) {
+        <tr>
+            <td>{{ order.user?.name}}</td>
+            <td>{{ order.orderDate.toString().split('T')[0]}}</td>
+            <td>{{ order.totalPrice }} $</td>
+            <td><button nz-button nzType="link" (click)="open(order.id)"><nz-icon nzType="edit"
+                        nzTheme="outline" />Details...</button></td>
+        </tr>
+        }
+    </tbody>
+</nz-table>
+
+
+<nz-modal [(nzVisible)]="showModal" (nzOnCancel)="showModal = false" [nzWidth]="800" [nzBodyStyle]="{ padding: '24px' }"
+    [nzFooter]="null" nzTitle="Order Details">
+    <ng-container *nzModalContent>
+        @if (showModal) {
+        <app-one-order [id]="selectedOrderId" [visible]="showModal" (requestClose)="showModal=false" />
+
+        }
+    </ng-container>
+</nz-modal>
