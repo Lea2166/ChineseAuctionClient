@@ -42,9 +42,9 @@
                 </div>
                 <div nz-col nzSpan="12">
                     <nz-form-item>
-                        <nz-form-label nzRequired>Category</nz-form-label>
+                        <nz-form-label nzRequired>Categories</nz-form-label>
                         <nz-form-control nzErrorTip="Prize Category is required">
-                            <nz-select nzPlaceHolder="Select category" formControlName="categoryId">
+                            <nz-select nzPlaceHolder="Select categories" nzMode="multiple" formControlName="categoryIds">
                                 @for(category of categories; track category.id){
                                 <nz-option [nzLabel]="category.name" [nzValue]="category.id"></nz-option>
                                 }
