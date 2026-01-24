@@ -4,6 +4,7 @@ import { SalesService } from '../../../services/sales';
 import { UserService } from '../../../services/user';
 import { OrderQParams } from '../../../models/Filters';
 import { PrizesService } from '../../../services/prizes';
+import { ReadPrizeDTO, ReadSimplePrizeDTO } from '../../../models/Prize';
 
 @Component({
   selector: 'app-order-filters',
@@ -15,16 +16,31 @@ export class OrderFilters {
 
   salesService: SalesService = inject(SalesService);
   userService: UserService = inject(UserService);
-  prizesService:PrizesService=inject(PrizesService)
+  prizesService: PrizesService = inject(PrizesService)
 
+  prizes: ReadPrizeDTO[] = []
 
   
+
+  ngOnInit() {
+
+    const cachedPrizes = this.prizesService.prizes();
+
+    if (cachedPrizes && cachedPrizes.length > 0) {
+      this.prizes = cachedPrizes;
+    } else {
+      this.prizesService.getAllPrizes().subscribe(prizes => {
+        this.prizes = prizes;
+        this.prizesService.setAllPrizes(prizes);
+      });
+    }
+  }
 
   sendFilters(filters: OrderQParams) {
     this.salesService.getAllOrders(this.userService.token(), filters).subscribe({
       next: orders => {
         this.salesService.setAllOrders([...orders])
-        console.log(this.salesService.orders());
+        
 
       },
       error: (err: any) => {
