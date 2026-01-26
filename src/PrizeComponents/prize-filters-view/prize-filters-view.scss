@@ -29,3 +29,15 @@ nz-divider {
    align-items: center;
    width: 90%;
 }
+
+
+.option-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.actions{
+    display: flex;
+    gap:0px;
+}

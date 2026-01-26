@@ -1,14 +1,27 @@
 <div class="filter-container">
   <form nz-form nzLayout="inline" class="filter-form">
 
-    <nz-select nzShowSearch nzAllowClear [nzDropdownRender]="renderTemplate" nzPlaceHolder="filter by category"
+    <nz-select nzShowSearch nzAllowClear [nzMaxTagCount]="1"  [nzDropdownRender]="renderTemplate" nzPlaceHolder="filter by category"
       nzMode="multiple">
       @for (c of categories; track c.id || c.name) {
-      <nz-option [nzLabel]="c.name" [nzValue]="c.id">
+      <nz-option nzCustomContent [nzLabel]="c.name" [nzValue]="c.id"  (click)="$event.stopPropagation()"
+        (mousedown)="$event.stopPropagation()">
+        @if(isAdmin){
+        <div class="option-container">
+          <span>{{ c.name }}</span>
+          <div class="actions">
+            <app-delete-category [id]="c.id" (click)="$event.stopPropagation()" />
+            
+          </div>
+        </div>
+        }
+        @else{
+        {{ c.name }}
+        }
 
 
       </nz-option>
-      <app-delete-category [id]="c.id" />
+
       }
     </nz-select>
     <ng-template #renderTemplate>

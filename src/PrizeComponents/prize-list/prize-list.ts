@@ -6,6 +6,7 @@ import { PrizeCard } from '../prize-card/prize-card';
 import { PrizesService } from '../../../services/prizes'
 import { ReadPrizeDTO } from '../../../models/Prize';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../../services/user';
 
 @Component({
   selector: 'app-prize-list',
@@ -16,8 +17,9 @@ import { CommonModule } from '@angular/common';
 })
 
 export class PrizeList {
-  public prizesService: PrizesService = inject(PrizesService);
+   prizesService: PrizesService = inject(PrizesService);
 
+   userService: UserService = inject(UserService);
 
   ngOnInit() {
     this.prizesService.getAllPrizes().subscribe({

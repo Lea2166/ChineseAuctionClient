@@ -10,12 +10,16 @@
 </ng-template>
 
 <ng-template #actionSetting>
-    <app-delete-prize [id]="prize?.id" />
+  @if(isAdmin){
+  <app-delete-prize [id]="prize?.id" />
+  }
 </ng-template>
 
 
 <ng-template #actionEdit>
+  @if(isAdmin) {
   <nz-icon nzType="edit" (click)="open(prize)" />
+  }
 </ng-template>
 
 <ng-template #actionEllipsis>

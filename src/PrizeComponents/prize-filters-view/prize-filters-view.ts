@@ -8,6 +8,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { AddCategory } from "../../CategoriesComponents/add-category/add-category";
 import { DeleteCategory } from "../../CategoriesComponents/delete-category/delete-category";
 
+
 @Component({
   selector: 'app-prize-filters-view',
   imports: [NzButtonModule, NzSelectModule, NzDividerModule, NzInputModule, NzIconModule, AddCategory, DeleteCategory],
@@ -17,6 +18,7 @@ import { DeleteCategory } from "../../CategoriesComponents/delete-category/delet
 export class PrizeFiltersView {
 
   @Input() categories: Category[] = [];
+  @Input() isAdmin: boolean = false;
 
 
 

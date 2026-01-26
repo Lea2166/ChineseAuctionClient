@@ -25,7 +25,7 @@ export class CategoriesService {
       throw new Error("in CategoriesService.addCategory: token is undefined")
     }
     const category = { name };
-    return this.http.post<Category>(`${this.apiUrl}`, category,{ headers: { Authorization: "Bearer " + token } }).pipe();
+    return this.http.post<Category>(`${this.apiUrl}`, category, { headers: { Authorization: "Bearer " + token } }).pipe();
   }
 
   deleteCategory(id: number, token: string | null): Observable<void> {
@@ -33,7 +33,7 @@ export class CategoriesService {
       console.log("in CategoriesService.deleteCategory: token is undefined");
       throw new Error("in CategoriesService.deleteCategory: token is undefined")
     }
-    return this.http.delete<void>(`${this.apiUrl}/${id}`,{ headers: { Authorization: "Bearer " + token } }).pipe(tap(() => {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`, { headers: { Authorization: "Bearer " + token } }).pipe(tap(() => {
 
       const currentCategories = this._categories();
       const updatedCategories = currentCategories.filter(c => c.id !== id);
@@ -41,12 +41,18 @@ export class CategoriesService {
     }));
   }
 
-  updateCategory(id: number, category: Category, token: string | null): Observable<Category> {
+  updateCategory(category: Category, token: string | null): Observable<Category> {
     if (token == null) {
       console.log("in CategoriesService.updateCategory: token is undefined");
       throw new Error("in CategoriesService.updateCategory: token is undefined")
     }
-    return this.http.put<Category>(`${this.apiUrl}/${id}`, category, { headers: { Authorization: "Bearer " + token } }).pipe();
+    return this.http.put<Category>(`${this.apiUrl}`, category, { headers: { Authorization: "Bearer " + token } }).pipe(
+      tap(() => {
+        const currentCategories = this._categories();
+        this.setCategories([...currentCategories, category]);
+      }));
+
+
   }
 
   setCategories(categories: Category[]): void {
