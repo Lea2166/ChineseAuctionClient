@@ -1,3 +1,5 @@
-<div>
-    
-</div>
+@if(userService.user()?.role == 'Admin'){
+<app-add-package></app-add-package>
+}
+
+<app-gett-all-packages></app-gett-all-packages>

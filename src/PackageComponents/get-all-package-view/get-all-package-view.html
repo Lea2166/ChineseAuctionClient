@@ -1,0 +1,27 @@
+<div class="container-wrapper" style="padding: 30px; background-color: #f0f2f5;">
+  <div nz-row [nzGutter]="[16, 16]">
+    @for(package of packages; track package.id) {
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+        <nz-card 
+          [nzHoverable]="true" 
+          [nzTitle]="titleTemplate" 
+          [nzExtra]="extraTemplate">
+          
+          <div class="card-content">
+            <h2>Tickets Quantity : {{ package.numOfTickets }}</h2>
+            <h4 style="font-weight: bold;">Price: {{ package.price }} $</h4>
+          </div>
+
+        </nz-card>
+
+        <ng-template #titleTemplate>
+          <span style="font-size: 1.1rem; font-weight: 600;">{{ package.name }}</span>
+        </ng-template>
+
+        <ng-template #extraTemplate>
+            <app-delete-package [id]="package.id"></app-delete-package>
+        </ng-template>
+      </div>
+    }
+  </div>
+</div>
