@@ -17,16 +17,16 @@ export class PrizesService {
   private _simplePrize = signal<CreatePrizeDTO | null>(null);
   readonly simplePrize = computed(() => this._simplePrize());
 
-  // private _prize = signal<ReadPrizeDTO | null>(null);
-  // readonly prize = computed(() => this._prize());
+  private _prize = signal<ReadPrizeDTO | null>(null);
+  readonly prize = computed(() => this._prize());
 
   setAllPrizes(prizes: ReadPrizeDTO[]): void {
     this._prizes.set(prizes)
   }
 
-  // setPrize(prize: ReadPrizeDTO) {
-  //   this._prize.set(prize)
-  // }
+  setPrize(prize: ReadPrizeDTO) {
+    this._prize.set(prize)
+  }
 
   getAllPrizes(): Observable<ReadPrizeDTO[]> {
     return this.http.get<ReadPrizeDTO[]>(`${this.apiUrl}`).pipe(
