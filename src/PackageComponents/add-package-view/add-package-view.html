@@ -1,11 +1,13 @@
 <form nz-form class="package-form" [formGroup]="packageForm" (ngSubmit)="submitForm()">
     <nz-form-item>
+        <nz-form-label nzRequired nzFor="name">Package Name</nz-form-label>
         <nz-form-control nzErrorTip="Please input the package name!">
             <input type="text" nz-input formControlName="name" placeholder="Package Name" />
         </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
+        <nz-form-label nzRequired nzFor="numOfTickets">Number of Tickets</nz-form-label>
         <nz-form-control nzErrorTip="Please input number of tickets!">
 
             <input type="number" nz-input formControlName="numOfTickets" placeholder="Number of Tickets" />
@@ -14,6 +16,7 @@
     </nz-form-item>
 
     <nz-form-item>
+        <nz-form-label nzRequired nzFor="price">Price ($)</nz-form-label>
         <nz-form-control nzErrorTip="Please input the price!">
 
             <input type="number" nz-input formControlName="price" placeholder="Price" />

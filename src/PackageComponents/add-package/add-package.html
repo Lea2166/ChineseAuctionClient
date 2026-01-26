@@ -1,5 +1,5 @@
 <button nz-button [nzType]="'primary'" (click)="showModal()"><span>Add Package</span></button>
-<nz-modal [(nzVisible)]="isVisible" [nzFooter]="null" nzTitle="The first Modal" (nzOnCancel)="handleCancel()"
+<nz-modal [(nzVisible)]="isVisible" [nzFooter]="null" nzTitle="Add Package" (nzOnCancel)="handleCancel()"
     (nzOnOk)="handleOk()">
     <ng-container *nzModalContent>
        <app-add-package-view (submitEvent)="submitForm($event)"></app-add-package-view>

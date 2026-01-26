@@ -1,0 +1,10 @@
+@if(userService.user()?.role === 'Admin'){
+<div class="container">
+
+    <input type="text" class="add-item" nz-input #inputElement />
+    <button nz-button nzType="link" class="add-item" (click)="addItem(inputElement)">
+        <nz-icon nzType="plus" />
+        Add Category
+    </button>
+</div>
+}

@@ -41,6 +41,8 @@ export interface CartItemReadDTO {
   prize: ReadSimplePrizeDTO;
   quantity: number;
 }
+
+
 export interface Category {
   id: number;
   name: string;
