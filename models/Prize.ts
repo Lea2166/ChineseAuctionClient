@@ -9,7 +9,7 @@ export interface CreatePrizeDTO {
   name: string;
   description?: string;
   donorId: number;
-  categoryId: number;
+  categoryIds: number[];
   imagePath?: string;
   qty: number;
 }
@@ -19,22 +19,33 @@ export interface ReadPrizeDTO {
   name?: string;
   description?: string;
   donor?: DonorForReadPrizesDTO;
-  category?: CategoryDTOWithId;
+  categories?: CategoryDTOWithId[];
   imagePath?: string;
   qty: number;
-  numOfTickets:number;
+  numOfTickets: number;
+}
+
+export interface UpdatePrizeDTO {
+  id: number;
+  name?: string;
+  description?: string;
+  donor?: DonorForReadPrizesDTO;
+  categoryIds: number[];
+  imagePath?: string;
+  qty: number;
+
 }
 
 export interface ReadSimplePrizeDTO {
   id: number;
   name: string;
-  category?: string;
+  categories?: string[];
   imagePath?: string;
 }
 
 export interface PrizeForWinnerDTO {
   id: number;
   name: string;
-  categoryName?: string;
+  CategoriesNames?: string[];
   imagePath?: string;
 }

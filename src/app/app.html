@@ -18,7 +18,7 @@
           <li nz-menu-item routerLink="/packages" routerLinkActive="ant-menu-item-selected">Packages</li>
           @if(userService.user()?.role){
           <li nz-menu-item routerLink="/donors" routerLinkActive="ant-menu-item-selected">Donors</li>
-          <li nz-menu-item>Sales</li>
+          <li nz-menu-item routerLink="/sales">Sales</li>
           }
 
           <li nz-menu-item><nz-icon nzType="shopping" nzTheme="outline" /></li>
@@ -51,7 +51,7 @@
         <li nz-menu-item routerLink="/prizes" (click)="toggleMobileMenu()">Prizes</li>
         <li nz-menu-item routerLink="/packages" (click)="toggleMobileMenu()">Packages</li>
         <li nz-menu-item routerLink="/donors" (click)="toggleMobileMenu()">Donors</li>
-        <li nz-menu-item (click)="toggleMobileMenu()">Sales</li>
+        <li nz-menu-item routerLink="/sales" (click)="toggleMobileMenu()">Sales</li>
 
         <li nz-menu-item (click)="logout()">Logout</li>
       </ul>

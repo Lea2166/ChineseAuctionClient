@@ -1,0 +1,70 @@
+<div class="order-desc">
+    <div class="admin-panel">
+
+      
+        <div class="admin-header">
+
+            <div class="label">
+                <div>User</div>
+                <div class="value">{{ order?.user?.name }}</div>
+                <div class="muted">{{ order?.user?.email }}</div>
+            </div>
+            <div>
+                <div class="label">Total Price</div>
+                <div class="price">{{ order?.totalPrice | currency:'ILS' }}</div>
+            </div>
+
+            <div>
+                <div class="label">Order Date</div>
+                <div>{{ order?.orderDate | date:'dd/MM/yyyy HH:mm' }}</div>
+            </div>
+
+
+        </div>
+        <nz-divider></nz-divider>
+
+        <div class="admin-grid">
+            <nz-list nzBordered nzSize="small">
+                <nz-list-header>
+                    @if ((order?.packages?.length ?? 0) > 0) {
+                    <span nz-typography><b>Packages</b></span>
+                    } @else {
+                    <span nz-typography nzType="secondary">No Packages Found</span>
+                    }
+                </nz-list-header>
+
+                @for (pkg of order?.packages; track pkg.id) {
+                <nz-list-item>
+                    <div style="display: flex; justify-content:space-around; width: 100%;">
+                        <span style=" width: 50%;">{{ pkg.name }}</span>
+
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <span style=" width: 50%;">{{ pkg.numOfTickets }} Tickets</span>
+                    </div>
+                </nz-list-item>
+                }
+            </nz-list>
+
+            <nz-list nzBordered nzSize="small">
+                <nz-list-header>
+                    @if ((order?.prizes?.length ?? 0) > 0) {
+                    <span nz-typography><b>Prizes</b></span>
+                    } @else {
+                    <span nz-typography nzType="secondary">No Prizes Found</span>
+                    }
+                </nz-list-header>
+
+                @for (prize of order?.prizes; track prize.id) {
+                <nz-list-item>
+                    <div style="display: flex; justify-content:start; width: 100%;">
+                        <span style=" width: 100%;">{{ prize.name }}</span>
+                     
+
+                    </div>
+                </nz-list-item>
+                }
+            </nz-list>
+
+        </div>
+    </div>
+</div>

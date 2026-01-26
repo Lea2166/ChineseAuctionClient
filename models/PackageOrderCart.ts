@@ -14,11 +14,21 @@ export interface CreatePackageDTO {
 }
 
 export interface ReadOrderDTO {
+  id: number;
   user: ReadUserDTO;
   prizes: ReadSimplePrizeDTO[];
   orderDate: Date;
   packages: ReadPackageDTO[];
   totalPrice: number;
+}
+
+export interface ReadSimpleOrderDTO {
+  id: number;
+  user: ReadUserDTO;
+  orderDate: Date;
+  totalPrice: number;
+
+
 }
 
 export interface ReadCartDTO {
@@ -31,7 +41,7 @@ export interface CartItemReadDTO {
   prize: ReadSimplePrizeDTO;
   quantity: number;
 }
-export interface Category{
+export interface Category {
   id: number;
   name: string;
 }

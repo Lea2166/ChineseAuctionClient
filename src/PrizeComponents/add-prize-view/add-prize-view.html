@@ -42,9 +42,9 @@
                 </div>
                 <div nz-col nzSpan="12">
                     <nz-form-item>
-                        <nz-form-label nzRequired>Category</nz-form-label>
+                        <nz-form-label nzRequired>Categories</nz-form-label>
                         <nz-form-control nzErrorTip="Prize Category is required">
-                            <nz-select nzPlaceHolder="Select category" formControlName="categoryId">
+                            <nz-select nzPlaceHolder="Select categories" nzMode="multiple" formControlName="categoryIds">
                                 @for(category of categories; track category.id){
                                 <nz-option [nzLabel]="category.name" [nzValue]="category.id"></nz-option>
                                 }
@@ -71,8 +71,9 @@
                     <nz-form-item>
                         <nz-form-label>Prize Image</nz-form-label>
                         <nz-form-control>
-                            <nz-upload nzType="drag" [nzMultiple]="false" nzAction="https://localhost:7156/upload"
-                                [(nzFileList)]="fileList" nzAccept="image/*" nzListType="picture"
+                            <nz-upload nzType="drag" [nzSize]="500" [nzMultiple]="false"
+                                nzAction="https://localhost:7156/upload" [(nzFileList)]="fileList" nzAccept="image/*"
+                                nzListType="picture" [nzDisabled]="fileList.length >= 1" [nzLimit]="1"
                                 (nzChange)="handleUploadChange($event)">
 
                                 <p class="ant-upload-drag-icon">
@@ -86,8 +87,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button nz-button type="button" (click)="close()">Cancel</button>
-
                 <button nz-button nzType="primary" type="submit" [disabled]="prizeData.invalid">
                     Save Prize
                 </button>
