@@ -10,20 +10,21 @@
 </ng-template>
 
 <ng-template #actionSetting>
-    <app-delete-prize [id]="prize?.id" />
+  @if(isAdmin){
+  <app-delete-prize [id]="prize?.id" />
+  }
 </ng-template>
 
 
 <ng-template #actionEdit>
+  @if(isAdmin) {
   <nz-icon nzType="edit" (click)="open(prize)" />
+  }
 </ng-template>
 
 <ng-template #actionEllipsis>
   <nz-icon nzType="shopping-cart" nzTheme="outline" />
 </ng-template>
-
-
-
 
 
 <nz-modal [(nzVisible)]="showModal" (nzOnCancel)="showModal = false" [nzFooter]="null" nzTitle='Update Prize'>

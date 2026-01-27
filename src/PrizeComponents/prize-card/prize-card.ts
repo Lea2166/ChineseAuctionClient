@@ -21,6 +21,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 export class PrizeCard {
 
   @Input() prize: ReadPrizeDTO | null=null;
+  @Input() isAdmin: boolean = false;
 
   router: Router = inject(Router)
   currentUrl: ActivatedRoute = inject(ActivatedRoute);

@@ -1,3 +1,10 @@
-<div>
-    
+<div class="page-container">
+    <section class="filters-section">
+        @if(userService.user()?.role == 'Admin'){
+        <app-add-package/>
+        }
+    </section>
+    <section class="table-section">
+        <app-gett-all-packages/>
+    </section>
 </div>

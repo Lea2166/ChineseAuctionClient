@@ -1,35 +1,7 @@
 <button nz-button [nzType]="'primary'" (click)="showModal()"><span>Add Package</span></button>
-<nz-modal [(nzVisible)]="isVisible" [nzFooter]="null" nzTitle="The first Modal" (nzOnCancel)="handleCancel()"
+<nz-modal [(nzVisible)]="isVisible" [nzFooter]="null" nzTitle="Add Package" (nzOnCancel)="handleCancel()"
     (nzOnOk)="handleOk()">
     <ng-container *nzModalContent>
-        <form nz-form [formGroup]="packageForm" class="package-form" (ngSubmit)="submitForm()">
-            <nz-form-item>
-                <nz-form-control nzErrorTip="Please input the package name!">
-                    <nz-input-group nzPrefixIcon="tag">
-                        <input type="text" nz-input formControlName="name" placeholder="Package Name" />
-                    </nz-input-group>
-                </nz-form-control>
-            </nz-form-item>
-
-            <nz-form-item>
-                <nz-form-control nzErrorTip="Please input number of tickets!">
-                    <nz-input-group nzPrefixIcon="number">
-                        <input type="number" nz-input formControlName="numOfTickets" placeholder="Number of Tickets" />
-                    </nz-input-group>
-                </nz-form-control>
-            </nz-form-item>
-
-            <nz-form-item>
-                <nz-form-control nzErrorTip="Please input the price!">
-                    <nz-input-group nzPrefixIcon="field-number">
-                        <input type="number" nz-input formControlName="price" placeholder="Price" />
-                    </nz-input-group>
-                </nz-form-control>
-            </nz-form-item>
-
-            <button nz-button class="package-form-button" [nzType]="'primary'" [disabled]="!packageForm.valid">
-                Create Package
-            </button>
-        </form>
+       <app-add-package-view (submitEvent)="submitForm($event)"></app-add-package-view>
     </ng-container>
 </nz-modal>

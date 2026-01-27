@@ -31,9 +31,10 @@ export class AddPrize {
   public categories: Category[] = [];
 
   handleCreatePrize(prizeToAdd: CreatePrizeDTO) {
+    
     this.prizesService.setSimplePrize(prizeToAdd, this.UserService.token()).subscribe({
       next: () => {
-        console.log("donor added successfully");
+        console.log("prize added successfully");
         this.prizesService.getAllPrizes().subscribe({
           next: prizes => {
             this.prizesService.setAllPrizes([...prizes]);

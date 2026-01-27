@@ -13,7 +13,10 @@ export class GetCategories {
   ngOnInit() {
     this.CategoriesService.getAllCategories().subscribe({
       next: categories => {
-        return this.CategoriesService.categories;
+        this.CategoriesService.setCategories([...categories])
+      },
+      error: (err: any) => {
+        console.error('error fetch categories', err);
       }
     });
   }
