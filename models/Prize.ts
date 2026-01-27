@@ -30,7 +30,7 @@ export interface UpdatePrizeDTO {
   name?: string;
   description?: string;
   donor?: DonorForReadPrizesDTO;
-  categoryIds: number[];
+  categoryIds?: number[];
   imagePath?: string;
   qty: number;
 

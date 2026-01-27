@@ -45,6 +45,7 @@
                     <nz-select nzPlaceHolder="Select categories" nzMode="multiple" formControlName="categoryIds">
                         @for(category of categories; track category.id){
                         <nz-option [nzLabel]="category.name" [nzValue]="category.id"></nz-option>
+
                         }
                     </nz-select>
                 </nz-form-control>

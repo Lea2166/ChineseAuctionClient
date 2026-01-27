@@ -94,7 +94,7 @@ export class UpdatePrize {
 
   private fillForm(): void {
     if (!this.prize) return;
-    console.log('fill form', this.prize);
+    
     this.prizeData.reset();
     this.prizeData.patchValue({
       id: this.prize.id,
@@ -105,17 +105,16 @@ export class UpdatePrize {
       categoryIds: this.prize.categories?.map(c => Number(c.id)) || [],
       imagePath: this.prize.imagePath
     });
-    console.log(this.prizeData.value)
+   
   }
-
-
+  
 
   submitForm(): void {
 
     if (this.prizeData.valid) {
       this.prizesService.updatePrize(this.prizeData.value as UpdatePrizeDTO, this.UserService.token()).subscribe({
         next: () => {
-          console.log("prize updated successfully");
+          console.log("prize updated successfully", this.prizeData.value);
           this.prizesService.getAllPrizes().subscribe({
             next: prizes => {
               this.prizesService.setAllPrizes([...prizes]);
@@ -141,7 +140,7 @@ export class UpdatePrize {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
         }
-        console.log(control);
+        
 
       })
   }
