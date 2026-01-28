@@ -1,0 +1,31 @@
+.edit-modal-container {
+  padding: 12px 8px; // מוסיף אוויר מסביב לכל הטופס
+
+  nz-form-item {
+    margin-bottom: 20px; // רווח בין שורות בטופס
+  }
+
+  nz-form-label {
+    padding-bottom: 6px; // רווח בין הכותרת לשדה הקלט
+    
+    label {
+      font-weight: 600; // הופך את הכותרות לקריאות יותר
+      color: #555;
+    }
+  }
+
+  // עיצוב אחיד לכל שדות הקלט
+  input.nz-input, 
+  nz-input-number {
+    width: 100% !important; // שהמספר יתפרס על כל העמודה שלו
+    border-radius: 6px;     // פינות עגולות ונעימות
+    height: 38px;
+  }
+
+  // צבע כתום בפוקוס (כמו המותג שלך)
+  .ant-input:focus, 
+  .ant-input-number-focused {
+    border-color: #ff6e40;
+    box-shadow: 0 0 0 2px rgba(255, 110, 64, 0.1);
+  }
+}
