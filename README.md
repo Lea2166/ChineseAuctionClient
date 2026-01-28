@@ -1,59 +1,41 @@
-# ChineseAuctionClient
+# Chinese Auction Client
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+This is a Chinese Auction Management System built with Angular. The application provides a seamless and interactive experience for users to browse prize packages, purchase tickets, and participate in raffles.
 
-## Development server
+🚧 This project is currently under active development. 
+ Expect breaking changes and incomplete features
 
-To start a local development server, run:
+This project is the frontend client built with Angular. It communicates with a REST API in the following link:
+[Backend Repository](https://github.com/naama-git/chinese-auction-api.git))
 
-```bash
-ng serve
-```
+## Key Features
+### User Experience & Catalog
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- [x] Dynamic Prize Catalog: Browse and filter prizes by categories and contributors with a interactive UI.
 
-## Code scaffolding
+-  Advanced Shopping Cart: Manage ticket selections with a persistent cart system and a seamless checkout process.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- [x] Secure Authentication: User registration and login system for a personalized experience.
 
-```bash
-ng generate component component-name
-```
+### Admin & Management
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- [x] Full CRUD Management: Complete control over prizes, donors, categories, and ticket packages.
 
-```bash
-ng generate --help
-```
+- [x] Role-Based Access Control (RBAC): Granular permissions for viewing sensitive data like orders and contributor lists.
 
-## Building
+- Automated Raffle Engine: Tools for conducting draws and generating instant winner announcements.
 
-To build the project run:
+- Financial Analytics: Detailed reporting on raffle revenue, ticket sales, and prize distribution.
 
-```bash
-ng build
-```
+## Screenshots
+<details>
+  <summary>Click to see more screenshots</summary>
+  
+  #### Prize View
+  <img src="screenshots/prizes.png" width="600">
+  
+  #### Checkout Process
+  <img src="screenshots/cart.png" width="600">
+</details>
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
