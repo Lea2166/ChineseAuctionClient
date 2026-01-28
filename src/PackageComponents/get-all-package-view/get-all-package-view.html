@@ -1,27 +1,65 @@
 <div class="container-wrapper" style="padding: 30px; background-color: #f0f2f5;">
   <div nz-row [nzGutter]="[16, 16]">
     @for(package of packages; track package.id) {
-      <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-        <nz-card 
-          [nzHoverable]="true" 
-          [nzTitle]="titleTemplate" 
-          [nzExtra]="extraTemplate">
-          
-          <div class="card-content">
-            <h2>Tickets Quantity : {{ package.numOfTickets }}</h2>
-            <h4 style="font-weight: bold;">Price: {{ package.price }} $</h4>
-          </div>
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+      <nz-card [nzHoverable]="true" [nzTitle]="titleTemplate" [nzExtra]="extraTemplate">
 
-        </nz-card>
+        <div class="card-content">
+          <h2>Tickets Quantity : {{ package.numOfTickets }}</h2>
+          <h4 style="font-weight: bold;">Price: {{ package.price }} $</h4>
+        </div>
 
-        <ng-template #titleTemplate>
-          <span style="font-size: 1.1rem; font-weight: 600;">{{ package.name }}</span>
-        </ng-template>
+      </nz-card>
 
-        <ng-template #extraTemplate>
-            <app-delete-package [id]="package.id"></app-delete-package>
-        </ng-template>
-      </div>
-    }
+      <ng-template #titleTemplate>
+        <span style="font-size: 1.1rem; font-weight: 600;">{{ package.name }}</span>
+      </ng-template>
+
+      <ng-template #extraTemplate>
+        <app-delete-package [id]="package.id"></app-delete-package>
+        <button nz-button nzType="primary" nzShape="circle" (click)="editPackage(package)">
+          <span nz-icon nzType="edit"></span>
+        </button>
+      </ng-template>
+      <ng-template #editTemplate>
+        <div class="edit-modal-container">
+          <form [formGroup]="editForm" nz-form nzLayout="vertical">
+            <div nz-row [nzGutter]="16">
+              <div nz-col [nzSpan]="12">
+
+                <nz-form-item>
+                  <nz-form-label nzRequired>Package name</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName="name" placeholder="For example: Premium Package" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+            <div nz-row [nzGutter]="16">
+              <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                  <nz-form-label nzRequired>Tickets amount</nz-form-label>
+                  <nz-form-control>
+                    <nz-input-number formControlName="numOfTickets" [nzMin]="1"></nz-input-number>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <div nz-col [nzSpan]="12">
+                <nz-form-item>
+                  <nz-form-label nzRequired>Price ($)</nz-form-label>
+                  <nz-form-control>
+                    <nz-input-number formControlName="price" [nzMin]="0" [nzFormatter]="formatterDollar"
+                      [nzParser]="parserDollar">
+                    </nz-input-number>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </ng-template>
+    </div>}
   </div>
 </div>
