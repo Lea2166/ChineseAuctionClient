@@ -25,7 +25,7 @@ export class AddDonor {
       next: () => {
         console.log("donor added successfully");
 
-        this.donorsService.getAlldonors(this.userService.token()).subscribe({
+        this.donorsService.getAlldonors(this.userService.token(), {}).subscribe({
           next: donors => {
             this.donorsService.setDonors([...donors]);
             this.showModal = false;

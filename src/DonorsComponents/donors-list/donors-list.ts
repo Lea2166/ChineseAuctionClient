@@ -16,7 +16,7 @@ export class DonorsList {
   public userService: UserService = inject(UserService);
 
   ngOnInit() {
-    this.donorsService.getAlldonors(this.userService.token()).subscribe({
+    this.donorsService.getAlldonors(this.userService.token(), {}).subscribe({
       next: donors => {
         this.donorsService.setDonors([...donors])
       },

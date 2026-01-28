@@ -10,6 +10,7 @@ import { ReadPrizeDTO } from '../../../models/Prize';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { ReadPackageDTO } from '../../../models/PackageOrderCart';
 
 @Component({
   selector: 'app-order-filters-view',
@@ -31,6 +32,7 @@ export class OrderFiltersView {
   });
 
   @Input() prizes: ReadPrizeDTO[] = []
+  @Input() packages:ReadPackageDTO[] = []
 
   @Output() filtersRequest = new EventEmitter<OrderQParams>()
 

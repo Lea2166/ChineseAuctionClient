@@ -1,31 +1,19 @@
-
-
-
 <div class="filter-container">
   <form nz-form [formGroup]="filters" (ngSubmit)="applyFilters()" nzLayout="inline" class="filter-form">
-    
+
     <nz-form-item>
       <nz-form-control>
-        <nz-range-picker 
-          formControlName="orderDate" 
-          [nzPlaceHolder]="['From', 'To']"
-          nzFormat="yyyy-MM-dd">
+        <nz-range-picker formControlName="orderDate" [nzPlaceHolder]="['From', 'To']" nzFormat="yyyy-MM-dd">
         </nz-range-picker>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-control>
-        <nz-select 
-          class="filter-select" 
-          [nzMaxTagCount]="1" 
-          nzShowSearch 
-          nzAllowClear
-          nzPlaceHolder="Prizes" 
-          nzMode="multiple" 
-          formControlName="prizesIds">
+        <nz-select class="filter-select" [nzMaxTagCount]="1" nzShowSearch nzAllowClear nzPlaceHolder="Prizes"
+          nzMode="multiple" formControlName="prizesIds">
           @for(prize of prizes; track prize.id) {
-            <nz-option [nzValue]="prize.id" [nzLabel]="prize.name ?? ''"></nz-option>
+          <nz-option [nzValue]="prize.id" [nzLabel]="prize.name ?? ''"></nz-option>
           }
         </nz-select>
       </nz-form-control>
@@ -33,29 +21,18 @@
 
     <nz-form-item>
       <nz-form-control>
-        <nz-select 
-          class="filter-select" 
-          [nzMaxTagCount]="1" 
-          formControlName="packagesIds"
-          nzShowSearch 
-          nzAllowClear 
-          nzPlaceHolder="Packages" 
-          nzMode="multiple">
-          <nz-option [nzValue]="1" nzLabel="Gold"></nz-option>
-          <nz-option [nzValue]="2" nzLabel="Classic"></nz-option>
-          <nz-option [nzValue]="3" nzLabel="One"></nz-option>
+        <nz-select class="filter-select" [nzMaxTagCount]="1" nzShowSearch nzAllowClear formControlName="packagesIds"
+          nzPlaceHolder="Packages" nzMode="multiple">
+          @for(pkg of packages; track pkg.id) {
+          <nz-option [nzValue]="pkg.id" [nzLabel]="pkg.name"></nz-option>
+          }
         </nz-select>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
       <nz-form-control>
-        <button 
-          nz-button 
-          type="button"
-          nz-popover 
-          [nzPopoverContent]="priceTemplate"
-          nzPopoverTrigger="click" 
+        <button nz-button type="button" nz-popover [nzPopoverContent]="priceTemplate" nzPopoverTrigger="click"
           nzPopoverPlacement="bottom">
           Price Range
           <i nz-icon nzType="down"></i>
@@ -78,11 +55,7 @@
 <ng-template #priceTemplate>
   <div style="width: 250px; padding: 15px;">
     <p nz-typography><strong>Price:</strong> $0 - $999</p>
-    <nz-slider 
-      nzRange 
-      [nzMin]="0" 
-      [nzMax]="999" 
-      [formControl]="$any(filters.get('totalPrice'))">
+    <nz-slider nzRange [nzMin]="0" [nzMax]="999" [formControl]="$any(filters.get('totalPrice'))">
     </nz-slider>
   </div>
 </ng-template>

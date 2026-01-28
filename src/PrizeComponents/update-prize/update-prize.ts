@@ -44,7 +44,7 @@ export class UpdatePrize {
     if (cachedDonors && cachedDonors.length > 0) {
       this.donors = cachedDonors;
     } else {
-      this.donorsService.getAlldonors(this.UserService.token()).subscribe(donors => {
+      this.donorsService.getAlldonors(this.UserService.token(), {}).subscribe(donors => {
         this.donors = donors;
         this.donorsService.setDonors(donors);
         this.fillForm()
@@ -89,7 +89,8 @@ export class UpdatePrize {
     ) {
 
       this.prizeData.reset();
-      this.fillForm()}
+      this.fillForm()
+    }
   }
 
   private fillForm(): void {

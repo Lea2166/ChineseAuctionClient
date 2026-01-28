@@ -5,6 +5,10 @@ import { UserService } from '../../../services/user';
 import { OrderQParams } from '../../../models/Filters';
 import { PrizesService } from '../../../services/prizes';
 import { ReadPrizeDTO, ReadSimplePrizeDTO } from '../../../models/Prize';
+import { Packages } from '../../pages/packages/packages';
+import { ReadPackageDTO } from '../../../models/PackageOrderCart';
+import { PackagesService } from '../../../services/packages';
+import { log } from 'ng-zorro-antd/core/logger';
 
 @Component({
   selector: 'app-order-filters',
@@ -17,10 +21,12 @@ export class OrderFilters {
   salesService: SalesService = inject(SalesService);
   userService: UserService = inject(UserService);
   prizesService: PrizesService = inject(PrizesService)
+  packagesService: PackagesService = inject(PackagesService)
 
   prizes: ReadPrizeDTO[] = []
+  packages: ReadPackageDTO[] = []
 
-  
+
 
   ngOnInit() {
 
@@ -34,19 +40,34 @@ export class OrderFilters {
         this.prizesService.setAllPrizes(prizes);
       });
     }
-  }
 
-  sendFilters(filters: OrderQParams) {
-    this.salesService.getAllOrders(this.userService.token(), filters).subscribe({
-      next: orders => {
-        this.salesService.setAllOrders([...orders])
+
+    const cachedPackages = this.packagesService.packages();
+
+    if (cachedPackages && cachedPackages.length > 0) {
+      this.packages = cachedPackages;
+    } else {
+      this.packagesService.getAllPackages().subscribe(packages => {
+        this.packages = packages;
+        this.packagesService.setAllPackages([...packages]);
+        console.log("fetch all packages", packages);
         
-
-      },
-      error: (err: any) => {
-        console.error('error fetch prizes with filters', err);
-      }
-    })
+      });
+    }
+  
   }
+
+sendFilters(filters: OrderQParams) {
+  this.salesService.getAllOrders(this.userService.token(), filters).subscribe({
+    next: orders => {
+      this.salesService.setAllOrders([...orders])
+
+
+    },
+    error: (err: any) => {
+      console.error('error fetch prizes with filters', err);
+    }
+  })
+}
 
 }
