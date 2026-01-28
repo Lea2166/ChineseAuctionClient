@@ -4,10 +4,13 @@
   margin: 0 auto;
   background-color: #f0f2f5;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 .actions-bar {
-  margin-bottom: 32px;
+ 
   display: flex;
   justify-content: flex-start;
 }
