@@ -14,6 +14,12 @@ export class OrderQParams {
         min?: number,
         max?: number
     }
+}
 
 
+export class DonorQParams {
+
+    name?: string;
+    email?: string;
+    prizesIds?: number[];
 }

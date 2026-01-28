@@ -54,7 +54,7 @@ export class AddPrize {
 
   ngOnInit() {
 
-    this.donorsService.getAlldonors(this.UserService.token()).subscribe({
+    this.donorsService.getAlldonors(this.UserService.token(), {}).subscribe({
       next: donors => {
         this.donorsService.setDonors([...donors])
         this.donors = donors;

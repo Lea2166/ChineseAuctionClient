@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { DonorReadDTO, DonorCreateDTO, DonorUpdateDTO } from '../models/Donor'
 import { Observable, tap } from 'rxjs';
+import qs from 'qs';
+import { DonorQParams } from '../models/Filters';
 
 @Injectable({
   providedIn: 'root',
@@ -24,13 +26,16 @@ export class DonorsService {
     this._donor.set(donor)
   }
 
-  getAlldonors(token: string | null | undefined): Observable<DonorReadDTO[]> {
+  getAlldonors(token: string | null | undefined, orderQParams: DonorQParams): Observable<DonorReadDTO[]> {
     if (token === null || token === undefined) {
       console.log("in DonorsService.getAlldonors: token is undefined");
       throw new Error("in DonorsService.getAlldonors: token is undefined")
 
     }
-    return this.http.get<DonorReadDTO[]>(`${this.apiUrl}`, { headers: { Authorization: "Bearer " + token } }).pipe(
+
+    const queryString = qs.stringify(orderQParams, { allowDots: true, skipNulls: true });
+    const params = new HttpParams({ fromString: queryString });
+    return this.http.get<DonorReadDTO[]>(`${this.apiUrl}`, { headers: { Authorization: "Bearer " + token }, params }).pipe(
       tap((donors: DonorReadDTO[]) => this._donors.set(donors)))
   }
 
@@ -50,7 +55,7 @@ export class DonorsService {
       throw new Error("in DonorsService.updateDonor: token is undefined")
 
     }
-    return this.http.put<number>(`${this.apiUrl}/${id}`, donor , { headers: { Authorization: "Bearer " + token } })
+    return this.http.put<number>(`${this.apiUrl}/${id}`, donor, { headers: { Authorization: "Bearer " + token } })
   }
 
   deleteDonor(id: number, token: string | null): Observable<number> {
