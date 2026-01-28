@@ -6,9 +6,14 @@ import { CreatePackageDTO, ReadPackageDTO } from '../../../models/PackageOrderCa
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { UserService } from '../../../services/user';
 import { GetAllPackageView } from "../get-all-package-view/get-all-package-view";
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-gett-all-packages',
-  imports: [NzCardModule, NzGridModule, NzIconModule, GetAllPackageView],
+  imports: [NzCardModule, NzGridModule, NzIconModule, GetAllPackageView, ReactiveFormsModule,
+    NzFormModule,
+    NzInputNumberModule],
   templateUrl: './gett-all-packages.html',
   styleUrl: './gett-all-packages.scss',
 })
