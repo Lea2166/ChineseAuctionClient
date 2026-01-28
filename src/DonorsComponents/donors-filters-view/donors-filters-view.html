@@ -1,1 +1,46 @@
-<p>donors-filters-view works!</p>
+<div class="filter-container">
+    <form nz-form [formGroup]="filters" (ngSubmit)="applyFilters()" nzLayout="inline" class="filter-form">
+
+        <nz-form-item>
+            <nz-form-control>
+                <nz-select class="filter-select" [nzMaxTagCount]="1" nzShowSearch nzAllowClear nzPlaceHolder="Prizes"
+                    nzMode="multiple" formControlName="prizesIds">
+                    @for(prize of prizes; track prize.id) {
+                    <nz-option [nzValue]="prize.id" [nzLabel]="prize.name ?? ''"></nz-option>
+                    }
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control>
+                <nz-input-wrapper>
+                <input nz-input placeholder="Donor Name" formControlName="name" />
+                <nz-icon nzInputSuffix nzType="search" />
+                </nz-input-wrapper>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control>
+                <nz-input-wrapper>
+                <input nz-input placeholder="Donor Email" formControlName="email" />
+                <nz-icon nzInputSuffix nzType="search" />
+                </nz-input-wrapper>
+            </nz-form-control>
+        </nz-form-item>
+
+
+      
+
+        <div class="actions">
+            <button nz-button nzType="primary" type="submit">
+                <i nz-icon nzType="search"></i> Filter
+            </button>
+            <button nz-button nzType="default" type="button" (click)="cancelFilters()" nzDanger>
+                Reset
+            </button>
+        </div>
+
+    </form>
+</div>
