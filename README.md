@@ -50,6 +50,9 @@ This project is the frontend client built with Angular. It communicates with a R
   <img src="screenshots/pkgs_page.png" width="600">
 
   #### Admin vs. User
+  | Customer Catalog | Admin Dashboard |
+  | :---: | :---: |
+  | <img src="screenshots/prizes_page.png" width="400"> | <img src="screenshots/prizes_page_user.png" width="400"> |
   
 </details>
 
