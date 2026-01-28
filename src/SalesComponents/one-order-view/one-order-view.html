@@ -36,10 +36,10 @@
                 @for (pkg of order?.packages; track pkg.id) {
                 <nz-list-item>
                     <div style="display: flex; justify-content:space-around; width: 100%;">
-                        <span style=" width: 50%;">{{ pkg.name }}</span>
-
+                        <span style=" width: 100%;">{{ pkg.name }}</span>
+<!-- 
                         <nz-divider nzType="vertical"></nz-divider>
-                        <span style=" width: 50%;">{{ pkg.numOfTickets }} Tickets</span>
+                        <span style=" width: 50%;">{{ pkg.numOfTickets }} Tickets</span> -->
                     </div>
                 </nz-list-item>
                 }

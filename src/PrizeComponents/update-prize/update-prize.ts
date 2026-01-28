@@ -38,7 +38,6 @@ export class UpdatePrize {
 
   ngOnInit() {
 
-
     const cachedDonors = this.donorsService.donors();
 
     if (cachedDonors && cachedDonors.length > 0) {

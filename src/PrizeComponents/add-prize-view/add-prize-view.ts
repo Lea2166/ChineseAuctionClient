@@ -48,18 +48,20 @@ export class AddPrizeView {
 
 
   close(): void {
+    this.prizeData.reset()
     this.requestClose.emit()
+
   }
 
-  private destroy$ = new Subject<void>();
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  // private destroy$ = new Subject<void>();
+  // ngOnDestroy(): void {
+  //   this.destroy$.next();
+  //   this.destroy$.complete();
+  // }
 
   submitForm(): void {
-    console.log("submited");
-    console.log(this.prizeData.value);
+    // console.log("submited");
+    // console.log(this.prizeData.value);
 
     if (this.prizeData.valid) {
       this.add.emit(this.prizeData.value as CreatePrizeDTO);
@@ -76,6 +78,7 @@ export class AddPrizeView {
 
       })
   }
+
   private resetForm(): void {
     this.prizeData = this.fb.group({
       name: this.fb.control('', [Validators.required]),
@@ -89,9 +92,6 @@ export class AddPrizeView {
   }
 
 
-  ngOnInit(): void {
-    console.log(this.donors);
-  }
   handleUploadChange(info: NzUploadChangeParam): void {
     if (info.file.status === 'done') {
       this.prizeData.patchValue({ imagePath: info.file.response.dbPath });

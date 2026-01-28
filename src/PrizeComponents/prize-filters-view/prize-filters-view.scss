@@ -16,7 +16,7 @@
 
 
 nz-select {
-    width: 240px;
+    width: 200px;
 }
 
 nz-divider {
@@ -26,18 +26,15 @@ nz-divider {
 .container {
     display: flex;
     justify-content: center;
-   align-items: center;
-   width: 90%;
+    align-items: center;
+    width: 90%;
 }
 
 
 .option-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-.actions{
     display: flex;
-    gap:0px;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
+
