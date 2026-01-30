@@ -1,29 +1,63 @@
 <div class="filter-container">
-  <form nz-form nzLayout="inline" class="filter-form">
+  <form nz-form [formGroup]="filters" nzLayout="inline" class="filter-form" (ngSubmit)="applyFilters()">
 
-    <nz-select nzShowSearch nzAllowClear [nzMaxTagCount]="1"  [nzDropdownRender]="renderTemplate" nzPlaceHolder="filter by category"
-      nzMode="multiple">
-      @for (c of categories; track c.id || c.name) {
-      <nz-option nzCustomContent [nzLabel]="c.name" [nzValue]="c.id"  (click)="$event.stopPropagation()"
-        (mousedown)="$event.stopPropagation()">
-        @if(isAdmin){
-        <div class="option-container">
-          <span>{{ c.name }}</span>
-          <div class="actions">
-            <app-delete-category [id]="c.id" (click)="$event.stopPropagation()" />
-            
-          </div>
-        </div>
-        }
-        @else{
-        {{ c.name }}
-        }
+    <nz-form-item>
+      <nz-form-control>
+        <nz-select class="filter-select" nzAllowClear [nzMaxTagCount]="1" formControlName="categoriesIds"
+          [nzDropdownRender]="renderTemplate" nzPlaceHolder="filter by category" nzMode="multiple">
+          @for (c of categories; track c.id || c.name) {
+          <nz-option nzCustomContent [nzLabel]="c.name" [nzValue]="c.id" (click)="$event.stopPropagation()"
+            (mousedown)="$event.stopPropagation()">
+            @if(isAdmin){
+            <div class="option-container">
+              <span>{{ c.name }}</span>
+              <div class="actions">
+                <app-delete-category [id]="c.id" (click)="$event.stopPropagation()" />
+
+              </div>
+            </div>
+            }
+            @else{
+            {{ c.name }}
+            }
+
+          </nz-option>
+
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
 
 
-      </nz-option>
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input type="text" formControlName="name" placeholder="filter by prize name" />
+      </nz-form-control>
+    </nz-form-item>
 
-      }
-    </nz-select>
+
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input type="number" formControlName="numOfTickets" placeholder="filter by number of tickets" />
+      </nz-form-control>
+    </nz-form-item>
+
+
+    @if(isAdmin){
+    <nz-form-item>
+      <nz-form-control>
+        <nz-select nzShowSearch nzAllowClear formControlName="donorId" nzPlaceHolder="filter by donor">
+          @for (d of donors; track d.id) {
+          <nz-option [nzLabel]="d.firstName??null" [nzValue]="d.id" />
+          }
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+
+    }
+
+
+
     <ng-template #renderTemplate>
       <nz-divider></nz-divider>
       <div class="container" (mousedown)="$event.stopPropagation()" (click)="$event.stopPropagation()">
@@ -36,7 +70,7 @@
       <button nz-button nzType="primary" type="submit">
         <i nz-icon nzType="search"></i> Filter
       </button>
-      <button nz-button nzType="default" type="button" nzDanger>
+      <button nz-button nzType="default" type="button" (click)="cancelFilters()" nzDanger>
         Reset
       </button>
     </div>

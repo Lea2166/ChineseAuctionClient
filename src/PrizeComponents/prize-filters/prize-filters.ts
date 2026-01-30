@@ -4,6 +4,7 @@ import { CategoriesService } from '../../../services/categories';
 import { UserService } from '../../../services/user';
 import { PrizeQParams } from '../../../models/Filters';
 import { PrizesService } from '../../../services/prizes';
+import { DonorsService } from '../../../services/donors';
 
 @Component({
   selector: 'app-prize-filters',
@@ -13,11 +14,12 @@ import { PrizesService } from '../../../services/prizes';
 })
 export class PrizeFilters {
 
-  categoriesService:CategoriesService=inject(CategoriesService);
-  userService:UserService=inject(UserService);
-  prizesService:PrizesService=inject(PrizesService);
+  categoriesService: CategoriesService = inject(CategoriesService);
+  userService: UserService = inject(UserService);
+  prizesService: PrizesService = inject(PrizesService);
+  donorService: DonorsService = inject(DonorsService);
 
-  ngOnInit() { 
+  ngOnInit() {
     this.categoriesService.getAllCategories().subscribe({
       next: categories => {
         this.categoriesService.setCategories([...categories])
@@ -26,13 +28,26 @@ export class PrizeFilters {
         console.error('error fetch categories', err);
       }
     });
+
+    if (this.userService.user()?.role === 'Admin') {
+      this.donorService.getAlldonors(this.userService.token(), {}).subscribe({
+        next: donors => {
+          this.donorService.setDonors([...donors])
+        },
+        error: (err: any) => {
+          console.error('error fetch donors', err);
+        }
+      });
+    }
+
+
   }
 
-  applyFilters(prizeQParams:PrizeQParams) {
+  applyFilters(prizeQParams: PrizeQParams) {
     this.prizesService.getAllPrizes(prizeQParams).subscribe({
       next: prizes => {
         this.prizesService.setAllPrizes([...prizes])
-
+       
       },
       error: (err: any) => {
         console.error('error fetch prizes', err);

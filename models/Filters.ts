@@ -27,7 +27,7 @@ export class DonorQParams {
 export class PrizeQParams {
 
     name?: string;
-    categoryIds?: number[];
+    CategoriesIds?: number[];
     donorId?: number;
     numOfTickets?: number;
 }

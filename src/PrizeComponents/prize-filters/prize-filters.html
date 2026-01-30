@@ -1,1 +1,1 @@
-<app-prize-filters-view [categories]="categoriesService.categories()" [isAdmin]="userService.user()?.role === 'Admin'"/>
+<app-prize-filters-view [categories]="categoriesService.categories()" [donors]="donorService.donors()" [isAdmin]="userService.user()?.role === 'Admin'" (filtersRequest)="applyFilters($event)" />
