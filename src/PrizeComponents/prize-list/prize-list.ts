@@ -10,22 +10,22 @@ import { UserService } from '../../../services/user';
 
 @Component({
   selector: 'app-prize-list',
-  imports: [NzCardModule, NzGridModule, NzListModule, PrizeCard,CommonModule],
+  imports: [NzCardModule, NzGridModule, NzListModule, PrizeCard, CommonModule],
   templateUrl: './prize-list.html',
   styleUrl: './prize-list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class PrizeList {
-   prizesService: PrizesService = inject(PrizesService);
+  prizesService: PrizesService = inject(PrizesService);
 
-   userService: UserService = inject(UserService);
+  userService: UserService = inject(UserService);
 
   ngOnInit() {
-    this.prizesService.getAllPrizes().subscribe({
+    this.prizesService.getAllPrizes({}).subscribe({
       next: prizes => {
         this.prizesService.setAllPrizes([...prizes])
-        
+
       },
       error: (err: any) => {
         console.error('error fetch prizes', err);

@@ -35,7 +35,7 @@ export class OrderFilters {
     if (cachedPrizes && cachedPrizes.length > 0) {
       this.prizes = cachedPrizes;
     } else {
-      this.prizesService.getAllPrizes().subscribe(prizes => {
+      this.prizesService.getAllPrizes({}).subscribe(prizes => {
         this.prizes = prizes;
         this.prizesService.setAllPrizes(prizes);
       });
@@ -51,23 +51,23 @@ export class OrderFilters {
         this.packages = packages;
         this.packagesService.setAllPackages([...packages]);
         console.log("fetch all packages", packages);
-        
+
       });
     }
-  
+
   }
 
-sendFilters(filters: OrderQParams) {
-  this.salesService.getAllOrders(this.userService.token(), filters).subscribe({
-    next: orders => {
-      this.salesService.setAllOrders([...orders])
+  sendFilters(filters: OrderQParams) {
+    this.salesService.getAllOrders(this.userService.token(), filters).subscribe({
+      next: orders => {
+        this.salesService.setAllOrders([...orders])
 
 
-    },
-    error: (err: any) => {
-      console.error('error fetch prizes with filters', err);
-    }
-  })
-}
+      },
+      error: (err: any) => {
+        console.error('error fetch prizes with filters', err);
+      }
+    })
+  }
 
 }

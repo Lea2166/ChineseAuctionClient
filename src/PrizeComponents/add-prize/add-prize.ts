@@ -35,7 +35,7 @@ export class AddPrize {
     this.prizesService.setSimplePrize(prizeToAdd, this.UserService.token()).subscribe({
       next: () => {
         console.log("prize added successfully");
-        this.prizesService.getAllPrizes().subscribe({
+        this.prizesService.getAllPrizes({}).subscribe({
           next: prizes => {
             this.prizesService.setAllPrizes([...prizes]);
 

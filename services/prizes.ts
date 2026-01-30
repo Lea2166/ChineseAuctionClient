@@ -1,7 +1,9 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { ReadPrizeDTO, CreatePrizeDTO, UpdatePrizeDTO } from '../models/Prize';
+import { PrizeQParams } from '../models/Filters';
+import qs from 'qs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +30,10 @@ export class PrizesService {
     this._prize.set(prize)
   }
 
-  getAllPrizes(): Observable<ReadPrizeDTO[]> {
-    return this.http.get<ReadPrizeDTO[]>(`${this.apiUrl}`).pipe(
+  getAllPrizes(prizeParams: PrizeQParams): Observable<ReadPrizeDTO[]> {
+    const queryString = qs.stringify(prizeParams, { allowDots: true, skipNulls: true });
+    const params = new HttpParams({ fromString: queryString });
+    return this.http.get<ReadPrizeDTO[]>(`${this.apiUrl}`, { params }).pipe(
       tap((prizes: ReadPrizeDTO[]) => this._prizes.set(prizes)))
   }
 

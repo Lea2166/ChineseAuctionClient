@@ -28,7 +28,7 @@ export class DonorsFilters {
     if (cachedPrizes && cachedPrizes.length > 0) {
       this.prizes = cachedPrizes;
     } else {
-      this.prizesService.getAllPrizes().subscribe(prizes => {
+      this.prizesService.getAllPrizes({}).subscribe(prizes => {
         this.prizes = prizes;
         this.prizesService.setAllPrizes(prizes);
       });
