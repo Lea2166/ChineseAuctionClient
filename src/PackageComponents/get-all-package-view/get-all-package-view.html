@@ -17,7 +17,7 @@
 
       <ng-template #extraTemplate>
         <app-delete-package [id]="package.id"></app-delete-package>
-        <button nz-button nzType="primary" nzShape="circle" (click)="editPackage(package)">
+        <button nz-button nzType="link" nzShape="circle" (click)="editPackage(package)">
           <span nz-icon nzType="edit"></span>
         </button>
       </ng-template>

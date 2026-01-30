@@ -11,15 +11,17 @@ import { PackagesService } from '../../../services/packages';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzFormModule } from 'ng-zorro-antd/form';
 @Component({
   selector: 'app-get-all-package-view',
-  imports: [NzCardModule, NzGridModule, NzIconModule,NzInputNumberModule, ReactiveFormsModule,NzButtonModule, DeletePackage, IconModule],
+  imports: [NzCardModule, NzGridModule, NzInputModule, NzFormModule, NzIconModule, NzInputNumberModule, ReactiveFormsModule, NzButtonModule, DeletePackage, IconModule],
   templateUrl: './get-all-package-view.html',
   styleUrl: './get-all-package-view.scss',
 })
 export class GetAllPackageView {
   formatterDollar = (value: number | string): string => (value ? `$ ${value}` : '$ ');
-parserDollar = (value: string): number => Number(value.replace(/\$\s?|(,*)/g, ''));
+  parserDollar = (value: string): number => Number(value.replace(/\$\s?|(,*)/g, ''));
   @ViewChild('editTemplate') editTemplate!: TemplateRef<any>;
   public editForm!: FormGroup;
   private modal = inject(NzModalService);
@@ -27,7 +29,7 @@ parserDollar = (value: string): number => Number(value.replace(/\$\s?|(,*)/g, ''
   public packagesService: PackagesService = inject(PackagesService);
   public UserService = inject(UserService);
   @Input() packages: ReadPackageDTO[] = [];
-constructor() {
+  constructor() {
     this.initForm();
   }
 
@@ -57,8 +59,9 @@ constructor() {
     });
 
     this.modal.confirm({
-      nzTitle: 'עדכון חבילה',
+      nzTitle: 'Edit Package',
       nzContent: this.editTemplate,
+      nzIconType: undefined,
       nzOnOk: () => {
         if (this.editForm.valid) {
           const updateData = { ...this.editForm.value, id: pkg.id };

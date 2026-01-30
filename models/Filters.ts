@@ -23,3 +23,11 @@ export class DonorQParams {
     email?: string;
     prizesIds?: number[];
 }
+
+export class PrizeQParams {
+
+    name?: string;
+    CategoriesIds?: number[];
+    donorId?: number;
+    numOfTickets?: number;
+}
