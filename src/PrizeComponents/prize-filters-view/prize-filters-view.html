@@ -46,9 +46,17 @@
     @if(isAdmin){
     <nz-form-item>
       <nz-form-control>
-        <nz-select nzShowSearch nzAllowClear formControlName="donorId" nzPlaceHolder="filter by donor">
+        <nz-select class="filter-select" nzShowSearch nzAllowClear formControlName="donorId" nzPlaceHolder="filter by donor">
           @for (d of donors; track d.id) {
-          <nz-option [nzLabel]="d.firstName??null" [nzValue]="d.id" />
+          @if(d.company){
+          <nz-option [nzLabel]="d.company" [nzValue]="d.id" />
+          }
+          @else {
+          <nz-option [nzLabel]="d.firstName + ' ' + d.lastName" [nzValue]="d.id" />
+
+          }
+
+
           }
         </nz-select>
       </nz-form-control>
