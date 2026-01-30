@@ -32,10 +32,28 @@ This project is the frontend client built with Angular. It communicates with a R
   <summary>Click to see more screenshots</summary>
   
   #### Prize View
-  <img src="screenshots/prizes.png" width="600">
+  <img src="screenshots/prizes_page.png" width="600">
+  <img src="screenshots/one_prize_page.png" width="400">
+  <img src="screenshots/update_prize.png" width="400">
+  <img src="screenshots/delete_prize.png" width="400">
   
-  #### Checkout Process
-  <img src="screenshots/cart.png" width="600">
+
+  #### Order View
+  <img src="screenshots/sales_page.png" width="500">
+  <img src="screenshots/one_order.png" width="500">
+
+  #### Donors View
+  <img src="screenshots/donors_page.png" width="500">
+  <img src="screenshots/edit_donors.png" width="500">
+
+  #### Packages View
+  <img src="screenshots/pkgs_page.png" width="600">
+
+  #### Admin vs. User
+  | Customer Catalog | Admin Dashboard |
+  | :---: | :---: |
+  | <img src="screenshots/prizes_page.png" width="400"> | <img src="screenshots/prizes_page_user.png" width="400"> |
+  
 </details>
 
 
