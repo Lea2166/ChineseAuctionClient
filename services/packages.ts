@@ -15,11 +15,13 @@ export class PackagesService {
   private _packages = signal<ReadPackageDTO[]>([]);
   readonly packages = computed(() => this._packages());
 
-
   getAllPackages(): Observable<ReadPackageDTO[]> {
     return this.http.get<ReadPackageDTO[]>(this.apiUrl).pipe(
       tap((packages: ReadPackageDTO[]) => this._packages.set(packages)));
   }
+
+
+
   addPackage(pkg: CreatePackageDTO, token: string | null) {
     return this.http.post(this.apiUrl, pkg, { headers: { Authorization: "Bearer " + token } });
   }
