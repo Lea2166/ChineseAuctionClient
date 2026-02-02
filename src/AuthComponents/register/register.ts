@@ -15,7 +15,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { SignInDTO } from '../../../models/User';
-
+import { MessagesService } from '../../../services/messages';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -25,9 +25,11 @@ import { SignInDTO } from '../../../models/User';
 
 })
 export class Register implements OnInit, OnDestroy {
+
   private fb = inject(NonNullableFormBuilder);
   private destroy$ = new Subject<void>();
   private userService: UserService = inject(UserService);
+  messageService:MessagesService = inject(MessagesService);
   loading: boolean = false;
 
   confirmationValidator = (control: AbstractControl): ValidationErrors | null => {
@@ -38,6 +40,7 @@ export class Register implements OnInit, OnDestroy {
     }
     return null;
   };
+
   validateForm = this.fb.group({
     firstName: this.fb.control('', [Validators.required, Validators.maxLength(100)]),
     lastName: this.fb.control('', [Validators.required, Validators.maxLength(100)]),
@@ -64,20 +67,22 @@ export class Register implements OnInit, OnDestroy {
   submitForm(): void {
     if (this.validateForm.valid) {
       const { checkPassword, ...submitData } = this.validateForm.getRawValue();
-      console.log('Data is ready to post API', submitData);
+      // console.log('Data is ready to post API', submitData);
 
 
       this.loading = true;
       this.userService.signIn(submitData as SignInDTO)
         .pipe(finalize(() => this.loading = false))
         .subscribe({
-          next: (response: any) => {
-            console.log('Registeration succeed', response);
+          next: () => {
+            this.messageService.success('Registration successful! You can now log in.');
           },
           error: (err: any) => {
-            console.error('Registeration failed:', err);
+            this.messageService.error('Registration failed', err);
           }
+         
         });
+        this.validateForm.reset();
     } else {
 
       Object.values(this.validateForm.controls).forEach(control => {
