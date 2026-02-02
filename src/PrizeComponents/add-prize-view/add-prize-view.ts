@@ -60,8 +60,6 @@ export class AddPrizeView {
   // }
 
   submitForm(): void {
-    // console.log("submited");
-    // console.log(this.prizeData.value);
 
     if (this.prizeData.valid) {
       this.add.emit(this.prizeData.value as CreatePrizeDTO);
@@ -86,7 +84,7 @@ export class AddPrizeView {
       donorId: this.fb.control(0, [Validators.required]),
       categoryIds: this.fb.control([1]),
       description: this.fb.control('', [Validators.required]),
-      imagePath: this.fb.control(''),
+      imagePath: this.fb.control('' ),
     });
     this.fileList = [];
   }
