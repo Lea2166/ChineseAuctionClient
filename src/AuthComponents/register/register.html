@@ -2,23 +2,52 @@
 
   <nz-form-item>
 
-    <nz-form-control nzErrorTip="Please input your first name!">
+    <nz-form-control [nzErrorTip]="fname">
       <input nz-input formControlName="firstName" id="firstName" placeholder="firstName" nzSize="large" />
     </nz-form-control>
   </nz-form-item>
 
+  <ng-template #fname let-control>
+    @if (control.hasError('required')) {
+    First Name is required
+    } @else if (control.hasError('minlength')) {
+    First Name must be at least 2 characters long
+    } @else if (control.hasError('maxlength')) {
+    First Name must be less than 100 characters long
+    }
+  </ng-template>
+
+
   <nz-form-item>
 
-    <nz-form-control nzErrorTip="Please input your last name!">
+    <nz-form-control [nzErrorTip]="lname">
       <input nz-input formControlName="lastName" id="lastName" placeholder="Last Name" nzSize="large" />
     </nz-form-control>
   </nz-form-item>
 
+  <ng-template #lname let-control>
+    @if (control.hasError('required')) {
+    Last Name is required
+    } @else if (control.hasError('minlength')) {
+    Last Name must be at least 2 characters long
+    } @else if (control.hasError('maxlength')) {
+    Last Name must be less than 100 characters long
+    }
+  </ng-template>
+
   <nz-form-item>
-    <nz-form-control nzErrorTip="The input is not valid E-mail!">
+    <nz-form-control [nzErrorTip]="emailErrorTpl">
       <input nz-input formControlName="email" id="email" placeholder="E-mail" nzSize="large" />
     </nz-form-control>
   </nz-form-item>
+
+  <ng-template #emailErrorTpl let-control>
+    @if (control.hasError('required')) {
+    E-mail Address is required
+    } @else if (control.hasError('email')) {
+    The e-mail address is not valid
+    }
+  </ng-template>
 
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your password!">
@@ -38,10 +67,22 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your phone number!">
+    <nz-form-control [nzErrorTip]="phoneErrorTpl">
       <input formControlName="phoneNumber" id="phoneNumber" nz-input placeholder="Phone Number" nzSize="large" />
     </nz-form-control>
   </nz-form-item>
+
+  <ng-template #phoneErrorTpl let-control>
+    @if (control.hasError('required')) {
+    Phone Number is required
+    } @else if (control.hasError('pattern')) {
+    The phone number is not valid
+    }@else if (control.hasError('minlength')) {
+    The phone number mast contain at least 9 digits
+    }@else if (control.hasError('maxlength')) {
+    The phone number must not exceed 15 digits
+    }
+  </ng-template>
 
   <nz-form-item nz-row class="register-area">
     <nz-form-control>

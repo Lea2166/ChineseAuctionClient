@@ -16,6 +16,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { SignInDTO } from '../../../models/User';
 import { MessagesService } from '../../../services/messages';
+import { NzTabLinkTemplateDirective } from "ng-zorro-antd/tabs";
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -42,12 +44,12 @@ export class Register implements OnInit, OnDestroy {
   };
 
   validateForm = this.fb.group({
-    firstName: this.fb.control('', [Validators.required, Validators.maxLength(100)]),
-    lastName: this.fb.control('', [Validators.required, Validators.maxLength(100)]),
+    firstName: this.fb.control('', [Validators.required, Validators.maxLength(100),Validators.minLength(2)]),
+    lastName: this.fb.control('', [Validators.required, Validators.maxLength(100),Validators.minLength(2)]),
     email: this.fb.control('', [Validators.email, Validators.required]),
     password: this.fb.control('', [Validators.required, Validators.minLength(6)]),
     checkPassword: this.fb.control('', [Validators.required, this.confirmationValidator]),
-    phoneNumber: this.fb.control('', [Validators.required, Validators.pattern('^[0-9]*$')])
+    phoneNumber: this.fb.control('', [Validators.required, Validators.pattern('^[0-9]*$'), Validators.minLength(9), Validators.maxLength(15)]),
   });
 
   ngOnInit(): void {
@@ -78,7 +80,8 @@ export class Register implements OnInit, OnDestroy {
             this.messageService.success('Registration successful! You can now log in.');
           },
           error: (err: any) => {
-            this.messageService.error('Registration failed', err);
+            console.log('Registration Failed', err);
+            this.messageService.error('Registration failed', err);   
           }
          
         });

@@ -26,7 +26,7 @@ export class Login {
   error: string | null = null;
 
   validateForm = this.fb.group({
-    email: this.fb.control('', [Validators.required]),
+    email: this.fb.control('', [Validators.required, Validators.email]),
     password: this.fb.control('', [Validators.required]),
   });
 
@@ -43,7 +43,7 @@ export class Login {
         .subscribe({
           next: user => {
             this.userService.setUser(user)
-            // console.log('login success', user);
+           
           this.messageService.success('Welcome back ' + user.name + '!');
             
           },
