@@ -1,8 +1,13 @@
+@if(!isAdmin()) {
+<app-not-found></app-not-found>
+} @else {
+
 <div class="page-container">
     <section class="filters-section">
-        <app-order-filters/>
+        <app-order-filters />
     </section>
     <section class="table-section">
         <app-sales-list />
     </section>
 </div>
+}
