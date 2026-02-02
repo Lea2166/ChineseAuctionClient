@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrl: './gett-all-packages.scss',
 })
 export class GettAllPackages {
+  
   public packagesService: PackagesService = inject(PackagesService);
   public UserService = inject(UserService);
 

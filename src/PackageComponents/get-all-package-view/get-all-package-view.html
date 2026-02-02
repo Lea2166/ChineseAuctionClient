@@ -16,10 +16,13 @@
       </ng-template>
 
       <ng-template #extraTemplate>
+        @if(isAdmin){
         <app-delete-package [id]="package.id"></app-delete-package>
         <button nz-button nzType="link" nzShape="circle" (click)="editPackage(package)">
           <span nz-icon nzType="edit"></span>
         </button>
+        }
+
       </ng-template>
       <ng-template #editTemplate>
         <div class="edit-modal-container">
