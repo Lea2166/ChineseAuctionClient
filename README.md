@@ -57,3 +57,42 @@ This project is the frontend client built with Angular. It communicates with a R
 </details>
 
 
+## Getting Started
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+Ensure you have the following installed:
+- Node.js (Recommended: v18.13.0+ or v20.x)
+- npm (comes with Node.js)
+- Angular CLI: Install it globally using:
+  
+  ```
+  $ npm install -g @angular/cli
+  ```
+
+### Installation
+1. Clone the repository:
+   ```
+   $ git clone https://github.com/Lea2166/ChineseAuctionClient.git
+   ```
+   
+2. Navigate to the project directory:
+   ```
+   $ cd ChineseAuctionClient
+   ```
+
+3. Install dependencies:
+   ```
+   $ npm install
+   ```
+### Running the application:
+1. Start the developer server
+   ```
+   $ ng serve
+   ```
+2. Open your browser: Navigate to https://localhost:4200/. The application will automatically reload if you change any of the source files.
+   
+
+
+
+
