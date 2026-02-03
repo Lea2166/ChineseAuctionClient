@@ -10,7 +10,9 @@ import { NotFound } from '../not-found/not-found';
 
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', pathMatch: 'full', component: HomePage },
+  
   {
     path: 'prizes', pathMatch: 'full', component: Prizes,
   },

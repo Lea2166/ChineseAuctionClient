@@ -14,6 +14,7 @@ import { CategoriesService } from '../../../services/categories';
 import { DonorReadDTO } from '../../../models/Donor';
 import { UserService } from '../../../services/user';
 import { Category } from '../../../models/PackageOrderCart';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-add-prize',
@@ -27,6 +28,7 @@ export class AddPrize {
   public donorsService = inject(DonorsService);
   public prizesService: PrizesService = inject(PrizesService);
   public CategoriesService = inject(CategoriesService);
+  public messageService = inject(MessagesService);
   public donors: DonorReadDTO[] = [];
   public categories: Category[] = [];
 
@@ -38,16 +40,19 @@ export class AddPrize {
         this.prizesService.getAllPrizes({}).subscribe({
           next: prizes => {
             this.prizesService.setAllPrizes([...prizes]);
+            this.messageService.success('Prize added successfully');
 
           },
           error: (err: any) => {
             console.error('error fetch donors', err);
+            this.messageService.error('Error fetching prizes', err);
           }
         })
 
       },
       error: (err: any) => {
         console.error('Error creating prize', err);
+        this.messageService.error('Error creating prize', err);
       }
     });
   }
