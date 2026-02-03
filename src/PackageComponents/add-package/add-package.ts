@@ -8,6 +8,7 @@ import { CreatePackageDTO } from '../../../models/PackageOrderCart';
 import { PackagesService } from '../../../services/packages';
 import { UserService } from '../../../services/user';
 import { AddPackageView } from "../add-package-view/add-package-view";
+import { MessagesService } from '../../../services/messages';
 @Component({
   selector: 'app-add-package',
   imports: [NzButtonModule, NzModalModule, ReactiveFormsModule, NzFormModule, NzInputModule, AddPackageView],
@@ -16,9 +17,11 @@ import { AddPackageView } from "../add-package-view/add-package-view";
 })
 export class AddPackage {
 
-  public PackageService: PackagesService = inject(PackagesService);
-  public packages: CreatePackageDTO[] = [];
-  public UserService = inject(UserService);
+  PackageService: PackagesService = inject(PackagesService);
+  packages: CreatePackageDTO[] = [];
+  UserService = inject(UserService);
+  messageService = inject(MessagesService);
+
 
   isVisible = false;
 
@@ -36,7 +39,7 @@ export class AddPackage {
 
   submitForm(packageData: CreatePackageDTO): void {
 
-    
+
     this.PackageService.addPackage(packageData, this.UserService.token()).subscribe({
       next: () => {
         console.log("package added successfully");
@@ -44,15 +47,18 @@ export class AddPackage {
           next: packages => {
             this.PackageService.setAllPackages([...packages]);
             this.packages = [...packages];
-            this.isVisible=false;
+            this.isVisible = false;
+            this.messageService.success("Package added successfully");
           },
           error: (err: any) => {
             console.error('error fetch packages', err);
+            this.messageService.error('Error fetching packages', err);
           }
         })
       },
       error: (err: any) => {
         console.error('Error creating package', err);
+        this.messageService.error('Error creating package', err);
       }
     });
   }

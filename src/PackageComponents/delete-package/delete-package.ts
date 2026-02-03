@@ -5,6 +5,7 @@ import { PackagesService } from '../../../services/packages';
 import { PrizesService } from '../../../services/prizes';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { MessagesService } from '../../../services/messages';
 
 
 @Component({
@@ -16,6 +17,7 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 export class DeletePackage {
   userService: UserService = inject(UserService)
   packagesService: PackagesService = inject(PackagesService);
+  messageService = inject(MessagesService); 
 
   @Input() id: number | null | undefined = null
 
@@ -28,8 +30,12 @@ export class DeletePackage {
     }
     
     this.packagesService.deletePackage(this.id, this.userService.token()).subscribe({
+      next: () => {
+        this.messageService.success("Package deleted successfully");
+      },
       error: (err: any) => {
         console.error('error delete package', err);
+        this.messageService.error('Error deleting package', err);
       }
     })
 

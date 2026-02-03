@@ -13,6 +13,7 @@ import { NzFormModule } from "ng-zorro-antd/form";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzButtonModule } from "ng-zorro-antd/button";
+import { MessagesService } from "../../../services/messages";
 
 @Component({
   selector: 'app-update-prize',
@@ -23,6 +24,8 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 })
 
 export class UpdatePrize {
+
+  messageService = inject(MessagesService);
 
   @Input() prize: ReadPrizeDTO | null = null
 
@@ -114,21 +117,26 @@ export class UpdatePrize {
     if (this.prizeData.valid) {
       this.prizesService.updatePrize(this.prizeData.value as UpdatePrizeDTO, this.UserService.token()).subscribe({
         next: () => {
-          console.log("prize updated successfully", this.prizeData.value);
+          this.messageService.success('Prize updated successfully');
           this.prizesService.getAllPrizes({}).subscribe({
             next: prizes => {
               this.prizesService.setAllPrizes([...prizes]);
               this.prizeData.reset();
               this.close()
+              this.fileList = [];
+
+
             },
             error: (err: any) => {
               console.error('error fetch donors', err);
+              this.messageService.error('Error fetching prizes', err);
             }
           })
 
         },
         error: (err: any) => {
           console.error('Error updating prize', err);
+          this.messageService.error('Error updating prize', err);
         }
       });
 

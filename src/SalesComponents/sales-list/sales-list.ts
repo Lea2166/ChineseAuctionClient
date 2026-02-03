@@ -4,30 +4,33 @@ import { UserService } from '../../../services/user';
 import { SalesListView } from '../sales-list-view/sales-list-view';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { OrderQParams } from '../../../models/Filters';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-sales-list',
-  imports: [SalesListView,NzSpinModule],
+  imports: [SalesListView, NzSpinModule],
   templateUrl: './sales-list.html',
   styleUrl: './sales-list.scss',
 })
 export class SalesList {
-  public salesService: SalesService = inject(SalesService);
-  public userService: UserService = inject(UserService)
+  salesService: SalesService = inject(SalesService);
+  userService: UserService = inject(UserService)
+  messageService = inject(MessagesService);
 
 
   ngOnInit() {
-    this.salesService.getAllOrders(this.userService.token(),{}).subscribe({
+    this.salesService.getAllOrders(this.userService.token(), {}).subscribe({
       next: orders => {
         this.salesService.setAllOrders([...orders])
-        console.log(this.salesService.orders());
-      
+        
+
       },
       error: (err: any) => {
         console.error('error fetch prizes', err);
+        this.messageService.error('Error fetching orders', err);
       }
     })
   }
 
-  
+
 }

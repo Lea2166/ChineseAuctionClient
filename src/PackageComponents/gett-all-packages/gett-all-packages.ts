@@ -9,6 +9,7 @@ import { GetAllPackageView } from "../get-all-package-view/get-all-package-view"
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MessagesService } from '../../../services/messages';
 @Component({
   selector: 'app-gett-all-packages',
   imports: [NzCardModule, NzGridModule, NzIconModule, GetAllPackageView, ReactiveFormsModule,
@@ -17,10 +18,12 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './gett-all-packages.html',
   styleUrl: './gett-all-packages.scss',
 })
+
 export class GettAllPackages {
   
   public packagesService: PackagesService = inject(PackagesService);
   public UserService = inject(UserService);
+  public messageService = inject(MessagesService);
 
   public packages: ReadPackageDTO[] | [] = [];
 
@@ -29,9 +32,11 @@ export class GettAllPackages {
       next: packages => {
         this.packagesService.setAllPackages([...packages])
         this.packages = packages;
+       
       },
       error: (err: any) => {
         console.error('error fetch packages', err);
+        this.messageService.error('Error fetching packages', err);
       }
     })
   }
@@ -41,7 +46,10 @@ export class GettAllPackages {
     this.packagesService.deletePackage(id, this.UserService.token()).subscribe({
       next: () => {
         this.packagesService.setAllPackages([...this.packages])
-        console.log("package deleted successfully");
+        this.messageService.success("Package deleted successfully");
+      },
+      error: (err: any) => {
+        this.messageService.error('Error deleting package', err);
       }
     });
   }

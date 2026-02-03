@@ -45,9 +45,6 @@ export class AddDonor {
         this.messageService.error('Error saving donor', err);
       }
     });
-
-
-
   }
 
   showModal: boolean = false

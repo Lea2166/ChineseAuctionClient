@@ -2,6 +2,7 @@ import { Component, inject, Input, signal } from '@angular/core';
 import { PrizesService } from '../../../services/prizes';
 import { ActivatedRoute } from '@angular/router';
 import { OnePrizeView } from '../one-prize-view/one-prize-view';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-one-prize',
@@ -12,8 +13,10 @@ import { OnePrizeView } from '../one-prize-view/one-prize-view';
 
 export class OnePrize {
 
-  public prizesService: PrizesService = inject(PrizesService);
-  public activateRoute: ActivatedRoute = inject(ActivatedRoute);
+  prizesService: PrizesService = inject(PrizesService);
+  activateRoute: ActivatedRoute = inject(ActivatedRoute);
+  messageService = inject(MessagesService);
+
   id = signal<number>(0);
 
   ngOnInit() {
@@ -25,12 +28,10 @@ export class OnePrize {
       next: prize => {
 
         this.prizesService.setPrize(prize)
-        console.log(prize);
-
-
       },
       error: (err: any) => {
         console.error(`error fetch prize with id ${this.id}`, err);
+        this.messageService.error(`Error fetching prize`, err);
       }
     })
   }

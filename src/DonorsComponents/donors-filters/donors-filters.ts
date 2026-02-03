@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user';
 import { ReadPrizeDTO } from '../../../models/Prize';
 import { DonorQParams } from '../../../models/Filters';
 import { DonorsFiltersView } from '../donors-filters-view/donors-filters-view';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-donors-filters',
@@ -17,6 +18,7 @@ export class DonorsFilters {
   userService: UserService = inject(UserService);
   prizesService: PrizesService = inject(PrizesService)
   donorsService: DonorsService = inject(DonorsService);
+  messageService = inject(MessagesService);
 
   prizes: ReadPrizeDTO[] = []
 
@@ -47,6 +49,7 @@ export class DonorsFilters {
       },
       error: (err: any) => {
         console.error('error fetch prizes with filters', err);
+        this.messageService.error('Error fetching donors with filters', err);
       }
     })
   }

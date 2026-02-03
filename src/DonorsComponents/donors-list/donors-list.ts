@@ -3,6 +3,7 @@ import { DonorsService } from '../../../services/donors'
 import { UserService } from '../../../services/user'
 import { DonorsListView } from "../donors-list-view/donors-list-view";
 import { NzSpinComponent } from "ng-zorro-antd/spin";
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-donors-list',
@@ -12,8 +13,10 @@ import { NzSpinComponent } from "ng-zorro-antd/spin";
 })
 export class DonorsList {
 
-  public donorsService: DonorsService = inject(DonorsService);
-  public userService: UserService = inject(UserService);
+  donorsService: DonorsService = inject(DonorsService);
+  userService: UserService = inject(UserService);
+  messageService = inject(MessagesService);
+
 
   ngOnInit() {
     this.donorsService.getAlldonors(this.userService.token(), {}).subscribe({
@@ -22,6 +25,7 @@ export class DonorsList {
       },
       error: (err: any) => {
         console.error('error fetch donors', err);
+        this.messageService.error('Error fetching donors', err);
       }
     })
   }

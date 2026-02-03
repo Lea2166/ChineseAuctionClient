@@ -7,6 +7,7 @@ import { PrizesService } from '../../../services/prizes'
 import { ReadPrizeDTO } from '../../../models/Prize';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../services/user';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-prize-list',
@@ -18,7 +19,7 @@ import { UserService } from '../../../services/user';
 
 export class PrizeList {
   prizesService: PrizesService = inject(PrizesService);
-
+  messagesService = inject(MessagesService);
   userService: UserService = inject(UserService);
 
   ngOnInit() {
@@ -28,7 +29,9 @@ export class PrizeList {
 
       },
       error: (err: any) => {
+        this.messagesService.error('Error fetching prizes', err);
         console.error('error fetch prizes', err);
+
       }
     })
   }

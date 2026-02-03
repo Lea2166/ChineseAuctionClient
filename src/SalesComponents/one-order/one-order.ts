@@ -5,6 +5,7 @@ import { SalesService } from '../../../services/sales';
 import { UserService } from '../../../services/user';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-one-order',
@@ -19,6 +20,7 @@ export class OneOrder {
 
   salesService: SalesService = inject(SalesService)
   userService: UserService = inject(UserService)
+  messageService = inject(MessagesService);
 
   ngOnInit() {
 
@@ -27,10 +29,11 @@ export class OneOrder {
         {
           next: order => {
             this.salesService.setOrder(order)
-            console.log(order);
+            
           },
           error: (err: any) => {
             console.error(`error fetch prize with id ${this.id}`, err);
+            this.messageService.error(`Error fetching order`, err);
           }
         }
       )
