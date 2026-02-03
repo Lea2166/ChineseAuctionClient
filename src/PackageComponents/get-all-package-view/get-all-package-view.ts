@@ -15,7 +15,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
 @Component({
   selector: 'app-get-all-package-view',
-  imports: [NzCardModule, NzGridModule, NzInputModule, NzFormModule, NzIconModule, NzInputNumberModule, ReactiveFormsModule, NzButtonModule, DeletePackage, IconModule],
+  imports: [NzCardModule, NzGridModule, NzInputModule,NzIconModule, NzFormModule, NzIconModule, NzInputNumberModule, ReactiveFormsModule, NzButtonModule, DeletePackage, IconModule],
   templateUrl: './get-all-package-view.html',
   styleUrl: './get-all-package-view.scss',
 })

@@ -2,7 +2,7 @@
   <div nz-row [nzGutter]="[16, 16]">
     @for(package of packages; track package.id) {
     <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-      <nz-card [nzHoverable]="true" [nzTitle]="titleTemplate" [nzExtra]="extraTemplate">
+      <nz-card [nzHoverable]="true" [nzTitle]="titleTemplate"  [nzExtra]="extraTemplate">
 
         <div class="card-content">
           <h2>Tickets Quantity : {{ package.numOfTickets }}</h2>
@@ -12,7 +12,10 @@
       </nz-card>
 
       <ng-template #titleTemplate>
-        <span style="font-size: 1.1rem; font-weight: 600;">{{ package.name }}</span>
+        <div  class="title">
+        <!-- <nz-icon nzType="gift" nzTheme="outline" /> -->
+        <h2 style="font-size: 1.1rem; font-weight: 600;">{{ package.name }}</h2>
+        </div>
       </ng-template>
 
       <ng-template #extraTemplate>
