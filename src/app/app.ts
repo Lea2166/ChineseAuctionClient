@@ -8,6 +8,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { UserService } from '../../services/user';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { MessagesService } from '../../services/messages';
 
 
 @Component({
@@ -19,38 +20,52 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 export class App {
 
   userService: UserService = inject(UserService);
-  
+  messageService = inject(MessagesService);
+
   ngOnInit() {
     const token = localStorage.getItem('token');
     if (!token || token === "") {
-      console.log("please log in first");
-      return
+      console.log("No token found in localStorage");
+
+      return;
+
     }
     this.userService.me(token).subscribe({
-      next: (user) => console.log("User loaded successfully", user),
-      error: (err) => console.error("Failed to load user", err)
+      next: (user) => {
+        console.log("User loaded successfully", user)
+        this.userService.setUser(user);
+
+      },
+      error: (err) => {
+        console.error("Failed to load user", err)
+        this.messageService.error("Error", "Failed to load user data. Please log in again.");
+      }
     });
 
   }
 
-  viewMenu:boolean=false;
+  viewMenu: boolean = false;
   viewDrawer: boolean = false
 
   open(): void {
     this.viewDrawer = true;
   }
 
-  logout(){
+  logout() {
     this.userService.logOut();
-    this.viewMenu=false;
+    this.viewMenu = false;
     this.isMobileMenuVisible = false;
   }
 
   isMobileMenuVisible = false;
 
-toggleMobileMenu(): void {
-  this.isMobileMenuVisible = !this.isMobileMenuVisible;
-}
+  toggleMobileMenu(): void {
+    this.isMobileMenuVisible = !this.isMobileMenuVisible;
+  }
 
+  isAdmin(): boolean {
+    const user = this.userService.user();
+    return user?.role === 'Admin';
+  }
 
 }

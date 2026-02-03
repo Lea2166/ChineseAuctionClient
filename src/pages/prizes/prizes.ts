@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PrizeList } from '../../PrizeComponents/prize-list/prize-list';
 import { AddPrize } from "../../PrizeComponents/add-prize/add-prize";
 
 import { PrizeFilters } from "../../PrizeComponents/prize-filters/prize-filters";
+import { UserService } from '../../../services/user';
 
 @Component({
   selector: 'app-prizes',
@@ -11,5 +12,9 @@ import { PrizeFilters } from "../../PrizeComponents/prize-filters/prize-filters"
   styleUrl: './prizes.scss',
 })
 export class Prizes {
-
+  userService = inject(UserService);
+  isAdmin(): boolean {
+    const user = this.userService.user();
+    return user?.role === 'Admin';
+  }
 }

@@ -9,6 +9,7 @@ import { Packages } from '../../pages/packages/packages';
 import { ReadPackageDTO } from '../../../models/PackageOrderCart';
 import { PackagesService } from '../../../services/packages';
 import { log } from 'ng-zorro-antd/core/logger';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-order-filters',
@@ -22,6 +23,7 @@ export class OrderFilters {
   userService: UserService = inject(UserService);
   prizesService: PrizesService = inject(PrizesService)
   packagesService: PackagesService = inject(PackagesService)
+  messageService = inject(MessagesService);
 
   prizes: ReadPrizeDTO[] = []
   packages: ReadPackageDTO[] = []
@@ -50,7 +52,7 @@ export class OrderFilters {
       this.packagesService.getAllPackages().subscribe(packages => {
         this.packages = packages;
         this.packagesService.setAllPackages([...packages]);
-        console.log("fetch all packages", packages);
+        
 
       });
     }
@@ -61,11 +63,10 @@ export class OrderFilters {
     this.salesService.getAllOrders(this.userService.token(), filters).subscribe({
       next: orders => {
         this.salesService.setAllOrders([...orders])
-
-
       },
       error: (err: any) => {
         console.error('error fetch prizes with filters', err);
+        this.messageService.error('Error fetching orders with filters', err);
       }
     })
   }

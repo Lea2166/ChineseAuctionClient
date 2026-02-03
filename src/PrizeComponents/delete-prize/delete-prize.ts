@@ -5,6 +5,7 @@ import { Token } from '@angular/compiler';
 import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-delete-prize',
@@ -16,6 +17,7 @@ export class DeletePrize {
 
   userService: UserService = inject(UserService)
   prizeService: PrizesService = inject(PrizesService);
+  messageService = inject(MessagesService);
 
   @Input() id: number | null | undefined = null
 
@@ -27,8 +29,13 @@ export class DeletePrize {
 
     }
     this.prizeService.deletePrize(this.id, this.userService.token()).subscribe({
+      next: () => {
+
+        this.messageService.warning('Prize deleted successfully','');
+      },
       error: (err: any) => {
         console.error('error delete prize', err);
+        this.messageService.error('Error deleting prize', err);
       }
     })
 

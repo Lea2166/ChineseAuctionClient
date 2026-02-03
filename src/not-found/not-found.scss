@@ -1,0 +1,23 @@
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; 
+  background-color: #f5f7fa;
+  border-radius: 8px;
+
+}
+
+
+[nz-button] {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+}
+
+[nz-result-extra] {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

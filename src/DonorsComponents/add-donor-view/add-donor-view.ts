@@ -45,7 +45,7 @@ export class AddDonorView {
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      console.log('donor', this.validateForm.value);
+
       this.requestSubmit.emit(this.validateForm.value);
     } else {
       Object.values(this.validateForm.controls).forEach(control => {

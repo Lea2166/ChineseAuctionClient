@@ -1,3 +1,3 @@
 
 
-<app-get-all-package-view [packages]="packagesService.packages()"/>
+<app-get-all-package-view [packages]="packagesService.packages()" [isAdmin]='UserService.user()?.role==="Admin"'/>

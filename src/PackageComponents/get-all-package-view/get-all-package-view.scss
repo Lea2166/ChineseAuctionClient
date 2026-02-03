@@ -1,31 +1,114 @@
-.edit-modal-container {
-  padding: 12px 8px; // מוסיף אוויר מסביב לכל הטופס
 
-  nz-form-item {
-    margin-bottom: 20px; // רווח בין שורות בטופס
-  }
-
-  nz-form-label {
-    padding-bottom: 6px; // רווח בין הכותרת לשדה הקלט
-    
-    label {
-      font-weight: 600; // הופך את הכותרות לקריאות יותר
-      color: #555;
-    }
-  }
-
-  // עיצוב אחיד לכל שדות הקלט
-  input.nz-input, 
-  nz-input-number {
-    width: 100% !important; // שהמספר יתפרס על כל העמודה שלו
-    border-radius: 6px;     // פינות עגולות ונעימות
-    height: 38px;
-  }
-
-  // צבע כתום בפוקוס (כמו המותג שלך)
-  .ant-input:focus, 
-  .ant-input-number-focused {
-    border-color: #ff6e40;
-    box-shadow: 0 0 0 2px rgba(255, 110, 64, 0.1);
-  }
+.packages-page {
+  padding: 32px;
+  background: #f0f2f5;
+  min-height: 100%;
 }
+
+.package-card {
+  border-radius: 14px;
+  transition: all 0.25s ease;
+}
+
+.package-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+}
+
+.package-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* BODY */
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 6px;
+}
+
+/* INFO ROW */
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info-label {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.info-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.price .info-value {
+  color: #f05913;
+  font-size: 20px;
+}
+
+/* ACTIONS */
+
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.edit-btn {
+  color: #f05913;
+}
+
+.edit-modal-container {
+  // background: #ffffff;
+  padding: 28px;
+  border-radius: 14px;
+}
+
+
+.form-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 22px;
+}
+
+
+
+.edit-form {
+  margin-top: 4px;
+}
+
+.form-input {
+  width: 100%;
+}
+
+::ng-deep .form-input .ant-input,
+::ng-deep .form-input .ant-input-number {
+  border-radius: 10px;
+  height: 40px;
+}
+
+::ng-deep .ant-form-item {
+  margin-bottom: 20px;
+}
+
+
+::ng-deep .ant-form-item-label > label {
+  font-weight: 500;
+  color: #374151;
+}
+
+
+.price-input ::ng-deep .ant-input-number-input {
+  font-weight: 600;
+  
+}
+

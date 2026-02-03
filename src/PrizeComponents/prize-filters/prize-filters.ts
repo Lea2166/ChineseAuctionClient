@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user';
 import { PrizeQParams } from '../../../models/Filters';
 import { PrizesService } from '../../../services/prizes';
 import { DonorsService } from '../../../services/donors';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-prize-filters',
@@ -18,14 +19,17 @@ export class PrizeFilters {
   userService: UserService = inject(UserService);
   prizesService: PrizesService = inject(PrizesService);
   donorService: DonorsService = inject(DonorsService);
+  messageService = inject(MessagesService);
 
   ngOnInit() {
     this.categoriesService.getAllCategories().subscribe({
       next: categories => {
         this.categoriesService.setCategories([...categories])
+
       },
       error: (err: any) => {
         console.error('error fetch categories', err);
+        
       }
     });
 
@@ -47,10 +51,12 @@ export class PrizeFilters {
     this.prizesService.getAllPrizes(prizeQParams).subscribe({
       next: prizes => {
         this.prizesService.setAllPrizes([...prizes])
+
        
       },
       error: (err: any) => {
         console.error('error fetch prizes', err);
+        this.messageService.error('Error fetching prizes', err);
       }
     })
   }

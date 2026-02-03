@@ -15,11 +15,12 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzFormModule } from 'ng-zorro-antd/form';
 @Component({
   selector: 'app-get-all-package-view',
-  imports: [NzCardModule, NzGridModule, NzInputModule, NzFormModule, NzIconModule, NzInputNumberModule, ReactiveFormsModule, NzButtonModule, DeletePackage, IconModule],
+  imports: [NzCardModule, NzGridModule, NzInputModule,NzIconModule, NzFormModule, NzIconModule, NzInputNumberModule, ReactiveFormsModule, NzButtonModule, DeletePackage, IconModule],
   templateUrl: './get-all-package-view.html',
   styleUrl: './get-all-package-view.scss',
 })
 export class GetAllPackageView {
+
   formatterDollar = (value: number | string): string => (value ? `$ ${value}` : '$ ');
   parserDollar = (value: string): number => Number(value.replace(/\$\s?|(,*)/g, ''));
   @ViewChild('editTemplate') editTemplate!: TemplateRef<any>;
@@ -29,6 +30,8 @@ export class GetAllPackageView {
   public packagesService: PackagesService = inject(PackagesService);
   public UserService = inject(UserService);
   @Input() packages: ReadPackageDTO[] = [];
+  @Input() isAdmin:boolean=false
+
   constructor() {
     this.initForm();
   }

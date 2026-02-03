@@ -1,10 +1,13 @@
 <div class="page-container">
     <section class="filters-section">
-         <app-prize-filters/>
+        <app-prize-filters />
     </section>
+    @if(isAdmin()){
     <section class="add-prize-section">
-        <app-add-prize/>
+        <app-add-prize />
     </section>
+    }
+
     <section>
         <app-prize-list />
     </section>

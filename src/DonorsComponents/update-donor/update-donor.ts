@@ -8,6 +8,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { DeleteDonor } from "../delete-donor/delete-donor";
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { MessagesService } from '../../../services/messages';
 
 
 
@@ -22,6 +23,7 @@ export class UpdateDonor {
   @Input() donor: DonorReadDTO | null = null;
   donorsService: DonorsService = inject(DonorsService);
   userService: UserService = inject(UserService);
+  messageService = inject(MessagesService);
 
 
   editMode = false;
@@ -41,16 +43,15 @@ export class UpdateDonor {
     if (this.donor == null || this.donor == undefined) return
     const updatedDonor = { ...this.donor, ...this.tempData };
 
-    console.log("update", updatedDonor);
-
     this.donorsService.updateDonor(this.donor.id, updatedDonor, this.userService.token()).subscribe({
       next: () => {
         this.donor = updatedDonor;
         this.editMode = false;
-        console.log("data was updated successfully");
+        this.messageService.success("Donor updated successfully");
       },
       error: (err) => {
         console.error('error ', err);
+        this.messageService.error('Error updating donor', err);
 
       }
     });

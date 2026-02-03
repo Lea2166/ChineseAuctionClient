@@ -44,7 +44,8 @@
                     <nz-form-item>
                         <nz-form-label nzRequired>Categories</nz-form-label>
                         <nz-form-control nzErrorTip="Prize Category is required">
-                            <nz-select nzPlaceHolder="Select categories" nzMode="multiple" formControlName="categoryIds">
+                            <nz-select nzPlaceHolder="Select categories" nzMode="multiple"
+                                formControlName="categoryIds">
                                 @for(category of categories; track category.id){
                                 <nz-option [nzLabel]="category.name" [nzValue]="category.id"></nz-option>
                                 }
@@ -69,9 +70,11 @@
             <div nz-row [nzGutter]="8">
                 <div nz-col nzSpan="24">
                     <nz-form-item>
+                        <!-- @let imageCtrl = prizeData.controls.imagePath; -->
                         <nz-form-label>Prize Image</nz-form-label>
-                        <nz-form-control>
-                            <nz-upload nzType="drag" [nzSize]="500" [nzMultiple]="false"
+                        <nz-form-control [nzErrorTip]="errorTpl" >
+
+                            <nz-upload nzType="drag" [nzMultiple]="false"  [nzBeforeUpload]="beforeUpload"
                                 nzAction="https://localhost:7156/upload" [(nzFileList)]="fileList" nzAccept="image/*"
                                 nzListType="picture" [nzDisabled]="fileList.length >= 1" [nzLimit]="1"
                                 (nzChange)="handleUploadChange($event)">
@@ -80,12 +83,20 @@
                                     <span nz-icon nzType="picture"></span>
                                 </p>
                                 <p class="ant-upload-text">Click or drag image to this area to upload</p>
-                                <p class="ant-upload-hint">Support for a single image upload.</p>
+                                <p class="ant-upload-hint">The image must be smaller than 500KB.</p>
                             </nz-upload>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
             </div>
+            <ng-template #errorTpl>
+                @if (prizeData.controls.imagePath.hasError('required')) {
+                <span nz-icon nzType="exclamation-circle"></span> Prize image is required.
+                }
+                @if (prizeData.controls.imagePath.hasError('invalidSize')) {
+                <span nz-icon nzType="exclamation-circle"></span> The image must be smaller than 500KB.
+                }
+            </ng-template>
             <div class="modal-footer">
                 <button nz-button nzType="primary" type="submit" [disabled]="prizeData.invalid">
                     Save Prize

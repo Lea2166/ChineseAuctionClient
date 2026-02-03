@@ -1,12 +1,20 @@
 <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input your username!">
+    <nz-form-control [nzErrorTip]="emailErrorTpl">
       <nz-input-wrapper>
         <nz-icon nzInputPrefix nzType="user" />
         <input type="text" nz-input formControlName="email" placeholder="E-mail" nzSize="large" />
       </nz-input-wrapper>
     </nz-form-control>
   </nz-form-item>
+
+  <ng-template #emailErrorTpl let-control>
+    @if (control.hasError('required')) {
+    E-mail Address is required
+    } @else if (control.hasError('email')) {
+    The e-mail address is not valid
+    }
+  </ng-template>
 
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input your Password!">

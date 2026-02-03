@@ -1,4 +1,4 @@
-import { Component, EventEmitter, input, Output, OnInit, Input, inject } from '@angular/core';
+import { Component, EventEmitter, input, Output, OnInit, Input, inject, signal } from '@angular/core';
 import { CreatePrizeDTO } from '../../../models/Prize';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NonNullAssert } from '@angular/compiler';
 import { Category } from '../../../models/PackageOrderCart';
 import { AsyncPipe } from '@angular/common';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-add-prize-view',
@@ -26,8 +27,11 @@ import { AsyncPipe } from '@angular/common';
   templateUrl: './add-prize-view.html',
   styleUrl: './add-prize-view.scss',
 })
+
 export class AddPrizeView {
+
   private fb = inject(NonNullableFormBuilder);
+  private messageService = inject(MessagesService);
 
   fileList: NzUploadFile[] = [];
 
@@ -37,7 +41,7 @@ export class AddPrizeView {
     donorId: this.fb.control(0, [Validators.required]),
     categoryIds: this.fb.control([1]),
     description: this.fb.control('', [Validators.required]),
-    imagePath: this.fb.control(''),
+    imagePath: this.fb.control('', [Validators.required]),
   });
 
   @Output() add = new EventEmitter<CreatePrizeDTO>();
@@ -53,15 +57,8 @@ export class AddPrizeView {
 
   }
 
-  // private destroy$ = new Subject<void>();
-  // ngOnDestroy(): void {
-  //   this.destroy$.next();
-  //   this.destroy$.complete();
-  // }
 
   submitForm(): void {
-    // console.log("submited");
-    // console.log(this.prizeData.value);
 
     if (this.prizeData.valid) {
       this.add.emit(this.prizeData.value as CreatePrizeDTO);
@@ -88,13 +85,41 @@ export class AddPrizeView {
       description: this.fb.control('', [Validators.required]),
       imagePath: this.fb.control(''),
     });
+
     this.fileList = [];
   }
 
 
   handleUploadChange(info: NzUploadChangeParam): void {
-    if (info.file.status === 'done') {
+    if (info.file.status === 'removed') {
+      this.prizeData.controls.imagePath.setValue('');
+      this.prizeData.controls.imagePath.setErrors(null);
+    }
+    else if(info.file.status === 'error') {
+
+      this.prizeData.controls.imagePath.setValue('');
+      this.prizeData.controls.imagePath.setErrors({ uploadFailed: true });
+      this.messageService.error('Image upload failed' , info.file.response?.message || 'Unknown error');
+
+    }
+    else if (info.file.status === 'done') {
       this.prizeData.patchValue({ imagePath: info.file.response.dbPath });
     }
   }
+
+
+  beforeUpload = (file: NzUploadFile): boolean => {
+  const isLt500Kb = file.size! / 1024 < 500;
+
+  console.log(file.size, isLt500Kb);
+  if (!isLt500Kb) {
+    this.messageService.error('Image upload failed','Image must be smaller than 500KB');
+    return false; 
+  }
+
+  return true;
+};
+
+
+  
 }
