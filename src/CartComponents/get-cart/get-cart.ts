@@ -18,21 +18,23 @@ export class GetCart {
   public messageService = inject(MessagesService);
   public UserService = inject(UserService);
 
+  
   ngOnInit() {
     const token = this.UserService.token();
     if (token) {
-      this.CartService.GetCartByUserId(token).subscribe({
-        next: (cart) => {
-          console.log('Cart loaded successfully', cart);
-        },
-        error: (err: any) => {
-          console.error('Failed to load cart', err);
-          this.messageService.error('Error', 'Failed to load cart data. Please try again later.');
-        }
-      });
-    } else {
-      this.messageService.error('User not logged in', 'Please log in to view your cart.');
+      this.CartService.GetCartByUserId(token);
     }
+  }
+  GetCartByUserId() {
+    this.CartService.GetCartByUserId(this.UserService.token()).subscribe({
+      next: cart => {
+        this.CartService.setCart(cart);
+      },
+      error: (err: any) => {
+        console.error('Error fetching cart', err);
+        this.messageService.error('Error fetching cart', err);
+      }
+    });
   }
 
 }
