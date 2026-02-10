@@ -22,15 +22,7 @@ export class GetCart {
   ngOnInit() {
     
 
-    this.cartService.GetCartByUserId(this.userService.token()).subscribe({
-      next: cart => {
-        this.cartService.setCart(cart);
-        console.log("cart loaded successfully", cart);
-      },
-      error: err => {
-        this.messageService.error('Error fetching cart', err);
-      }
-    });
+    this.GetCartByUserId()
 
   }
 
