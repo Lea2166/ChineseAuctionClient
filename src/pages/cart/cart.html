@@ -1,10 +1,12 @@
-@if(isAdmin()||!isConnected()) {
-<app-not-found></app-not-found>
-}
-@else {
 <div class="page-container">
-    <section class="view-section">
-        <app-get-cart />
-    </section>
-</div>
+    @if(isAdmin()||!isConnected()) {
+    <app-not-found></app-not-found>
+    }
+    @else {
+    <div class="page-container">
+        <section class="view-section">
+            <app-get-cart />
+        </section>
+    </div>
 }
+</div>
