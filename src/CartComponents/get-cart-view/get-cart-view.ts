@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ReadCartDTO } from '../../../models/PackageOrderCart';
 
 @Component({
   selector: 'app-get-cart-view',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   templateUrl: './get-cart-view.html',
   styleUrl: './get-cart-view.scss',
 })
+
 export class GetCartView {
+  @Input() cart: ReadCartDTO | null = null;
 
 }

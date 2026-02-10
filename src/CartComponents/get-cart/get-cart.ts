@@ -4,11 +4,12 @@ import { CartService } from '../../../services/cart-service';
 import { MessagesService } from '../../../services/messages';
 import { UserService } from '../../../services/user';
 import { GetCartView } from '../get-cart-view/get-cart-view';
+import { NzSpinComponent } from "ng-zorro-antd/spin";
 
 
 @Component({
   selector: 'app-get-cart',
-  imports: [GetCartView],
+  imports: [GetCartView, NzSpinComponent],
   templateUrl: './get-cart.html',
   styleUrl: './get-cart.scss',
 })
@@ -18,18 +19,16 @@ export class GetCart {
   public messageService = inject(MessagesService);
   public userService = inject(UserService);
 
+  loading: boolean = false;
 
   ngOnInit() {
-    
-
     this.GetCartByUserId()
-
   }
 
   GetCartByUserId() {
+    this.loading = true
     this.cartService.GetCartByUserId(this.userService.token()).subscribe({
       next: cart => {
-
         this.cartService.setCart(cart);
         console.log("cart loaded successfully", cart);
 
@@ -37,8 +36,12 @@ export class GetCart {
       error: (err: any) => {
         console.error('Error fetching cart', err);
         this.messageService.error('Error fetching cart', err);
-      }
+      },
+      complete: () => this.complete()
     });
+  }
+  complete() {
+    this.loading = false
   }
 
 }
