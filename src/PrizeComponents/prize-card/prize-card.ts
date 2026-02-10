@@ -9,10 +9,12 @@ import { UpdatePrize } from "../update-prize/update-prize";
 import { NzModalModule } from "ng-zorro-antd/modal";
 import { DeletePrize } from "../delete-prize/delete-prize";
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { AddToCartView } from "../../CartComponents/add-to-cart-view/add-to-cart-view";
+import { AddToCart } from "../../CartComponents/add-to-cart/add-to-cart";
 
 @Component({
   selector: 'app-prize-card',
-  imports: [NzAvatarModule, NzCardModule, NzIconModule, CommonModule,NzPopconfirmModule, UpdatePrize, NzModalModule, DeletePrize],
+  imports: [NzAvatarModule, NzCardModule, NzIconModule, CommonModule, NzPopconfirmModule, UpdatePrize, NzModalModule, DeletePrize, AddToCart],
   templateUrl: './prize-card.html',
   styleUrl: './prize-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -20,8 +22,9 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 export class PrizeCard {
 
-  @Input() prize: ReadPrizeDTO | null=null;
+  @Input() prize: ReadPrizeDTO | null = null;
   @Input() isAdmin: boolean = false;
+  @Input() isConnected: boolean = false;
 
   router: Router = inject(Router)
   currentUrl: ActivatedRoute = inject(ActivatedRoute);
@@ -34,12 +37,12 @@ export class PrizeCard {
 
   showModal: boolean = false
 
-  open(prize: ReadPrizeDTO | undefined|null): void {
-    if(prize==null){
+  open(prize: ReadPrizeDTO | undefined | null): void {
+    if (prize == null) {
       return
     }
-    this.prize={...prize}
-    this.showModal=true
+    this.prize = { ...prize }
+    this.showModal = true
   }
 
 

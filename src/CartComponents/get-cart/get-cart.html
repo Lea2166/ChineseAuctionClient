@@ -1,1 +1,6 @@
-<app-get-cart-view/>
+@if(loading){
+<nz-spin nzSimple></nz-spin>
+}
+@else {
+<app-get-cart-view [cart]="cartService.cart()" />
+}

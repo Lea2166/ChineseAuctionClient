@@ -1,5 +1,6 @@
 import { ReadUserDTO, ResponseUserDTO } from './User';
 import { ReadSimplePrizeDTO } from './Prize';
+
 export interface ReadPackageDTO {
   id: number;
   name: string;
@@ -38,8 +39,16 @@ export interface ReadCartDTO {
 
 export interface CartItemReadDTO {
   prizeId: number;
+  prize: ReadSimplePrizeDTO;
+  quantity: number;
+
+}
+export interface CreateCartItemDTO {
+  prizeId: number;
   quantity: number;
 }
+
+
 
 
 export interface Category {

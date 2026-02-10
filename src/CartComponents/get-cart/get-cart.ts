@@ -4,36 +4,44 @@ import { CartService } from '../../../services/cart-service';
 import { MessagesService } from '../../../services/messages';
 import { UserService } from '../../../services/user';
 import { GetCartView } from '../get-cart-view/get-cart-view';
+import { NzSpinComponent } from "ng-zorro-antd/spin";
 
 
 @Component({
   selector: 'app-get-cart',
-  imports: [GetCartView],
+  imports: [GetCartView, NzSpinComponent],
   templateUrl: './get-cart.html',
   styleUrl: './get-cart.scss',
 })
-export class GetCart {
-  public CartService = inject(CartService);
-  public messageService = inject(MessagesService);
-  public UserService = inject(UserService);
 
-  
+export class GetCart {
+  public cartService = inject(CartService);
+  public messageService = inject(MessagesService);
+  public userService = inject(UserService);
+
+  loading: boolean = false;
+
   ngOnInit() {
-    const token = this.UserService.token();
-    if (token) {
-      this.CartService.GetCartByUserId(token);
-    }
+    this.GetCartByUserId()
   }
+
   GetCartByUserId() {
-    this.CartService.GetCartByUserId(this.UserService.token()).subscribe({
+    this.loading = true
+    this.cartService.GetCartByUserId(this.userService.token()).subscribe({
       next: cart => {
-        this.CartService.setCart(cart);
+        this.cartService.setCart(cart);
+        console.log("cart loaded successfully", cart);
+
       },
       error: (err: any) => {
         console.error('Error fetching cart', err);
         this.messageService.error('Error fetching cart', err);
-      }
+      },
+      complete: () => this.complete()
     });
+  }
+  complete() {
+    this.loading = false
   }
 
 }

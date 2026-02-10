@@ -1,1 +1,56 @@
-<p>get-cart-view works!</p>
+
+
+<div class="cart-page">
+    <div nz-row nzJustify="center">
+        <div nz-col nzXs="24" nzMd="24" nzLg="16">
+            
+            <nz-list nzItemLayout="horizontal" class="cart-list">
+                @for (item of cart?.cartItems; track item.prizeId) {
+                <nz-list-item>
+                    <nz-card class="cart-item-card" [nzBordered]="false">
+                        <div class="cart-item">
+                            <img src="https://localhost:7156/{{item.prize.imagePath}}" loading="lazy" alt="" class="item-image" />
+
+                            <div class="item-details">
+                                <h3>{{ item.prize.name }}</h3>
+                                <div class="categories">
+                                    @for (c of item.prize.categories; track c) {
+                                    <nz-tag>{{ c }}</nz-tag>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="item-actions">
+                                <nz-input-number [(ngModel)]="item.quantity" [nzMin]="1"></nz-input-number>
+                            </div>
+                        </div>
+                    </nz-card>
+                </nz-list-item>
+                }
+            </nz-list>
+
+        </div>
+    </div>
+
+    <!-- להעביר את הסיכום לצד ימין של המסך, לקומפוננטת ביצוע ההזמנה -->
+    <div nz-row nzJustify="center" style="margin-top: 24px;">
+        <div nz-col nzXs="24" nzMd="20" nzLg="16">
+            
+            <nz-card class="summary-card">
+                <h3>Order Summary</h3>
+                <div class="summary-row">
+                    <span>Total Items</span>
+                    <span>{{ totalItems }}</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span>{{ totalPrice }}</span>
+                </div>
+                <button nz-button nzType="primary" nzBlock nzSize="large">
+                    Checkout
+                </button>
+            </nz-card>
+
+        </div>
+    </div>
+</div>
