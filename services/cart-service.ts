@@ -14,7 +14,7 @@ export class CartService {
 
   private _cart = signal<ReadCartDTO | null>(null);
   readonly cart = computed(() => this._cart());
-  AddPrizeToCart(cartItem: CartItemReadDTO, token?: string): Observable<void> {
+  AddPrizeToCart(cartItem: CartItemReadDTO, token: string|null): Observable<void> {
         if(!token) {
       console.log("in CartService.AddPrizeToCart: token is undefined");
       throw new Error("in CartService.AddPrizeToCart: token is undefined")
@@ -22,7 +22,7 @@ export class CartService {
     const currentCart = this._cart();
     return this.http.post<void>(`${this.apiUrl}/AddPrizeToCart`, cartItem,{ headers: { Authorization: "Bearer " + token } });
   }
-  RemovePrizeFromCart(prizeId: number, token?: string): Observable<void> {
+  RemovePrizeFromCart(prizeId: number, token: string|null): Observable<void> {
     if(!token) {
       console.log("in CartService.RemovePrizeFromCart: token is undefined");
       throw new Error("in CartService.RemovePrizeFromCart: token is undefined")
@@ -30,7 +30,7 @@ export class CartService {
     const currentCart = this._cart();
     return this.http.delete<void>(`${this.apiUrl}/RemovePrizeFromCart/${prizeId}`,{ headers: { Authorization: "Bearer " + token } });
   }
-  GetCartByUserId(token?: string): Observable<void> {
+  GetCartByUserId(token: string|null): Observable<void> {
         if(!token) {
       console.log("in CartService.GetCartByUserId: token is undefined");
       throw new Error("in CartService.GetCartByUserId: token is undefined")

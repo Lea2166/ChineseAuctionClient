@@ -14,7 +14,7 @@ export class DeleteFromCart {
   public messageService = inject(MessagesService);
   public UserService = inject(UserService);
   deletePrizeFromCart(prizeId: number) {
-    this.CartService.RemovePrizeFromCart(prizeId);
+    this.CartService.RemovePrizeFromCart(prizeId, this.UserService.token());
     this.messageService.success('Prize removed from cart successfully');
   }
 }

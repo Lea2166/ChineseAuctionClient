@@ -19,13 +19,13 @@ export class GetCart {
   ngOnInit() {
     const userId = this.UserService.user()?.id;
     if (userId) {
-      this.CartService.GetCartByUserId(userId);
+      this.CartService.GetCartByUserId(this.UserService.token());
     }
   }
 GetCartByUserId() {
   const userId = this.UserService.user()?.id;
   if (userId) {
-    this.CartService.GetCartByUserId(userId);
+    this.CartService.GetCartByUserId(this.UserService.token());
   }
   else { 
     this.messageService.error('User not logged in', 'Please log in to view your cart.');
