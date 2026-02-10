@@ -1,11 +1,14 @@
+
 import { Component, inject } from '@angular/core';
 import { CartService } from '../../../services/cart-service';
 import { MessagesService } from '../../../services/messages';
 import { UserService } from '../../../services/user';
+import { GetCartView } from '../get-cart-view/get-cart-view';
+
 
 @Component({
   selector: 'app-get-cart',
-  imports: [],
+  imports: [GetCartView],
   templateUrl: './get-cart.html',
   styleUrl: './get-cart.scss',
 })
