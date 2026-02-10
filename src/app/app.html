@@ -20,8 +20,9 @@
           <li nz-menu-item routerLink="/donors" routerLinkActive="ant-menu-item-selected">Donors</li>
           <li nz-menu-item routerLink="/sales" routerLinkActive="ant-menu-item-selected">Sales</li>
           }
-          @if(!isAdmin()){
-          <li nz-menu-item routerLink="/cart" routerLinkActive="ant-menu-item-selected"><nz-icon nzType="shopping" nzTheme="outline" /></li>
+          @if(!isAdmin()&&isConnected()){
+          <li nz-menu-item routerLink="/cart" routerLinkActive="ant-menu-item-selected"><nz-icon nzType="shopping"
+              nzTheme="outline" /></li>
           }
 
           <li nz-menu-item (click)="open()"><nz-icon nzType="user" nzTheme="outline" /></li>

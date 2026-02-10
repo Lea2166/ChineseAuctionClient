@@ -23,7 +23,11 @@
 </ng-template>
 
 <ng-template #actionEllipsis>
-  <nz-icon nzType="shopping-cart" nzTheme="outline" />
+  @if(!isAdmin && isConnected){
+
+  <app-add-to-cart [prizeId]="prize?.id??null">
+  </app-add-to-cart>
+  }
 </ng-template>
 
 

@@ -1,23 +1,58 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { MessagesService } from '../../../services/messages';
 import { CartService } from '../../../services/cart-service';
-import { CartItemReadDTO } from '../../../models/PackageOrderCart';
+import { CreateCartItemDTO } from '../../../models/PackageOrderCart';
+import { UserService } from '../../../services/user';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+
 @Component({
   selector: 'app-add-to-cart',
-  imports: [],
+  imports: [NzIconModule],
   templateUrl: './add-to-cart.html',
   styleUrl: './add-to-cart.scss',
 })
+
 export class AddToCart {
-  public CartService = inject(CartService);
-  public messageService = inject(MessagesService);
-  addPrizeToCart(prizeId: number, quantity: number) {
-    const cartItem: CartItemReadDTO = {
+  CartService = inject(CartService);
+  messageService = inject(MessagesService);
+  userService = inject(UserService);
+
+  @Input() prizeId: number | null = null;
+  @Input() viewType: "cart" | "prize-card" | "one-prize" = "prize-card";
+
+  addPrizeToCart(prizeId: number|null, quantity: number) {
+    if (!prizeId) {
+      this.messageService.error('Invalid prize ID', 'Cannot add to cart');
+      return;
+    }
+    const cartItem: CreateCartItemDTO = {
       prizeId: prizeId,
       quantity: quantity
     };
-    this.CartService.AddPrizeToCart(cartItem);
-    this.messageService.success('Prize added to cart successfully');
+    this.CartService.AddPrizeToCart(cartItem, this.userService.token()).subscribe({
+      next: () => {
+        this.messageService.success('Prize added to cart successfully');
+        this.CartService.GetCartByUserId(this.userService.token()).subscribe({
+          next: cart => {
+            this.CartService.setCart(cart);
+          },
+          error: (err: any) => {
+            console.error('Error fetching cart after adding prize', err);
+            this.messageService.error('Error fetching cart after adding prize', err);
+          }
+
+        });
+      },
+      error: (err: any) => {
+        console.error('Error adding prize to cart', err);
+        this.messageService.error('Error adding prize to cart', err);
+      }
+    })
   }
+  addOnePrizeToCart(prizeId: number) {
+    this.addPrizeToCart(prizeId, 1);
+  }
+
+
 
 }

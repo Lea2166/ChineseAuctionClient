@@ -1,1 +1,22 @@
-<p>add-to-cart works!</p>
+@switch (viewType) {
+@case ('prize-card') {
+<div (click)="addPrizeToCart(prizeId, 1)" class="icon-btn">
+    <nz-icon nzType="shopping-cart" nzTheme="outline" />
+</div>
+}
+
+@case ('cart') {
+<button (click)="addPrizeToCart(prizeId, 1)" class="main-btn">
+    add Prize
+</button>
+}
+
+@case ('one-prize') {
+<div (click)="addPrizeToCart(prizeId, 1)" class="main-btn">
+    add Prize
+</div>
+}
+
+
+}
+

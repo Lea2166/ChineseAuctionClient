@@ -68,7 +68,8 @@ export class App {
     return user?.role === 'Admin';
   }
   isConnected(): boolean {
-    if (this.userService.user() === null) {
+    const user = this.userService.user();
+    if (user === null) {
       return false
     }
     return true
