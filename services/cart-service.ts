@@ -22,16 +22,10 @@ export class CartService {
     const currentCart = this._cart();
     return this.http.delete<void>(`${this.apiUrl}/RemovePrizeFromCart/${prizeId}`);
   }
-  GetCartByUserId(userId: number): void {
-    this.http.get<ReadCartDTO>(`${this.apiUrl}/GetCartByUserId/${userId}`).subscribe(cart => {
-      this.setCart(cart);
-    });
+  GetCartByUserId(token: string): Observable<void> {
+    return this.http.get<void>(`${this.apiUrl}/GetCartByUserId`,{ headers: { Authorization: "Bearer " + token } });
   }
-
   setCart(cart: ReadCartDTO): void {
     this._cart.set(cart)
   }
- 
-
-
 }
