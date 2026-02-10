@@ -25,6 +25,7 @@ export class GetCart {
       this.CartService.GetCartByUserId(token);
     }
   }
+
   GetCartByUserId() {
     this.CartService.GetCartByUserId(this.UserService.token()).subscribe({
       next: cart => {

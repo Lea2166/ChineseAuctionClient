@@ -15,6 +15,7 @@ export class CartService {
   private _cart = signal<ReadCartDTO | null>(null);
   readonly cart = computed(() => this._cart());
 
+  
   AddPrizeToCart(cartItem: CartItemReadDTO, token?: string): Observable<number> {
     if (!token) {
       console.log("in CartService.AddPrizeToCart: token is undefined");
