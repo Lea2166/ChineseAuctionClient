@@ -8,6 +8,7 @@ import { ReadPrizeDTO } from '../../../models/Prize';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../services/user';
 import { MessagesService } from '../../../services/messages';
+import { CartService } from '../../../services/cart-service';
 
 @Component({
   selector: 'app-prize-list',
@@ -21,6 +22,7 @@ export class PrizeList {
   prizesService: PrizesService = inject(PrizesService);
   messagesService = inject(MessagesService);
   userService: UserService = inject(UserService);
+  cartService = inject(CartService);
 
   ngOnInit() {
     this.prizesService.getAllPrizes({}).subscribe({
@@ -35,5 +37,7 @@ export class PrizeList {
       }
     })
   }
+
+  
 
 }

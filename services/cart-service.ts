@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { ReadCartDTO, CartItemReadDTO } from '../models/PackageOrderCart'
+import { ReadCartDTO,  CreateCartItemDTO } from '../models/PackageOrderCart'
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -16,12 +16,12 @@ export class CartService {
   readonly cart = computed(() => this._cart());
 
 
-  AddPrizeToCart(cartItem: CartItemReadDTO, token?: string): Observable<number> {
+  AddPrizeToCart(cartItem: CreateCartItemDTO, token: string|null): Observable<number> {
     if (!token) {
       console.log("in CartService.AddPrizeToCart: token is undefined");
       throw new Error("in CartService.AddPrizeToCart: token is undefined")
     }
-    return this.http.post<number>(`${this.apiUrl}/AddPrizeToCart`, cartItem, { headers: { Authorization: "Bearer " + token } });
+    return this.http.post<number>(`${this.apiUrl}/AddPrizeToCart/${cartItem.prizeId}`, cartItem.quantity, { headers: { Authorization: "Bearer " + token } });
   }
 
   RemovePrizeFromCart(prizeId: number, token: string | null): Observable<number> {
