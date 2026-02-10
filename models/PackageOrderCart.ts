@@ -38,7 +38,6 @@ export interface ReadCartDTO {
 
 export interface CartItemReadDTO {
   prizeId: number;
-  prize: ReadSimplePrizeDTO;
   quantity: number;
 }
 
