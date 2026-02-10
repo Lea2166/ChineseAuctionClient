@@ -3,7 +3,6 @@ import { SalesService } from '../../../services/sales'
 import { UserService } from '../../../services/user';
 import { SalesListView } from '../sales-list-view/sales-list-view';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { OrderQParams } from '../../../models/Filters';
 import { MessagesService } from '../../../services/messages';
 
 @Component({
