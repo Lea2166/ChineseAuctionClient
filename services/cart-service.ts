@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import {ReadCartDTO, CartItemReadDTO} from '../models/PackageOrderCart'
-import { Observable } from 'rxjs';
+import { ReadCartDTO, CartItemReadDTO } from '../models/PackageOrderCart'
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,25 +19,30 @@ export class CartService {
       console.log("in CartService.AddPrizeToCart: token is undefined");
       throw new Error("in CartService.AddPrizeToCart: token is undefined")
     }
-    const currentCart = this._cart();
-    return this.http.post<void>(`${this.apiUrl}/AddPrizeToCart`, cartItem,{ headers: { Authorization: "Bearer " + token } });
+    return this.http.post<number>(`${this.apiUrl}/AddPrizeToCart`, cartItem, { headers: { Authorization: "Bearer " + token } });
   }
-  RemovePrizeFromCart(prizeId: number, token: string|null): Observable<void> {
-    if(!token) {
+
+  RemovePrizeFromCart(prizeId: number, token: string | null): Observable<number> {
+    if (!token) {
       console.log("in CartService.RemovePrizeFromCart: token is undefined");
       throw new Error("in CartService.RemovePrizeFromCart: token is undefined")
     }
-    const currentCart = this._cart();
-    return this.http.delete<void>(`${this.apiUrl}/RemovePrizeFromCart/${prizeId}`,{ headers: { Authorization: "Bearer " + token } });
+    return this.http.delete<number>(`${this.apiUrl}/RemovePrizeFromCart/${prizeId}`, { headers: { Authorization: "Bearer " + token } });
   }
-  GetCartByUserId(token: string|null): Observable<void> {
-        if(!token) {
+
+
+  GetCartByUserId(token: string | null): Observable<ReadCartDTO> {
+    if (token === null || token === undefined) {
       console.log("in CartService.GetCartByUserId: token is undefined");
       throw new Error("in CartService.GetCartByUserId: token is undefined")
     }
-    return this.http.get<void>(`${this.apiUrl}/GetCartByUserId`,{ headers: { Authorization: "Bearer " + token } });
+    return this.http.get<ReadCartDTO>(`${this.apiUrl}/GetCartByUserId/${token}`, { headers: { authorization: `Bearer ${token}` } }).pipe(
+      tap(cart => this.setCart(cart))
+    );
   }
   setCart(cart: ReadCartDTO): void {
     this._cart.set(cart)
   }
+
 }
+
