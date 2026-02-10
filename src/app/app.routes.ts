@@ -7,6 +7,8 @@ import { Packages } from '../pages/packages/packages';
 import { HomePage } from '../pages/home-page/home-page';
 import { Sales } from '../pages/sales/sales';
 import { NotFound } from '../not-found/not-found';
+import { Cart } from '../pages/cart/cart';
+
 
 
 export const routes: Routes = [
@@ -18,6 +20,7 @@ export const routes: Routes = [
   { path: 'prizes/add', pathMatch: 'full', component: AddPrize },
   { path: 'packages', pathMatch: 'full', component: Packages },
   { path: 'sales', pathMatch: 'full', component: Sales },
+  { path: 'cart', pathMatch: 'full', component: Cart },
   { path: '**', component: NotFound }
 
 ];
