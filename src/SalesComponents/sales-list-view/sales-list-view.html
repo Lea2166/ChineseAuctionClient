@@ -11,7 +11,7 @@
     <tbody>
         @for (order of orders; track order.id) {
         <tr>
-            <td>{{ order.user?.name}}</td>
+            <td>{{ order.user?.name ?? 'Unknown User' }}</td>
             <td>{{ order.orderDate.toString().split('T')[0]}}</td>
             <td>{{ order.totalPrice }} $</td>
             <td><button nz-button nzType="link" (click)="open(order.id)"><nz-icon nzType="edit"

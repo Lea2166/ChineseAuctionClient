@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import {ReadCartDTO, CartItemReadDTO} from '../models/PackageOrderCart'
+import { ReadCartDTO, CartItemReadDTO, Category } from '../models/PackageOrderCart'
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ export class CartService {
 
   private _cart = signal<ReadCartDTO | null>(null);
   readonly cart = computed(() => this._cart());
+  
   AddPrizeToCart(cartItem: CartItemReadDTO): void {
     const currentCart = this._cart();
     if (currentCart) {
@@ -25,6 +27,7 @@ export class CartService {
       this.setCart(currentCart);
     }
   }
+
   RemovePrizeFromCart(prizeId: number): void {
     const currentCart = this._cart();
     if (currentCart) {
@@ -32,16 +35,18 @@ export class CartService {
       this.setCart({ ...currentCart, cartItems: updatedCartItems });
     }
   }
-  GetCartByUserId(userId: number): void {
-    this.http.get<ReadCartDTO>(`${this.apiUrl}/GetCartByUserId/${userId}`).subscribe(cart => {
-      this.setCart(cart);
-    });
+  
+  GetCartByUserId(token: string | null):  Observable<ReadCartDTO> {
+    return this.http.get<ReadCartDTO>(`${this.apiUrl}/GetCartByUserId/`, { headers: { Authorization: `Bearer ${token}` } }).pipe(
+        tap((cart: ReadCartDTO) => this._cart.set(cart))
+    )
+         
   }
 
   setCart(cart: ReadCartDTO): void {
     this._cart.set(cart)
   }
- 
+
 
 
 }
