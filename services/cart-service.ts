@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import {ReadCartDTO, CartItemReadDTO} from '../models/PackageOrderCart'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,28 +10,17 @@ export class CartService {
 
 
   private http = inject(HttpClient);
-  private readonly apiUrl = 'https://localhost:7156/api/Donor';
+  private readonly apiUrl = 'https://localhost:7156/api/Cart';
 
   private _cart = signal<ReadCartDTO | null>(null);
   readonly cart = computed(() => this._cart());
-  AddPrizeToCart(cartItem: CartItemReadDTO): void {
+  AddPrizeToCart(cartItem: CartItemReadDTO): Observable<void> {
     const currentCart = this._cart();
-    if (currentCart) {
-      const existingItemIndex = currentCart.cartItems.findIndex(item => item.prizeId === cartItem.prizeId);
-      if (existingItemIndex !== -1) {
-        currentCart.cartItems[existingItemIndex].quantity += cartItem.quantity;
-      } else {
-        currentCart.cartItems.push(cartItem);
-      }
-      this.setCart(currentCart);
-    }
+    return this.http.post<void>(`${this.apiUrl}/AddPrizeToCart`, cartItem);
   }
-  RemovePrizeFromCart(prizeId: number): void {
+  RemovePrizeFromCart(prizeId: number): Observable<void> {
     const currentCart = this._cart();
-    if (currentCart) {
-      const updatedCartItems = currentCart.cartItems.filter(item => item.prizeId !== prizeId);
-      this.setCart({ ...currentCart, cartItems: updatedCartItems });
-    }
+    return this.http.delete<void>(`${this.apiUrl}/RemovePrizeFromCart/${prizeId}`);
   }
   GetCartByUserId(userId: number): void {
     this.http.get<ReadCartDTO>(`${this.apiUrl}/GetCartByUserId/${userId}`).subscribe(cart => {
