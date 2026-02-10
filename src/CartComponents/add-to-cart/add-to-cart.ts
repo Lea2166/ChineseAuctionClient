@@ -3,7 +3,6 @@ import { MessagesService } from '../../../services/messages';
 import { CartService } from '../../../services/cart-service';
 import { CreateCartItemDTO } from '../../../models/PackageOrderCart';
 import { UserService } from '../../../services/user';
-import { ɵNzTransitionPatchModule } from "ng-zorro-antd/core/transition-patch";
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 @Component({
