@@ -14,22 +14,33 @@ import { GetCartView } from '../get-cart-view/get-cart-view';
 })
 
 export class GetCart {
-  public CartService = inject(CartService);
+  public cartService = inject(CartService);
   public messageService = inject(MessagesService);
-  public UserService = inject(UserService);
+  public userService = inject(UserService);
 
-  
+
   ngOnInit() {
-    const token = this.UserService.token();
-    if (token) {
-      this.CartService.GetCartByUserId(token);
-    }
+    
+
+    this.cartService.GetCartByUserId(this.userService.token()).subscribe({
+      next: cart => {
+        this.cartService.setCart(cart);
+        console.log("cart loaded successfully", cart);
+      },
+      error: err => {
+        this.messageService.error('Error fetching cart', err);
+      }
+    });
+
   }
 
   GetCartByUserId() {
-    this.CartService.GetCartByUserId(this.UserService.token()).subscribe({
+    this.cartService.GetCartByUserId(this.userService.token()).subscribe({
       next: cart => {
-        this.CartService.setCart(cart);
+
+        this.cartService.setCart(cart);
+        console.log("cart loaded successfully", cart);
+
       },
       error: (err: any) => {
         console.error('Error fetching cart', err);

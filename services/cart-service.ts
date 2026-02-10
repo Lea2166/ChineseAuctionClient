@@ -15,7 +15,7 @@ export class CartService {
   private _cart = signal<ReadCartDTO | null>(null);
   readonly cart = computed(() => this._cart());
 
-  
+
   AddPrizeToCart(cartItem: CartItemReadDTO, token?: string): Observable<number> {
     if (!token) {
       console.log("in CartService.AddPrizeToCart: token is undefined");
@@ -38,7 +38,7 @@ export class CartService {
       console.log("in CartService.GetCartByUserId: token is undefined");
       throw new Error("in CartService.GetCartByUserId: token is undefined")
     }
-    return this.http.get<ReadCartDTO>(`${this.apiUrl}/GetCartByUserId/${token}`, { headers: { authorization: `Bearer ${token}` } }).pipe(
+    return this.http.get<ReadCartDTO>(`${this.apiUrl}/GetCartByUserId/`, { headers: { authorization: `Bearer ${token}` } }).pipe(
       tap(cart => this.setCart(cart))
     );
   }
