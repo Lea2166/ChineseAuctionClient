@@ -13,6 +13,7 @@ export class CartService {
 
   private _cart = signal<ReadCartDTO | null>(null);
   readonly cart = computed(() => this._cart());
+  
   AddPrizeToCart(cartItem: CartItemReadDTO): void {
     const currentCart = this._cart();
     if (currentCart) {
@@ -32,6 +33,7 @@ export class CartService {
       this.setCart({ ...currentCart, cartItems: updatedCartItems });
     }
   }
+
   GetCartByUserId(userId: number): void {
     this.http.get<ReadCartDTO>(`${this.apiUrl}/GetCartByUserId/${userId}`).subscribe(cart => {
       this.setCart(cart);
@@ -42,6 +44,4 @@ export class CartService {
     this._cart.set(cart)
   }
  
-
-
 }
