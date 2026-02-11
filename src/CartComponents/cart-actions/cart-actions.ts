@@ -10,13 +10,12 @@ import { FormsModule } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-add-to-cart',
-  imports: [NzIconModule, NzInputNumberModule, NzButtonModule, FormsModule],
-  templateUrl: './add-to-cart.html',
-  styleUrl: './add-to-cart.scss',
+  selector: 'app-cart-actions',
+  imports: [NzIconModule,NzButtonModule, NzInputNumberModule,FormsModule],
+  templateUrl: './cart-actions.html',
+  styleUrl: './cart-actions.scss',
 })
-
-export class AddToCart {
+export class CartActions {
   CartService = inject(CartService);
   messageService = inject(MessagesService);
   userService = inject(UserService);
@@ -72,7 +71,7 @@ export class AddToCart {
 
     this.CartService.RemovePrizeFromCart(prizeId, token).subscribe({
       next: () => {
-        this.messageService.success('Prize removed to cart successfully');
+        this.messageService.success('Prize removed from cart successfully');
         this.CartService.GetCartByUserId(this.userService.token()).subscribe({
           next: cart => {
             this.CartService.setCart(cart);
@@ -90,9 +89,7 @@ export class AddToCart {
       }
     }
     );
-   
+
   }
-
-
 
 }

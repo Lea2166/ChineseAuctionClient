@@ -9,12 +9,12 @@ import { UpdatePrize } from "../update-prize/update-prize";
 import { NzModalModule } from "ng-zorro-antd/modal";
 import { DeletePrize } from "../delete-prize/delete-prize";
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { AddToCartView } from "../../CartComponents/add-to-cart-view/add-to-cart-view";
 import { AddToCart } from "../../CartComponents/add-to-cart/add-to-cart";
+import { CartActions } from "../../CartComponents/cart-actions/cart-actions";
 
 @Component({
   selector: 'app-prize-card',
-  imports: [NzAvatarModule, NzCardModule, NzIconModule, CommonModule, NzPopconfirmModule, UpdatePrize, NzModalModule, DeletePrize, AddToCart],
+  imports: [NzAvatarModule, NzCardModule, NzIconModule, CommonModule, NzPopconfirmModule, UpdatePrize, NzModalModule, DeletePrize, CartActions],
   templateUrl: './prize-card.html',
   styleUrl: './prize-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

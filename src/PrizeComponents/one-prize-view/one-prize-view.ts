@@ -14,6 +14,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FormsModule } from '@angular/forms';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NgOptimizedImage } from "@angular/common";
+import { AddToCart } from "../../CartComponents/add-to-cart/add-to-cart";
+import { CartActions } from "../../CartComponents/cart-actions/cart-actions";
 
 @Component({
   selector: 'app-one-prize-view',
@@ -30,7 +32,7 @@ import { NgOptimizedImage } from "@angular/common";
     NzInputNumberModule,
     NzButtonModule,
     NzIconModule,
-    NzCardModule],
+    NzCardModule, CartActions],
   templateUrl: './one-prize-view.html',
   styleUrl: './one-prize-view.scss',
 })
