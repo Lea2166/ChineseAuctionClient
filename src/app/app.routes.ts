@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home-page/home-page';
 import { Sales } from '../pages/sales/sales';
 import { NotFound } from '../not-found/not-found';
 import { Cart } from '../pages/cart/cart';
+import { PurchaseOrder } from '../orderComponents/purchase-order/purchase-order';
 import { Order } from '../pages/order/order';
 
 
