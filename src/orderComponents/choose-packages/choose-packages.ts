@@ -26,6 +26,7 @@ interface SuggestedPackage {
   templateUrl: './choose-packages.html',
   styleUrl: './choose-packages.scss',
 })
+
 export class ChoosePackages {
 
   public packagesService = inject(PackagesService);
@@ -90,7 +91,6 @@ export class ChoosePackages {
       this.suggestPackages();
       return
     }
-
 
   }
 
@@ -169,10 +169,6 @@ export class ChoosePackages {
       })
       .join(' + ');
   }
-
-
-
-
 
   applySuggestion(option: any) {
 

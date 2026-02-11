@@ -1,91 +1,71 @@
 .suggestions-container {
-  padding: 40px;
-  background-color: #f8fafc;
-  max-width: 1000px; // צמצום רוחב המכולה כדי שהחצי-חצי ייראה פרופורציונלי
-  margin: 0 auto;
+    padding: 40px;
+    background-color: #f8fafc;
+    max-width: 1000px;
+    margin: 0 auto;
 
-  .title {
-    text-align: center;
-    margin-bottom: 48px;
-    font-weight: 700;
-  }
-
-  .full-width-badge {
-    display: block;
-    width: 100%;
-  }
-
-  .suggestion-card {
-    height: 100%; // מבטיח גובה אחיד
-    border-radius: 12px;
-    
-    &.best-deal-card {
-      border: 2px solid #52c41a;
-      box-shadow: 0 4px 12px rgba(82, 196, 26, 0.1);
+    .title {
+        text-align: center;
+        margin-bottom: 48px;
+        font-weight: 700;
     }
 
-    ::ng-deep .ant-card-body {
-      height: 100%;
-      padding: 24px;
+    .full-width-badge {
+        display: block;
+        width: 100%;
     }
 
-    .card-content {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      min-height: 280px; // גובה מינימלי למראה יוקרתי
+    .suggestion-card {
+        height: 100%; 
+        border-radius: 12px;
+
+        &.best-deal-card {
+            border: 2px solid #52c41a;
+            box-shadow: 0 4px 12px rgba(82, 196, 26, 0.1);
+        }
+
+
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+              min-height: 280px; 
+        }
+
+        .header {
+            text-align: center;
+
+            .price-text {
+                margin-bottom: 4px;
+                font-size: 42px;
+                color: #000;
+            }
+        }
+
+        .body {
+
+            .label {
+                font-size: 11px;
+                color: #8c8c8c;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+           margin-bottom: 10px;
+        }
+
+        .savings-alert {
+            background-color: #f6ffed;
+            border: 1px solid #b7eb8f;
+            color: #389e0d;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
     }
 
-    .header {
-      text-align: center;
-      .price-text {
-        margin-bottom: 4px;
-        font-size: 42px;
-        color: #000;
-      }
-    }
 
-    .body {
-      flex-grow: 1; // דוחף את הפוטר למטה
-      margin: 16px 0;
-      .label {
-        font-size: 11px;
-        color: #8c8c8c;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      .composition-desc {
-        font-size: 15px;
-        color: #262626;
-      }
-    }
 
-    .savings-alert {
-      background-color: #f6ffed;
-      border: 1px solid #b7eb8f;
-      color: #389e0d;
-      padding: 10px;
-    //   text-align: center;
-      border-radius: 8px;
-      margin-bottom: 16px;
-    }
-  }
 
-  .best-value-badge {
-    background: #52c41a;
-    color: white;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: bold;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-
-  // מיקום התג מעל הכרטיס
-  ::ng-deep .ant-badge-status-text {
-    position: absolute;
-    top: -14px;
-    left: 20px;
-    margin: 0;
-  }
 }
