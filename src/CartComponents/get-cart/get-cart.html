@@ -2,5 +2,5 @@
 <nz-spin nzSimple></nz-spin>
 }
 @else {
-<app-get-cart-view [cart]="cartService.cart()" />
+<app-get-cart-view [cart]="cartService.cart()"  (navigate)="navigate()"/>
 }

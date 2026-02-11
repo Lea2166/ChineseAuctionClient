@@ -1,0 +1,36 @@
+<div class="full-page">
+    <nz-steps [nzCurrent]="current" nzDirection="vertical">
+
+        <nz-step nzTitle="Choose Packages " [nzDescription]="cartDescription">
+            <ng-template #cartDescription>
+                @if (current === 0) {
+                <div class="step-content-inline">
+                    <app-choose-packages (nextStep)="next()" />
+                </div>
+                }
+            </ng-template>
+        </nz-step>
+
+        <nz-step nzTitle="Payment Details" [nzDescription]="orderDescription">
+            <ng-template #orderDescription>
+                @if (current === 1) {
+                <div class="step-content-inline">
+                    <app-purchase-order (prevStep)="prev()" (nextStep)="next()" />
+                </div>
+                }
+            </ng-template>
+        </nz-step>
+
+
+        <nz-step nzTitle="Completed! " [nzDescription]="orderDescription">
+            <ng-template #orderDescription>
+                @if (current === 2) {
+                <div class="step-content-inline">
+                    success!
+                </div>
+                }
+            </ng-template>
+        </nz-step>
+
+    </nz-steps>
+</div>

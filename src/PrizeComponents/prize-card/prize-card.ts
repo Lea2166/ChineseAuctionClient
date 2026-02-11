@@ -9,7 +9,6 @@ import { UpdatePrize } from "../update-prize/update-prize";
 import { NzModalModule } from "ng-zorro-antd/modal";
 import { DeletePrize } from "../delete-prize/delete-prize";
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
-import { AddToCart } from "../../CartComponents/add-to-cart/add-to-cart";
 import { CartActions } from "../../CartComponents/cart-actions/cart-actions";
 
 @Component({

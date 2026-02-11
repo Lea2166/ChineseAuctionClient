@@ -1,1 +1,49 @@
-<p>choose-packages works!</p>
+<div class="suggestions-container">
+  <h2 nz-typography class="title">Exclusive Value Offers</h2>
+  <div nz-row [nzGutter]="[24, 24]" nzJustify="center">
+    @for (option of suggestedPks; track option.totalPrice; let i = $index) {
+    <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="12">
+      <nz-card [nzHoverable]="true" [class.best-deal-card]="i === 0" class="suggestion-card">
+
+        <div class="card-content">
+          <div class="header">
+            @if(i==0){
+              <nz-tag nzColor="#389e0d" >Best Offer</nz-tag>
+            }
+            <h1 nz-typography class="price-text">${{ option.totalPrice }}</h1>
+            <p nz-typography nzType="secondary">{{ option.ticketsCount }} Tickets Total</p>
+          </div>
+
+          <nz-divider></nz-divider>
+
+          <div class="body">
+            <p nz-typography>
+              <strong class="label">Package Composition:</strong><br>
+              <span class="composition-desc">{{ option.composition }}</span>
+            </p>
+          </div>
+
+          <div class="footer">
+            <div class="savings-alert">
+              You save <strong>${{ option.savings }}</strong>
+            </div>
+
+            <button nz-button nzBlock [nzType]="i === 0 ? 'primary' : 'default'" nzShape="round"
+              (click)="applySuggestion(option)">
+              Select This Deal
+            </button>
+          </div>
+        </div>
+      </nz-card>
+
+
+      <ng-template #bestOfferTemplate>
+        <span class="best-offer-tag">BEST OFFER</span>
+      </ng-template>
+
+    </div>
+    } @empty {
+    <nz-empty nzNotFoundContent="No special offers found at the moment."></nz-empty>
+    }
+  </div>
+</div>
