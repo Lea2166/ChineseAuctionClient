@@ -13,29 +13,6 @@ export class ChoosePackages {
   public packagesService = inject(PackagesService);
   public cartService = inject(CartService);
   public userService = inject(UserService);
-
-  get suggestions() {
-    const cart = this.cartService.cart();
-    if (!cart || !this.packagesService.packages()) return [];
-
-    const totalTicketsNeeded = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
-    const allPackages = this.packagesService.packages();
-    const SINGLE_TICKET_PRICE = allPackages.find(pkg => pkg.numOfTickets === 1)?.price || 10;
-    return allPackages
-      .map(pkg => {
-        const isEnough = pkg.numOfTickets >= totalTicketsNeeded;
-        const savings = this.calculateSavings(pkg, totalTicketsNeeded, SINGLE_TICKET_PRICE);
-
-        return {
-          ...pkg,
-          isRecommended: isEnough && pkg.numOfTickets - totalTicketsNeeded <= 5,
-          isPossible: true,
-          savings: savings
-        };
-      })
-      .sort((a, b) => (a.isRecommended === b.isRecommended ? 0 : a.isRecommended ? -1 : 1));
-  }
   calculateSavings(pkg: any, ticketsNeeded: number, SINGLE_TICKET_PRICE: number): number {
     const costInSingles = pkg.quantity * SINGLE_TICKET_PRICE;
 
