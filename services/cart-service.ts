@@ -23,6 +23,7 @@ export class CartService {
     }
     return this.http.post<number>(`${this.apiUrl}/AddPrizeToCart/${cartItem.prizeId}`, cartItem.quantity, { headers: { Authorization: "Bearer " + token } });
   }
+  
 
   RemovePrizeFromCart(prizeId: number, token: string | null): Observable<number> {
     if (!token) {
