@@ -1,1 +1,36 @@
-<p>purchase-order works!</p>
+<div class="payment-container">
+  <h3>Secure Payment</h3>
+  
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    
+    <div class="input-group">
+      <label>Cardholder Name</label>
+      <input formControlName="cardName" placeholder="e.g. John Doe">
+    </div>
+
+    <div class="input-group">
+      <label>Card Number</label>
+      <input formControlName="cardNumber" placeholder="1234 5678 1234 5678">
+    </div>
+
+    <div class="row">
+      <div class="input-group">
+        <label>Expiry Date</label>
+        <input formControlName="expiry" placeholder="MM/YY">
+      </div>
+      <div class="input-group">
+        <label>CVV</label>
+        <input formControlName="cvv" placeholder="123">
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="paymentForm.invalid || isLoading">
+      {{ isLoading ? 'Processing...' : 'Pay Now' }}
+    </button>
+  </form>
+
+  <div *ngIf="statusMessage" class="status-msg" 
+       [ngClass]="{'loading': isLoading, 'success': !isLoading && paymentForm.valid, 'error': !isLoading && !paymentForm.valid}">
+    {{ statusMessage }}
+  </div>
+</div>
