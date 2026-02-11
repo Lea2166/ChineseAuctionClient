@@ -71,7 +71,7 @@ export class CartActions {
 
     this.CartService.RemovePrizeFromCart(prizeId, token).subscribe({
       next: () => {
-        this.messageService.success('Prize removed to cart successfully');
+        this.messageService.success('Prize removed from cart successfully');
         this.CartService.GetCartByUserId(this.userService.token()).subscribe({
           next: cart => {
             this.CartService.setCart(cart);

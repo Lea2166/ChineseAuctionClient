@@ -8,10 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { AddToCart } from "../add-to-cart/add-to-cart";
 import { CartActions } from "../cart-actions/cart-actions";
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 @Component({
   selector: 'app-get-cart-view',
-  imports: [NzCardModule, NzListModule, NzButtonModule, NzTagModule, FormsModule, NzInputNumberModule, AddToCart, CartActions],
+  imports: [NzCardModule, NzListModule, NzButtonModule, NzTagModule, FormsModule, NzInputNumberModule, NzGridModule, CartActions],
   templateUrl: './get-cart-view.html',
   styleUrl: './get-cart-view.scss',
 })
