@@ -13,15 +13,37 @@ import { Token } from '@angular/compiler';
 export class DeleteFromCart {
   public CartService = inject(CartService);
   public messageService = inject(MessagesService);
-  public UserService = inject(UserService);
+  public userService = inject(UserService);
 
   deletePrizeFromCart(prizeId: number) {
-    const token = this.UserService.token();
+    
+    const token = this.userService.token();
+
     if (!token) {
-      this.messageService.error('User not authenticated','Please log in to remove items from the cart');
+      this.messageService.error('User not authenticated', 'Please log in to remove items from the cart');
       return;
     }
-    this.CartService.RemovePrizeFromCart(prizeId,token);
+
+    this.CartService.RemovePrizeFromCart(prizeId, token).subscribe({
+      next: () => {
+        this.messageService.success('Prize added to cart successfully');
+        this.CartService.GetCartByUserId(this.userService.token()).subscribe({
+          next: cart => {
+            this.CartService.setCart(cart);
+          },
+          error: (err: any) => {
+            console.error('Error fetching cart after adding prize', err);
+            this.messageService.error('Error fetching cart after adding prize', err);
+          }
+
+        });
+      },
+      error: (err: any) => {
+        console.error('Error adding prize to cart', err);
+        this.messageService.error('Error adding prize to cart', err);
+      }
+    }
+    );
     this.messageService.success('Prize removed from cart successfully');
   }
 }

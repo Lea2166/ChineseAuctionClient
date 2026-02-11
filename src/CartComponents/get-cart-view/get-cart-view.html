@@ -21,7 +21,7 @@
                             </div>
 
                             <div class="item-actions">
-                                <nz-input-number [(ngModel)]="item.quantity" [nzMin]="1"></nz-input-number>
+                                 <app-cart-actions [prizeId]="item.prizeId" [viewType]="'cart'" [qty]="item.quantity"/>
                             </div>
                         </div>
                     </nz-card>
