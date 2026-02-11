@@ -1,46 +1,69 @@
-
-
 .cart-page {
   padding: 24px;
   background-color: #f5f7fa;
   min-height: 100vh;
+}
 
-  .cart-item-card {
-    width: 100%;
-    margin-bottom: 8px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+.cart-item-card {
+  width: 100%;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+
+  .item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
   }
 
-  .cart-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
 
-    .item-image {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      border-radius: 4px;
-    }
+}
 
-    .item-details {
-      flex: 1; // דוחף את ה-actions לסוף הימני
-    }
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+
+  &.total {
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 10px;
+    padding-top: 15px;
   }
+}
 
-  .summary-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    
-    &.total {
-      font-weight: bold;
-      font-size: 1.2rem;
-      border-top: 1px solid #f0f0f0;
-      margin-top: 10px;
-      padding-top: 15px;
-    }
-  }
+.summary-sticky {
+  position: sticky;
+  top: 24px;
+}
+
+
+.summary-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+
+.summary-row.total {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.categories {
+  margin-top: 6px;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
 }

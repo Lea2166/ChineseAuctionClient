@@ -13,13 +13,13 @@ export class ChoosePackages {
   public packagesService = inject(PackagesService);
   public cartService = inject(CartService);
   public userService = inject(UserService);
-  calculateSavings(pkg: any, ticketsNeeded: number, SINGLE_TICKET_PRICE: number): number {
-    const costInSingles = pkg.quantity * SINGLE_TICKET_PRICE;
 
+  calculateSavings(pkg: any,  SINGLE_TICKET_PRICE: number): number {
+    const costInSingles = pkg.numOfTickets * SINGLE_TICKET_PRICE;
     const savings = costInSingles - pkg.price;
-
     return savings > 0 ? savings : 0;
   }
+
   suggestPackages() {
     const cart = this.cartService.cart();
     const allPackages = this.packagesService.packages();

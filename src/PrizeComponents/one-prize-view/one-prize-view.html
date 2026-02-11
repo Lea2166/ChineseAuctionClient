@@ -57,13 +57,7 @@
                 <nz-divider></nz-divider>
 
                 <div class="action-box">
-                    <nz-input-number nzSize="large" [nzMin]="1" class="qty-input">
-                    </nz-input-number>
-
-                    <button nz-button nzType="primary" nzSize="large" nzBlock>
-                        <span nz-icon nzType="plus-circle"></span>
-                        Add Tickets
-                    </button>
+                    <app-cart-actions [prizeId]="prize?.id??null" [viewType]="'one-prize'"/>
                 </div>
 
             </nz-card>
