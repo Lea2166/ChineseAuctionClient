@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { ChoosePackages } from '../../orderComponents/choose-packages/choose-packages';
 import { PurchaseOrder } from '../../orderComponents/purchase-order/purchase-order';
+import { NzResultModule } from "ng-zorro-antd/result";
 
 @Component({
   selector: 'app-order',
-  imports: [NzStepsModule,ChoosePackages,PurchaseOrder],
+  imports: [NzStepsModule, ChoosePackages, PurchaseOrder, NzResultModule],
   templateUrl: './order.html',
   styleUrl: './order.scss',
 })
@@ -26,13 +27,23 @@ export class Order {
   }
 
 
-  current = 0; 
+  current = 0;
 
   next(): void {
     this.current += 1;
+
+    
+    setTimeout(() => {
+      const element = document.getElementById(`step${this.current}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 100);
   }
 
   prev(): void {
-    this.current -= 1;
+    if (this.current > 0) {
+      this.current -= 1;
+    }
   }
 }

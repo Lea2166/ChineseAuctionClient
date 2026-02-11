@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { PackagesService } from '../../../services/packages';
 import { CartService } from '../../../services/cart-service';
 import { UserService } from '../../../services/user';
@@ -25,6 +25,7 @@ export class ChoosePackages {
   public messageService = inject(MessagesService)
   public orderService = inject(OrderService)
 
+  @Output() finish=new EventEmitter<number>()
 
   packages: ReadPackageDTO[] = []
   cart: ReadCartDTO | null = null
@@ -88,7 +89,7 @@ export class ChoosePackages {
   applySuggestion(pkgs: number[] | []) {
     if (pkgs.length > 0) {
       this.orderService.setPackages(pkgs)
-      
+      this.finish.emit()
       
     }
     else {

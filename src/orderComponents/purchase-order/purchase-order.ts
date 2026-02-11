@@ -1,18 +1,27 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from '../../../services/order-service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { NzFormModule } from "ng-zorro-antd/form";
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { MessagesService } from '../../../services/messages';
+
 @Component({
   selector: 'app-purchase-order',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, NzFormModule, NzButtonModule, NzGridModule, NzInputModule],
   templateUrl: './purchase-order.html',
   styleUrl: './purchase-order.scss',
 })
 export class PurchaseOrder {
+
   paymentForm: FormGroup;
   isLoading = false;
-  statusMessage = '';
+  messageService=inject(MessagesService)
+
+  @Output() finish=new EventEmitter<void>()
 
   constructor(private fb: FormBuilder, private paymentService: OrderService) {
     this.paymentForm = this.fb.group({
@@ -26,14 +35,24 @@ export class PurchaseOrder {
   onSubmit() {
     if (this.paymentForm.valid) {
       this.isLoading = true;
-      this.statusMessage = 'Processing payment...';
-      
+    
+
       this.paymentService.processPayment(this.paymentForm.value).subscribe((res: any) => {
         this.isLoading = false;
-        this.statusMessage = res.message;
-        if (res.success) this.paymentForm.reset();
+        
+        if (res.success) {
+          this.paymentForm.reset();
+          this.messageService.success(res.message)
+          this.finish.emit()
+        }
+        else{
+          this.messageService.error(res.message,'')
+        }
       });
+      
     }
   }
 
+
+ 
 }

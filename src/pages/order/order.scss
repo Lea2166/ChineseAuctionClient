@@ -7,18 +7,7 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   min-height: 80vh;
 
-  ::ng-deep .ant-steps-vertical {
-    .ant-steps-item-container {
-      margin-bottom: 20px; 
-    }
-
-    .ant-steps-item-title {
-      font-weight: 600;
-      font-size: 1.1rem;
-      padding-bottom: 8px;
-    }
-  }
-
+  
 
   .step-content-inline {
     margin-top: 15px;
@@ -34,4 +23,16 @@
   color: #52c41a;
   font-weight: bold;
   font-size: 1.2rem;
+}
+
+.step-content-inline {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step-disabled {
+    opacity: 0.6; 
+    pointer-events: none;
+    filter: grayscale(1); 
+    user-select: none;
 }
