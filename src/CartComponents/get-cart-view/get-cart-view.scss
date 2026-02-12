@@ -2,6 +2,7 @@
   padding: 24px;
   background-color: #f5f7fa;
   min-height: 100vh;
+  min-width: 600px;
 }
 
 .cart-item-card {
@@ -45,6 +46,7 @@
 .summary-sticky {
   position: sticky;
   top: 24px;
+  min-width: auto;
 }
 
 

@@ -10,10 +10,13 @@ import { NzModalModule } from "ng-zorro-antd/modal";
 import { DeletePrize } from "../delete-prize/delete-prize";
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { CartActions } from "../../CartComponents/cart-actions/cart-actions";
+import { PrizeDraw } from '../../ruffleComponents/prize-draw/prize-draw';
+import { NzTabLinkTemplateDirective } from "ng-zorro-antd/tabs";
+import { NzBadgeModule } from "ng-zorro-antd/badge";
 
 @Component({
   selector: 'app-prize-card',
-  imports: [NzAvatarModule, NzCardModule, NzIconModule, CommonModule, NzPopconfirmModule, UpdatePrize, NzModalModule, DeletePrize, CartActions],
+  imports: [NzAvatarModule, NzCardModule, NzIconModule, CommonModule, NzPopconfirmModule, UpdatePrize, NzModalModule, DeletePrize, CartActions, PrizeDraw, NzTabLinkTemplateDirective, NzBadgeModule],
   templateUrl: './prize-card.html',
   styleUrl: './prize-card.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -42,6 +45,13 @@ export class PrizeCard {
     }
     this.prize = { ...prize }
     this.showModal = true
+  }
+
+  winnersExist(): boolean {
+    if (this.prize?.winners && this.prize?.winners.length > 0 && this.prize.qty < 2) {
+      return true
+    }
+    return false
   }
 
 
