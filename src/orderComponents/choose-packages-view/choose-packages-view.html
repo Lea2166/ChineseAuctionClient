@@ -28,7 +28,7 @@
               You save <strong>${{ option.savings }}</strong>
             </div>
 
-            <button nz-button nzBlock [nzType]="i === 0 ? 'primary' : 'default'" nzShape="round"
+            <button nz-button [disabled]="disabled" nzBlock [nzType]="i === 0 ? 'primary' : 'default'" nzShape="round"
               (click)="applySuggestion(option.components)">
               Select This Deal
             </button>

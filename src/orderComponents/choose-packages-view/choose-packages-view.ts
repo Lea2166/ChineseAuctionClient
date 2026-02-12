@@ -34,6 +34,7 @@ export class ChoosePackagesView {
 
   selectedPkgs: number[] | [] = []
   @Output() choosePkgs = new EventEmitter<number[] | []>()
+  disabled:boolean=false
 
   ngOnInit() {
     this.suggestPackages()
@@ -119,6 +120,7 @@ export class ChoosePackagesView {
 
 
   applySuggestion(pkgs:number[]) {
+    this.disabled=true
     this.choosePkgs.emit(pkgs)
   }
 
