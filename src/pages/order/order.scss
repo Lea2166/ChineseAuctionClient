@@ -1,0 +1,38 @@
+.full-page {
+  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto; 
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  min-height: 80vh;
+
+  
+
+  .step-content-inline {
+    margin-top: 15px;
+    padding: 24px;
+    background-color: #f9fafb;
+    border: 1px solid #f0f0f0;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+  }
+}
+.success-message {
+  text-align: center;
+  color: #52c41a;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.step-content-inline {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step-disabled {
+    opacity: 0.6; 
+    pointer-events: none;
+    filter: grayscale(1); 
+    user-select: none;
+}

@@ -1,1 +1,61 @@
-<p>purchase-order works!</p>
+
+
+<div class="payment-container" style="padding: 20px; max-width: 500px;">
+  <h3 nz-title>Secure Payment</h3>
+
+  <form nz-form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+
+    <nz-form-item>
+      <nz-form-label [nzRequired]="true">Cardholder Name</nz-form-label>
+      <nz-form-control nzErrorTip="Please input the cardholder name!">
+        <input nz-input formControlName="cardName" />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzRequired]="true">Card Number</nz-form-label>
+      <nz-form-control nzErrorTip="Please input a valid card number!">
+
+        <input nz-input formControlName="cardNumber" placeholder="1234 5678 1234 5678" />
+
+      </nz-form-control>
+    </nz-form-item>
+
+    <div nz-row [nzGutter]="16">
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">Expiry Date</nz-form-label>
+          <nz-form-control nzErrorTip="Required">
+            <input nz-input formControlName="expiry" placeholder="MM/YY" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col nzSpan="12">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">CVV</nz-form-label>
+          <nz-form-control nzErrorTip="Required">
+            <input nz-input formControlName="cvv" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary" nzBlock [nzLoading]="isLoading" [disabled]="paymentForm.invalid">
+          Pay Now
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <!-- @if (statusMessage) {
+  <div class="status-msg" [ngClass]="{
+         'loading': isLoading, 
+         'success': !isLoading && paymentForm.valid, 
+         'error': !isLoading && !paymentForm.valid
+       }">
+    {{ statusMessage }}
+  </div>
+  } -->
+</div>
