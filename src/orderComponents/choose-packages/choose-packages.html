@@ -1,1 +1,7 @@
-<p>choose-packages works!</p>
+
+@if(checkIfReady()){
+<app-choose-packages-view [cart]="cartService.cart()" [packages]="packagesService.packages()" (choosePkgs)="applySuggestion($event)" />
+}
+@else{
+  <nz-spin></nz-spin>
+}

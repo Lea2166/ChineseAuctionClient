@@ -2,46 +2,98 @@ import { Component, inject } from '@angular/core';
 import { PackagesService } from '../../../services/packages';
 import { CartService } from '../../../services/cart-service';
 import { UserService } from '../../../services/user';
+import { MessagesService } from '../../../services/messages';
+import { ReadCartDTO, ReadPackageDTO } from '../../../models/PackageOrderCart';
+import { ChoosePackagesView } from "../choose-packages-view/choose-packages-view";
+import { NzSpinModule } from "ng-zorro-antd/spin";
+import { OrderService } from '../../../services/order-service';
+
+
 
 @Component({
   selector: 'app-choose-packages',
-  imports: [],
+  imports: [ChoosePackagesView, NzSpinModule],
   templateUrl: './choose-packages.html',
   styleUrl: './choose-packages.scss',
 })
+
 export class ChoosePackages {
+
   public packagesService = inject(PackagesService);
   public cartService = inject(CartService);
   public userService = inject(UserService);
+  public messageService = inject(MessagesService)
+  public orderService = inject(OrderService)
 
-  calculateSavings(pkg: any,  SINGLE_TICKET_PRICE: number): number {
-    const costInSingles = pkg.numOfTickets * SINGLE_TICKET_PRICE;
-    const savings = costInSingles - pkg.price;
-    return savings > 0 ? savings : 0;
+
+  packages: ReadPackageDTO[] = []
+  cart: ReadCartDTO | null = null
+
+
+  ngOnInit() {
+    this.fetchData()
   }
 
-  suggestPackages() {
-    const cart = this.cartService.cart();
-    const allPackages = this.packagesService.packages();
-    if (!cart || !allPackages) return [];
-    const SINGLE_TICKET_PRICE = allPackages.find(pkg => pkg.numOfTickets === 1)?.price || 10;
-    const totalTicketsInCart = cart.cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    return allPackages
-      .filter(pkg => pkg.numOfTickets <= totalTicketsInCart)
-      .map(pkg => {
-        const packageValueInSingles = pkg.numOfTickets * SINGLE_TICKET_PRICE;
-        const savingsAmount = packageValueInSingles - pkg.price;
-        const discountPercent = Math.round((savingsAmount / packageValueInSingles) * 100);
-        const remainingTickets = totalTicketsInCart - pkg.numOfTickets;
-        const finalPrice = pkg.price + (remainingTickets * SINGLE_TICKET_PRICE);
-        return {
-          ...pkg,
-          savings: savingsAmount,
-          discount: discountPercent,
-          isRecommended: savingsAmount > 0,
-          totalPriceWithRemnants: finalPrice
-        };
-      })
-      .sort((a, b) => b.savings - a.savings);
+  fetchData() {
+
+    //get packages
+    const cachedPackages = this.packagesService.packages();
+
+    if (cachedPackages && cachedPackages.length > 0) {
+      this.packages = cachedPackages;
+
+    } else {
+      this.packagesService.getAllPackages().subscribe({
+        next: (packages) => {
+          this.packages = packages;
+          this.packagesService.setAllPackages([...packages]);
+
+        }
+      });
+    }
+
+    //get cart
+    const cachedCart = this.cartService.cart()
+
+    if (cachedCart) {
+      this.cart = cachedCart
+
+    }
+    else {
+      this.cartService.GetCartByUserId(this.userService.token()).subscribe({
+        next: cart => {
+          this.cartService.setCart(cart);
+          this.cart = cart
+
+        },
+        error: (err: any) => {
+          console.error('Error fetching cart', err);
+          this.messageService.error('Error fetching cart', err);
+        },
+
+      });
+    }
+
+  }
+
+  checkIfReady() {
+
+    if (this.packages.length > 0 && this.cart) {
+      return true
+    }
+    return false
+
+  }
+
+  applySuggestion(pkgs: number[] | []) {
+    if (pkgs.length > 0) {
+      this.orderService.setPackages(pkgs)
+      
+      
+    }
+    else {
+      this.messageService.error("Order Error", "You have to choose at least one package")
+    }
+
   }
 }

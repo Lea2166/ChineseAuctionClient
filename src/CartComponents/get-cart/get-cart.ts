@@ -5,6 +5,7 @@ import { MessagesService } from '../../../services/messages';
 import { UserService } from '../../../services/user';
 import { GetCartView } from '../get-cart-view/get-cart-view';
 import { NzSpinComponent } from "ng-zorro-antd/spin";
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -42,6 +43,16 @@ export class GetCart {
   }
   complete() {
     this.loading = false
+  }
+
+
+  router: Router = inject(Router)
+
+  navigate() {
+    if (this.cartService.cart()?.cartItems.length ?? 0 > 0) {
+      this.cartService.allowCheckout();
+      this.router.navigate(['/order'], );
+    }
   }
 
 }
