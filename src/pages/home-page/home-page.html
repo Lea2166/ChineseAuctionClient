@@ -1,1 +1,80 @@
-<p>Home Page</p>
+<div class="home-page">
+  <div class="bg-blob"></div>
+
+  <nz-content class="content">
+    <section class="hero">
+      <div class="hero-tag">
+        <span nz-icon nzType="thunderbolt" nzTheme="fill"></span>
+        Premium Ticket Platform
+      </div>
+
+      <h1 class="main-title">
+        Smart Tickets.<br />
+        <span class="gradient-text">Real Opportunities.</span>
+      </h1>
+
+      <p class="subtitle">
+        A secure and professional system for managing tickets and prize participation. 
+        Join thousands of winners today.
+      </p>
+
+      <div class="hero-actions">
+        <button nz-button nzType="primary" class="cta-button primary" routerLink="/packages">
+          Buy Tickets
+        </button>
+        <button nz-button nzType="default" class="cta-button secondary" routerLink="/prizes">
+          View Prizes
+        </button>
+      </div>
+    </section>
+
+    <section class="cards">
+      <div nz-row [nzGutter]="[32, 32]" nzJustify="center">
+        <div nz-col nzXs="24" nzSm="20" nzMd="12" nzLg="9">
+          <div class="card-wrapper" routerLink="/prizes">
+            <nz-card class="nav-card">
+              <div class="card-icon-box prize-bg">
+                <span nz-icon nzType="gift" nzTheme="outline"></span>
+              </div>
+              <h2>Explore Prizes</h2>
+              <p>Find exclusive rewards and discover new winning opportunities waiting for you.</p>
+              <div class="card-arrow">
+                Explore Now <span nz-icon nzType="arrow-right"></span>
+              </div>
+            </nz-card>
+          </div>
+        </div>
+
+        <div nz-col nzXs="24" nzSm="20" nzMd="12" nzLg="9">
+          <div class="card-wrapper" routerLink="/packages">
+            <nz-card class="nav-card">
+              <div class="card-icon-box package-bg">
+                <nz-icon nzType="appstore" nzTheme="outline" />
+              </div>
+              <h2>Ticket Bundles</h2>
+              <p>Maximize your chances with our curated ticket packages designed for better value.</p>
+              <div class="card-arrow">
+                View Bundles <span nz-icon nzType="arrow-right"></span>
+              </div>
+            </nz-card>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-cta-wrapper">
+      <div class="bottom-cta">
+        <div class="cta-content">
+          <h3>Ready to start your journey?</h3>
+          <p>Register quickly, purchase securely, and track everything in real-time.</p>
+        </div>
+        <button nz-button nzType="primary" class="orange-btn" (click)="open()">Create Free Account</button>
+      </div>
+    </section>
+  </nz-content>
+
+
+  <app-auth-drawer [visible]="viewDrawer" (requestClose)="viewDrawer = false" />
+</div>
+
+
