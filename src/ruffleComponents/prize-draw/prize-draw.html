@@ -1,1 +1,6 @@
-<p>prize-draw works!</p>
+<button nz-button nzType="primary" [nzTooltipTitle]="disabled ? 'winner already exists' : null" nz-tooltip
+    [disabled]="disabled"
+    (click)="performRuffle()">
+    <nz-icon nzType="dollar" nzTheme="outline" />
+
+</button>

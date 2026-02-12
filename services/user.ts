@@ -18,7 +18,7 @@ export class UserService {
   readonly token = computed(() => localStorage.getItem('token'));
 
   setUser(user: ResponseUserDTO) {
-    this._user.set(user)
+    this._user.set({ ...user })
     localStorage.setItem('token', user.token)
   }
 
