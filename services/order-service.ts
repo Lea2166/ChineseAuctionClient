@@ -30,8 +30,7 @@ export class OrderService {
       throw new Error("in OrderService.checkout: token is undefined")
     }
     else {
-    return http.post<number[]>('https://localhost:7156/api/Order', this._packages(), { headers: {
-      'Authorization': `Bearer ${token}`}})
+    return this.http.post<number>('https://localhost:7156/api/Order', this._packages(), { headers: {'Authorization': `Bearer ${token}`}})
     } 
   }
 }
