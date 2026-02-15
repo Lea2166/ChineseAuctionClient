@@ -85,7 +85,7 @@
 
 /* ===== NAV CARDS ===== */
 .nav-card {
-  border-radius: 8px !important;
+  // border-radius: 8px !important;
   border: 1px solid #f1f5f9 !important;
   padding: 20px;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
@@ -102,7 +102,7 @@
 .card-icon-box {
   width: 64px;
   height: 64px;
-  border-radius: 16px;
+  // border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,7 +141,7 @@
 .bottom-cta {
   background: #1e293b;
   padding: 48px;
-  border-radius: 8px;
+  // border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -160,7 +160,7 @@
   background: #f36523;
   border: none;
   height: 50px;
-  border-radius: 8px;
+  // border-radius: 8px;
   font-weight: 600;
   padding: 0 32px;
 }
