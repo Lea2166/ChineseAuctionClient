@@ -7,9 +7,8 @@ import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { CartActions } from "../cart-actions/cart-actions";
-import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzGridModule } from 'ng-zorro-antd/grid';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MessagesService } from '../../../services/messages';
 
 @Component({
   selector: 'app-get-cart-view',
@@ -22,12 +21,17 @@ export class GetCartView {
   @Input() cart: ReadCartDTO | null = null;
   @Output() navigate = new EventEmitter<ReadCartDTO>();
 
+  messageService=inject(MessagesService)
+
   get totalItems(): number {
+    
     return this.cart?.cartItems.reduce((sum, i) => sum + i.quantity, 0) || 0;
   }
 
   nav(){
-    
+    if(this.totalItems==0){
+      this.messageService.info("Your Cart is Empty",'')
+    }
     this.navigate.emit()
   }
 

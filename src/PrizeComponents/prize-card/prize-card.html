@@ -1,8 +1,23 @@
 <nz-card [nzCover]="coverTemplate" [style.cursor]="'pointer'" [nzActions]="[actionSetting, actionEdit, actionEllipsis]"
   class="custom-card">
-  <nz-card-meta (click)="navigate()" [nzTitle]="prize?.name||null"
-    [nzDescription]="prize?.description||null"></nz-card-meta>
+  <nz-card-meta (click)="navigate()" [nzTitle]="prize?.name||null" [nzDescription]="descriptionTemplate"></nz-card-meta>
 </nz-card>
+
+
+<ng-template #descriptionTemplate>
+  <div>{{ prize?.description||null}}</div>
+  <div class="winner">
+    @if (winnersExist()) {
+    <div class="wt">
+      <nz-icon nzType="gift" nzTheme="outline" />
+      <strong class="winner-text">winner: {{ prize?.winners?.[0]?.user?.name }}</strong>
+    </div>
+
+    }
+  </div>
+
+
+</ng-template>
 
 <ng-template #coverTemplate class="card-image-container">
   <img src="https://localhost:7156/{{prize?.imagePath}}" loading="lazy" alt=""
@@ -27,6 +42,9 @@
 
   <app-cart-actions [prizeId]="prize?.id??null" />
 
+  }
+  @else if(isAdmin){
+  <app-prize-draw [id]="prize?.id??0" [disabled]="winnersExist()" />
   }
 </ng-template>
 

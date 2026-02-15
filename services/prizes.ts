@@ -50,8 +50,7 @@ export class PrizesService {
 
   getOnePrize(id: number): Observable<ReadPrizeDTO> {
     return this.http.get<ReadPrizeDTO>(`${this.apiUrl}/${id}`)
-    // .pipe(
-    //   tap((prize: ReadPrizeDTO) => this._prize.set(prize)))
+   
   }
 
   addPrize(prize: CreatePrizeDTO, token: string | undefined | null) {

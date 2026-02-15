@@ -1,4 +1,5 @@
 import { DonorForReadPrizesDTO } from './Donor';
+import { ReadWinnerInPrizeDTO } from './Winner'
 
 export interface CategoryDTOWithId {
   id: number;
@@ -23,6 +24,8 @@ export interface ReadPrizeDTO {
   imagePath?: string;
   qty: number;
   numOfTickets: number;
+  winners: ReadWinnerInPrizeDTO[]
+
 }
 
 export interface UpdatePrizeDTO {
@@ -41,6 +44,7 @@ export interface ReadSimplePrizeDTO {
   name: string;
   categories?: string[];
   imagePath?: string;
+  winners: ReadWinnerInPrizeDTO[]
 }
 
 export interface PrizeForWinnerDTO {

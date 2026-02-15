@@ -28,7 +28,8 @@ export class PrizeList {
     this.prizesService.getAllPrizes({}).subscribe({
       next: prizes => {
         this.prizesService.setAllPrizes([...prizes])
-
+        console.log(prizes);
+        
       },
       error: (err: any) => {
         this.messagesService.error('Error fetching prizes', err);
