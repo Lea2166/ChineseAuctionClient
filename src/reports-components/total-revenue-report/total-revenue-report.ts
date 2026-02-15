@@ -3,12 +3,13 @@ import { SalesService } from '../../../services/sales';
 import { UserService } from '../../../services/user';
 import { interval, map, Observable, takeWhile } from 'rxjs';
 import { ReportService } from '../../../services/report-service';
-import { TotalRevenueReportView } from "../total-revenue-report-view/total-revenue-report-view";
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
-import { NzGridModule } from 'ng-zorro-antd/grid'; 
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzCardModule } from "ng-zorro-antd/card"; 
+import { NzIconModule } from 'ng-zorro-antd/icon';
 @Component({
   selector: 'app-total-revenue-report',
-  imports: [TotalRevenueReportView,NzStatisticModule,NzGridModule],
+  imports: [NzStatisticModule, NzGridModule,NzIconModule, NzCardModule],
   templateUrl: './total-revenue-report.html',
   styleUrl: './total-revenue-report.scss',
 })

@@ -1,8 +1,24 @@
-<nz-row [nzGutter]="16">
-  <nz-col [nzSpan]="12">
-    <nz-statistic 
-      [nzValue]="displayValue"
-      nzTitle="Total Revenue">
-    </nz-statistic>
-  </nz-col>
-</nz-row>    
+<div class="stats-container">
+  <nz-row [nzGutter]="16">
+    <nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24">
+      <nz-card class="stat-card" [nzBordered]="false">
+        <nz-statistic
+          [nzValue]="(displayValue )"
+          [nzTitle]="titleTpl"
+          [nzPrefix]="prefixTpl"
+          [nzValueStyle]="{ color: '#1890ff', 'font-weight': '700' }">
+        </nz-statistic>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</div>
+
+<ng-template #titleTpl>
+  <div class="stat-title">
+    <span>Total Revenue</span>
+  </div>
+</ng-template>
+
+<ng-template #prefixTpl>
+  <!-- <span nz-icon nzType="dollar" nzTheme="outline"></span> -->
+</ng-template>

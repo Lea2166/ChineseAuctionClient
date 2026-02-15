@@ -1,0 +1,21 @@
+.stats-container {
+  padding: 20px;
+  background-color: #f8f9fa; 
+}
+
+.stat-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px #0000000d;
+  transition: all 0.3s ease;
+  color: #f05913;
+}
+
+::ng-deep .ant-statistic-content {
+  color: var(--ant-primary-6) !important; 
+  font-weight: 700;
+}
+
+.stat-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}

@@ -1,0 +1,34 @@
+
+.page-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.reports-dashboard {
+  padding: 24px;
+  background-color: #f0f2f5; 
+  min-height: 100vh;
+}
+
+.report-wrapper {
+  background: #ffffff;
+  border-radius: 16px;
+ 
+}
+
+.h-100 {
+  height: 100%;
+}
+
+
+@media (max-width: 768px) {
+  .reports-dashboard {
+    padding: 12px;
+  }
+}

@@ -1,0 +1,103 @@
+/* קונטיינר ראשי */
+.admin-winners-collapse {
+  background: transparent !important;
+  padding: 8px;
+}
+
+
+::ng-deep .winner-panel {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  margin-bottom: 16px !important;
+  border: 1px solid #f0f0f0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+// ::ng-deep .winner-panel:hover {
+//   border-color: #fff2e6 !important;
+//   box-shadow: 0 4px 12px rgba(24, 144, 255, 0.1);
+// }
+
+
+// ::ng-deep .ant-collapse-item > .ant-collapse-header {
+//   align-items: center !important;
+//   padding: 12px 16px !important;
+// }
+
+/* HEADER */
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  font-size: 20px;
+  background: #fff2e6;
+  
+  padding: 8px;
+  border-radius: 10px;
+  display: flex;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.prize-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #262626;
+//   line-height: 1.4;
+}
+
+.winner-subtitle {
+  font-size: 12px;
+  color: #8c8c8c;
+}
+
+/* BODY */
+.panel-body {
+  display: flex;
+  gap: 24px;
+  padding: 8px 12px;
+  align-items: center;
+}
+
+.prize-image-wrapper {
+  flex-shrink: 0;
+
+}
+
+.prize-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.winner-info-container {
+  flex-grow: 1;
+}
+
+::ng-deep .ant-descriptions-item-label {
+  color: #bfbfbf !important;
+  font-size: 11px !important;
+//   text-transform: uppercase;
+//   letter-spacing: 0.02em;
+}
+
+.straight{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.highlight-value {
+  font-weight: 600;
+  font-size: 14px;
+}

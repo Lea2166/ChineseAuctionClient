@@ -1,1 +1,43 @@
-<p>winners-report-view works!</p>
+<nz-collapse class="admin-winners-collapse" [nzBordered]="false">
+    @for (item of winners; track item.id) {
+    <nz-collapse-panel class="winner-panel" [nzHeader]="headerTpl" [nzActive]="false">
+
+        <div class="panel-body">
+            <div class="prize-image-wrapper">
+
+                <img src="https://localhost:7156/{{item.prize?.imagePath}}" class="prize-image" loading="lazy" alt=""
+                    style="width: 100px; height:100px; object-fit: cover;" />
+
+            </div>
+
+            <div class="winner-info-container">
+                <nz-descriptions [nzColumn]="1" nzSize="small" [nzColon]="false">
+                    <nz-descriptions-item nzTitle="Winner Name" class="straight">
+                        <span class="highlight-value">{{ item.user?.name }}</span>
+                    </nz-descriptions-item>
+
+                    <nz-descriptions-item nzTitle="Email Address" class="straight">
+                        <a [href]="'mailto:' + item.user?.email">
+                            {{ item.user?.email }}
+                        </a>
+                    </nz-descriptions-item>
+                </nz-descriptions>
+            </div>
+        </div>
+
+        <ng-template #headerTpl>
+            <div class="panel-header">
+                <div class="header-icon">
+                    <span nz-icon nzType="gift" nzTheme="twotone" nzTwotoneColor="#f05913"></span>
+                </div>
+                <div class="header-text">
+                    <span class="prize-name">{{ item.prize?.name }}</span>
+                    <span class="winner-subtitle">Winner: {{ item.user?.name }}</span>
+                </div>
+            </div>
+        </ng-template>
+
+
+    </nz-collapse-panel>
+    }
+</nz-collapse>
