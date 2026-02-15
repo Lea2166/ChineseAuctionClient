@@ -13,7 +13,6 @@ export class OrderService {
   setPackages(packages: number[]): void {
     this._packages.set(packages)
   }
-
   processPayment(paymentData: any): Observable<{ success: boolean, message: string }> {
     return of({ success: true }).pipe(
       delay(3000),

@@ -54,7 +54,7 @@ export class ChoosePackagesView {
       .sort((a, b) => a.totalPrice - b.totalPrice)
       .slice(0, 4);
 
-    // console.log(this.suggestedPks);
+    console.log(this.suggestedPks);
 
   }
 
