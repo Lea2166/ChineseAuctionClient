@@ -11,14 +11,15 @@ import { Observable } from 'rxjs';
 export class TotalRevenueReport {
 public saleService = inject(SalesService);
 public userService = inject(UserService);
+totalRevenue: number = 0;
 ngOnInit() {
   this.getTotalRevenueReport();
 }
 public getTotalRevenueReport(){
   this.saleService.getAllOrders(this.userService.token(), {  }).subscribe({ 
     next: (response) => {
-      const totalRevenue = response.reduce((sum, order) => sum + order.totalPrice, 0);
-      console.log('Total Revenue:', totalRevenue);
+       this.totalRevenue = response
+      console.log('Total Revenue:', this.totalRevenue);
     },
     error: (error) => {
       console.error('Error fetching total revenue report:', error);
