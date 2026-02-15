@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { Observable, of, delay, map } from 'rxjs';
+import { ReadOrderDTO } from '../models/PackageOrderCart';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,6 @@ export class OrderService {
   setPackages(packages: number[]): void {
     this._packages.set(packages)
   }
-
   processPayment(paymentData: any): Observable<{ success: boolean, message: string }> {
     return of({ success: true }).pipe(
       delay(3000),
@@ -24,13 +24,13 @@ export class OrderService {
       })
     );
   }
-  checkout(token: string | null): Observable<number> {
+  checkout(token: string | null): Observable<ReadOrderDTO> {
     if (token === null) {
       console.log("in OrderService.checkout: token is undefined");
       throw new Error("in OrderService.checkout: token is undefined")
     }
     else {
-      return this.http.post<number>('https://localhost:7156/api/Order', this._packages(), {
+      return this.http.post<ReadOrderDTO>('https://localhost:7156/api/Order', this._packages(), {
         headers: {
           'Authorization': `Bearer ${token}`
         }

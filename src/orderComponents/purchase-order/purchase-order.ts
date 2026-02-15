@@ -8,6 +8,7 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { MessagesService } from '../../../services/messages';
+import { UserService } from '../../../services/user';
 
 @Component({
   selector: 'app-purchase-order',
@@ -20,7 +21,8 @@ export class PurchaseOrder {
   paymentForm: FormGroup;
   isLoading = false;
   messageService=inject(MessagesService)
-
+  public orderService = inject(OrderService);
+  public userService = inject(UserService);
   @Output() finish=new EventEmitter<void>()
 
   constructor(private fb: FormBuilder, private paymentService: OrderService) {
@@ -43,7 +45,9 @@ export class PurchaseOrder {
         if (res.success) {
           this.paymentForm.reset();
           this.messageService.success(res.message)
-          this.finish.emit()
+          this.orderService.checkout(this.userService.token()).subscribe((res: any) => {
+            this.finish.emit()
+          })
         }
         else{
           this.messageService.error(res.message,'')
