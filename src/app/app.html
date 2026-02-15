@@ -57,6 +57,7 @@
         @if(isAdmin()){
         <li nz-menu-item routerLink="/donors" (click)="toggleMobileMenu()">Donors</li>
         <li nz-menu-item routerLink="/sales" (click)="toggleMobileMenu()">Sales</li>
+        <li nz-menu-item routerLink="/reports" (click)="toggleMobileMenu()">Reports</li>
         }
 
         @if(!isAdmin()&&isConnected()){

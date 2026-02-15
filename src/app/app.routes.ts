@@ -10,6 +10,7 @@ import { NotFound } from '../not-found/not-found';
 import { Cart } from '../pages/cart/cart';
 import { PurchaseOrder } from '../orderComponents/purchase-order/purchase-order';
 import { Order } from '../pages/order/order';
+import { Reports } from '../pages/reports/reports';
 
 
 
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'sales', pathMatch: 'full', component: Sales },
   { path: 'cart', pathMatch: 'full', component: Cart },
   { path: 'order', pathMatch: 'full', component: Order },
+  {path:'reports',pathMatch:'full',component:Reports},
   { path: '**', component: NotFound }
 
 ];
