@@ -11,6 +11,9 @@ import { Observable } from 'rxjs';
 export class TotalRevenueReport {
 public saleService = inject(SalesService);
 public userService = inject(UserService);
+ngOnInit() {
+  this.getTotalRevenueReport();
+}
 public getTotalRevenueReport(){
   this.saleService.getAllOrders(this.userService.token(), {  }).subscribe({ 
     next: (response) => {
