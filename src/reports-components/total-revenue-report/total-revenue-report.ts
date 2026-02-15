@@ -1,25 +1,64 @@
 import { Component, inject } from '@angular/core';
 import { SalesService } from '../../../services/sales';
 import { UserService } from '../../../services/user';
-import { Observable } from 'rxjs';
+import { interval, map, Observable, takeWhile } from 'rxjs';
+import { ReportService } from '../../../services/report-service';
+import { TotalRevenueReportView } from "../total-revenue-report-view/total-revenue-report-view";
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzGridModule } from 'ng-zorro-antd/grid'; 
 @Component({
   selector: 'app-total-revenue-report',
-  imports: [],
+  imports: [TotalRevenueReportView,NzStatisticModule,NzGridModule],
   templateUrl: './total-revenue-report.html',
   styleUrl: './total-revenue-report.scss',
 })
 export class TotalRevenueReport {
-public saleService = inject(SalesService);
-public userService = inject(UserService);
-public getTotalRevenueReport(){
-  this.saleService.getAllOrders(this.userService.token(), {  }).subscribe({ 
-    next: (response) => {
-      const totalRevenue = response.reduce((sum, order) => sum + order.totalPrice, 0);
-      console.log('Total Revenue:', totalRevenue);
-    },
-    error: (error) => {
-      console.error('Error fetching total revenue report:', error);
-    }
-  });
+  public reportService = inject(ReportService);
+  public userService = inject(UserService);
+  
+  totalRevenue: number = 0;
+  displayValue: number = 0;
+
+  ngOnInit() {
+    this.getTotalRevenueReport();
+  }
+
+  public getTotalRevenueReport() {
+    this.reportService.getRavenue(this.userService.token()).subscribe({
+      next: (revenue) => {
+        this.totalRevenue = revenue;
+        this.startCountAnimation(); 
+      },
+      error: (error) => {
+        console.error('Error fetching total revenue report:', error);
+      }
+    });
+  }
+
+private startCountAnimation() {
+  const duration = 500; 
+  const speed = 20;     
+  
+  this.displayValue = 0;
+
+  const totalSteps = duration / speed;
+  const increment = Math.max(1, Math.floor(this.totalRevenue / totalSteps));
+
+  const sub = interval(speed)
+    .pipe(
+      takeWhile(() => this.displayValue < this.totalRevenue)
+    )
+    .subscribe({
+      next: () => {
+        this.displayValue += increment;
+
+        if (this.displayValue > this.totalRevenue) {
+          this.displayValue = this.totalRevenue;
+        }
+      },
+      complete: () => {
+        this.displayValue = this.totalRevenue;
+      }
+    });
 }
 }
