@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
@@ -8,5 +8,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
   styleUrl: './total-revenue-report-view.scss',
 })
 export class TotalRevenueReportView {
+
+  @Input() totalRevenue: number = 0
 
 }
